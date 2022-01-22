@@ -1,0 +1,21 @@
+.light-square {
+  background-color: rgb(232, 235, 239);
+}
+
+.dark-square {
+  background-color: rgb(125, 135, 150);
+}
+
+.square {
+  width: 9vh;
+  height: 9vh;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.board {
+  border: solid black 2px;
+}
