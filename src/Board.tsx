@@ -3,15 +3,14 @@ import "./Board.css";
 import "./Pieces.css";
 import Position from "./Position";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedSquare, clearSelectedSquare } from "./selectedSlice";
+import {selectedSquareSelector} from './selectors';
 
 function Square(props: any) {
   const { dark, rank, file } = props;
 
   const thisSquare = rank * 8 + file;
 
-  const selectedSquare = useSelector((state: any) => state.selected);
-  const dispatch = useDispatch();
+  const selectedSquare = useSelector(selectedSquareSelector);
 
   // TODO LASTLEFTOFF
   // when the selected redux variable is equal to index of this square, it should be highlighted
