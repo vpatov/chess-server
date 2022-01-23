@@ -29,13 +29,3 @@ export const PIECE_TYPE_CLASSES: { [key in PieceType]: string } = {
   BLACK_QUEEN: "black-queen",
   EMPTY_SQUARE: "empty-square",
 };
-
-function Piece(props: any) {
-  const { pieceType, i, j } = props;
-  const translateStyle = {
-    transform: `translate(${j * 9}vh, ${i * 9}vh)`,
-  };
-  return <div className={`${pieceType} piece`} style={translateStyle}></div>;
-}
-
-export default Piece;

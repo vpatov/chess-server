@@ -3,21 +3,15 @@ import "./Board.css";
 import "./Pieces.css";
 import Position from "./Position";
 import { useSelector, useDispatch } from "react-redux";
-import {selectedSquareSelector} from './selectors';
+import { selectedSquareSelector } from "../store/selectors";
+import { Action, ActionType } from "../models/actions";
 
 function Square(props: any) {
   const { dark, rank, file } = props;
-
   const thisSquare = rank * 8 + file;
 
   const selectedSquare = useSelector(selectedSquareSelector);
-
-  // TODO LASTLEFTOFF
-  // when the selected redux variable is equal to index of this square, it should be highlighted
-  // clicking on this square should unhighlight it if it is highlighted
-  // clicking on this square should highlight it and unhighlight other squares
-
-  // TODO actual highlighting not working anymore
+  const dispatch = useDispatch();
 
   const colorClass = dark ? "dark-square" : "light-square";
   const highlightClass = dark
@@ -25,9 +19,7 @@ function Square(props: any) {
     : "light-square-highlighted";
 
   function onClickFn() {
-    console.log(`onclick, for square ${thisSquare}`);
-    setSelectedSquare(selectedSquare === thisSquare ? undefined : thisSquare);
-    console.log(selectedSquare);
+    dispatch({ type: ActionType.SELECT_SQUARE, payload: thisSquare });
   }
 
   return (
