@@ -52,9 +52,9 @@ function Board() {
   }
   return (
     <>
-      <div className="board">
+      <div>
+        <div className="board">{rows}</div>
         <Position></Position>
-        {rows}
       </div>
     </>
   );

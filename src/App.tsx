@@ -1,11 +1,15 @@
-import React from 'react';
-import './App.css';
-import Board from './ui/Board';
+import React from "react";
+import "./App.css";
+import Board from "./ui/Board";
+import FenInput from "./ui/FenInput";
 
 function App() {
   return (
     <div className="App">
-      <Board></Board>
+      <div className="app-container">
+        <Board></Board>
+        <FenInput></FenInput>
+      </div>
     </div>
   );
 }

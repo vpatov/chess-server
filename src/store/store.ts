@@ -1,11 +1,8 @@
 import { createStore } from "redux";
+import { fenToPosition } from "../logic/fen";
 import { Action, ActionType } from "../models/actions";
 import { PositionInfo, getStartingPosition } from "../models/position";
-import { State } from "../models/state";
-
-function getCleanState(): State {
-  return { selectedSquare: undefined, positionInfo: getStartingPosition() };
-}
+import { getCleanState, State } from "../models/state";
 
 const rootReducer = (state = getCleanState(), action: Action): State => {
   switch (action.type) {
@@ -20,7 +17,7 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
     case ActionType.UPDATE_POSITION: {
       return {
         ...state,
-        positionInfo: action.payload,
+        positionInfo: fenToPosition(action.payload),
       };
     }
     default:

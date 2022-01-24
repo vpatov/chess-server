@@ -4,6 +4,7 @@ import {
   algebraicSquareToIndex,
   fenToPosition,
   indexToAlgebraicSquare,
+  isValidFen,
   positionToFen,
 } from "./fen";
 
@@ -126,6 +127,34 @@ test("correct fen string returned for custom position 2", () => {
   expect(fenToPosition(fen)).toEqual(position);
 });
 
+test("correct fen string returned for custom position 3 (no castling)", () => {
+  const position = getStartingPosition();
+
+  position.board[0][4] = PieceType.EMPTY_SQUARE;
+  position.board[1][4] = PieceType.BLACK_KING;
+  position.board[2][4] = PieceType.BLACK_PAWN;
+  position.board[5][4] = PieceType.WHITE_PAWN;
+  position.board[6][4] = PieceType.WHITE_KING;
+  position.board[7][4] = PieceType.EMPTY_SQUARE;
+
+  position.whites_turn = true;
+  position.en_passant_square = 0;
+  position.wk_castle = false;
+  position.wq_castle = false;
+  position.bk_castle = false;
+  position.bq_castle = false;
+
+  position.moves_since_pawn_move_or_capture = 2;
+  position.move_number = 3;
+
+  const fen = positionToFen(position);
+
+  const expectedFen =
+    "rnbq1bnr/ppppkppp/4p3/8/8/4P3/PPPPKPPP/RNBQ1BNR w - - 2 3";
+  expect(fen).toBe(expectedFen);
+  expect(fenToPosition(fen)).toEqual(position);
+});
+
 test("index to algebraic notation and back", () => {
   expect(indexToAlgebraicSquare(0)).toBe("a8");
   expect(indexToAlgebraicSquare(1)).toBe("b8");
@@ -143,4 +172,19 @@ test("index to algebraic notation and back", () => {
   expect(() => algebraicSquareToIndex("b0")).toThrow();
   expect(() => algebraicSquareToIndex("c9")).toThrow();
   expect(() => algebraicSquareToIndex("aa")).toThrow();
+});
+
+test("isValidFen should work correctly", () => {
+  expect(isValidFen("abc")).toBe(false);
+  expect(
+    isValidFen("rnbq1bnr/ppppkppp/4p3/8/8/4P3/PPPPKPPP/RNBQ1BNR w - - 2 3")
+  ).toBe(true);
+  expect(
+    isValidFen(
+      "rnbq1rk1/p1p2ppp/1p2pn2/3p4/1bPP4/2NBPN2/PP3PPP/R1BQK1R1 b Q - 1 7"
+    )
+  ).toBe(true);
+  expect(
+    isValidFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+  ).toBe(true);
 });

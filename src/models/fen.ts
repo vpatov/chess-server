@@ -32,3 +32,6 @@ export const CHARACTER_TO_PIECE: { [key: string]: PieceType } = {
   p: PieceType.BLACK_PAWN,
   q: PieceType.BLACK_QUEEN,
 };
+
+export const STARTING_FEN: FenString =
+  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";

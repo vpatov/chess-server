@@ -5,10 +5,13 @@ import {
   FenString,
   PIECE_TO_CHARACTER,
 } from "../models/fen";
-import assert from "assert/strict";
+
+const assert = function (condition: boolean) {
+  if (!condition) throw Error("Assertion failed");
+};
 
 export function algebraicSquareToIndex(square: string): number {
-  assert(square.length == 2);
+  assert(square.length === 2);
   assert(square.charCodeAt(0) >= 97 && square.charCodeAt(0) <= 104);
   assert(square.charCodeAt(1) >= 49 && square.charCodeAt(1) <= 56);
   const file = square.charCodeAt(0) - 97;
@@ -25,6 +28,14 @@ export function indexToAlgebraicSquare(square: number): string {
   )}`;
 }
 
+export const FEN_REGEX =
+  /\s*^(((?:[rnbqkpRNBQKP1-8]+\/){7})[rnbqkpRNBQKP1-8]+)\s([b|w])\s(-|[K|Q|k|q]{1,4})\s(-|[a-h][36])\s(\d+\s\d+)$/g;
+
+export function isValidFen(fen: FenString): boolean {
+  const matches = fen.match(FEN_REGEX);
+  return (matches?.length || 0) > 0;
+}
+
 export function fenToPosition(fen: FenString): PositionInfo {
   const board = [];
   const fenComponents = fen.split(" ");
@@ -33,6 +44,9 @@ export function fenToPosition(fen: FenString): PositionInfo {
   var row: Array<PieceType> = [];
   for (var ch of boardComponent) {
     if (ch === "/") {
+      if (row.length !== 8) {
+        throw Error("FEN string is invalid.");
+      }
       board.push(row);
       row = [];
       continue;
@@ -47,7 +61,11 @@ export function fenToPosition(fen: FenString): PositionInfo {
       row.push(CHARACTER_TO_PIECE[ch]);
     }
   }
+
   board.push(row);
+  if (row.length !== 8 || board.length !== 8) {
+    throw Error("FEN string is invalid.");
+  }
 
   return {
     board,
@@ -107,10 +125,18 @@ export function positionToFen(position: PositionInfo): FenString {
     fenBuilder.push("q");
   }
 
-  if (fenBuilder.at(fenBuilder.length - 1) != " ") {
-    fenBuilder.push(" ");
+  if (
+    !(
+      position.wk_castle ||
+      position.wq_castle ||
+      position.bk_castle ||
+      position.bq_castle
+    )
+  ) {
+    fenBuilder.push("-");
   }
 
+  fenBuilder.push(" ");
   fenBuilder.push(
     position.en_passant_square === 0
       ? "- "

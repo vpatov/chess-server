@@ -1,0 +1,12 @@
+.fen-input {
+  height: 5vh;
+  width: 100%;
+}
+
+.fen-input-container {
+  margin: 3vh;
+}
+
+.invalid-fen {
+  background-color: rgb(253, 222, 227);
+}

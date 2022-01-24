@@ -15,8 +15,8 @@
 }
 
 .square {
-  width: 9vh;
-  height: 9vh;
+  width: 10vh;
+  height: 10vh;
 }
 
 .row {
@@ -26,4 +26,8 @@
 
 .board {
   border: solid black 2px;
+  /* max-width: 100vh;
+  max-height: 100vh; */
+  /* width: 100vh; */
+  /* height: 100vh; */
 }
