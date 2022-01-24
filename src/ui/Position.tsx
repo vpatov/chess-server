@@ -12,6 +12,7 @@ function Position() {
     for (let j = 0; j < 8; j++) {
       pieceComponents.push(
         <Piece
+          key={`${i}${j}`}
           pieceType={PIECE_TYPE_CLASSES[position.board[i][j]]}
           i={i}
           j={j}

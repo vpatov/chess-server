@@ -42,7 +42,6 @@ function Row(props: any) {
       <Square key={i} dark={i % 2 !== 0} rank={rank} file={i}></Square>
     );
   }
-  console.log(squares);
   return <div className="row">{squares}</div>;
 }
 
