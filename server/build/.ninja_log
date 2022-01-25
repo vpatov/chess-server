@@ -1,0 +1,10 @@
+# ninja log v5
+3	3762	1643061391984156881	CMakeFiles/chess_server.dir/src/main.cpp.o	ebe853963c537257
+918	950	1643060016101796000	libchess_server_lib.a	7c84b1aa2ba8f653
+0	917	1643060016063731551	CMakeFiles/chess_server_lib.dir/src/representation/fen.cpp.o	e8babddba8c17ebb
+0	574	1643060015723286418	CMakeFiles/chess_server_lib.dir/src/representation/position.cpp.o	9755af1a54ed3f3c
+3762	3874	1643061392107620039	chess_server	6841c56dd521749a
+0	573	1643060015720460928	CMakeFiles/chess_server_lib.dir/src/move_generation.cpp.o	e4624cfc0030c51d
+0	272	1643060015421281241	CMakeFiles/chess_server_lib.dir/src/representation/notation.cpp.o	ded72b7655bbe186
+4	3832	1643085298657741158	CMakeFiles/chess_server.dir/src/main.cpp.o	ebe853963c537257
+3832	3947	1643085298787491144	chess_server	6841c56dd521749a

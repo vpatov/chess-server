@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/chess_server",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build",
+            "targetArchitecture":"x86_64",
+            "miDebuggerPath": "/usr/bin/lldb"
+
+
+        }
+    ]
+}

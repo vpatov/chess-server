@@ -16,6 +16,11 @@ find_package(Boost 1.76.0 COMPONENTS algorithm format)
 
 include_directories( ${Boost_INCLUDE_DIRS} )
 
+if(NOT TARGET spdlog)
+    # Stand-alone build
+    find_package(spdlog REQUIRED)
+endif()
+
 
 
 if ( CMAKE_COMPILER_IS_GNUCC )
@@ -57,6 +62,8 @@ add_executable (chess_server src/main.cpp)
 
 target_link_libraries(chess_server PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries (chess_server PRIVATE chess_server_lib)
+target_link_libraries(chess_server PRIVATE spdlog::spdlog)
+
 
 include_directories(include)
 target_include_directories(chess_server PRIVATE include)
