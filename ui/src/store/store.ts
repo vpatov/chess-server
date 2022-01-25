@@ -20,6 +20,13 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
       return {
         ...state,
         positionInfo: fenToPosition(action.payload),
+        legal_moves: [],
+      };
+    }
+    case ActionType.FETCHED_LEGAL_MOVES: {
+      return {
+        ...state,
+        legal_moves: action.payload,
       };
     }
     default:

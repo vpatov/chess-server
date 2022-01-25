@@ -1,6 +1,7 @@
 import { PieceType } from "./piece";
 
 export declare type FenString = string;
+export declare type LANMove = string;
 
 export const PIECE_TO_CHARACTER: { [key in PieceType]: string } = {
   WHITE_ROOK: "R",
