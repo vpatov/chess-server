@@ -16,8 +16,9 @@ function FenInput() {
 
   function processFen(fen: FenString) {
     setFenString(fen);
-    setIsCurrentFenValid(isValidFen(fen));
-    if (isCurrentFenValid) {
+    const isValid: boolean = isValidFen(fen);
+    setIsCurrentFenValid(isValid);
+    if (isValid) {
       dispatch({ type: ActionType.UPDATE_POSITION, payload: fen });
     }
   }

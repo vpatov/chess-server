@@ -1,4 +1,5 @@
 import { createStore } from "redux";
+import { get_legal_moves } from "../api/api";
 import { fenToPosition } from "../logic/fen";
 import { Action, ActionType } from "../models/actions";
 import { PositionInfo, getStartingPosition } from "../models/position";
@@ -15,6 +16,7 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
       };
     }
     case ActionType.UPDATE_POSITION: {
+      get_legal_moves(action.payload);
       return {
         ...state,
         positionInfo: fenToPosition(action.payload),
