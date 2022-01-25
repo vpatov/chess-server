@@ -22,6 +22,7 @@ if(NOT TARGET spdlog)
 endif()
 
 
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpqxx -lpq")
 
 if ( CMAKE_COMPILER_IS_GNUCC )
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -pg")
@@ -45,6 +46,8 @@ set(SOURCES
     src/server.cpp
     src/game_instance_manager.cpp
     src/uuid.cpp
+    src/login.cpp
+    include/login.hpp
     include/move_generation.hpp
     include/server.hpp
     include/external/httplib.hpp
@@ -62,14 +65,28 @@ set(SOURCES
     include/uuid.hpp
 )
 
-# CMakeLists.txt
+# find_package(PQXX REQUIRED)
+# set(PQXX /usr/local/include/pqxx)
+find_package(PostgreSQL REQUIRED)
+find_package(libpqxx REQUIRED)
+# find_library(PQXX_LIB pqxx /usr/local/include/pqxx REQUIRED)
+# message("lipqxx_LIBRARIES=${PQXX_LIB}")
+# find_library(PQ_LIB pq)
+# message("PQ_LIB=${PQ_LIB}")
+
+if (libpqxx_FOUND)
+    message("found libpqxx")
+endif()
+
 
 add_library (chess_server_lib ${SOURCES})
 add_executable (chess_server src/main.cpp)
 
 target_link_libraries(chess_server PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries (chess_server PRIVATE chess_server_lib)
+target_link_libraries(chess_server PRIVATE chess_server_lib)
 target_link_libraries(chess_server PRIVATE spdlog::spdlog)
+target_link_libraries(chess_server PRIVATE libpqxx:pqxx)
+# target_link_libraries(chess_server PRIVATE ${PQ_LIB})
 
 
 include_directories(include)

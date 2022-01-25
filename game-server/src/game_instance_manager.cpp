@@ -29,5 +29,4 @@ std::unordered_map<std::string, std::shared_ptr<GameInstance>> game_instances;
 void create_game_instance(){
     auto gameInstance = std::make_shared<GameInstance>();
     game_instances[gameInstance->uuid] = gameInstance;
-    
 }
