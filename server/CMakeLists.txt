@@ -42,8 +42,12 @@ set(SOURCES
     src/representation/fen.cpp
     src/representation/notation.cpp
     src/representation/position.cpp
+    src/server.cpp
+    src/game_instance_manager.cpp
+    src/uuid.cpp
     include/move_generation.hpp
-    include/httplib.hpp
+    include/server.hpp
+    include/external/httplib.hpp
     include/util.hpp
     include/representation/color.hpp
     include/representation/fen.hpp
@@ -53,6 +57,9 @@ set(SOURCES
     include/representation/pieces.hpp
     include/representation/position.hpp
     include/representation/squares.hpp
+    include/game_instance.hpp
+    include/game_instance_manager.hpp
+    include/uuid.hpp
 )
 
 # CMakeLists.txt

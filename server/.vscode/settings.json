@@ -1,5 +1,4 @@
 {
-  "editor.formatOnSave": true,
   "clang-format.executable": "/opt/homebrew/bin/clang-format",
   "files.associations": {
     "iostream": "cpp",
@@ -99,7 +98,10 @@
     "__functional_03": "cpp",
     "__functional_base_03": "cpp",
     "unordered_set": "cpp",
-    "__undef_macros": "cpp"
+    "__undef_macros": "cpp",
+    "__bits": "cpp",
+    "forward_list": "cpp",
+    "span": "cpp"
   },
   "cmake.configureSettings": {
     // "DCMAKE_TOOLCHAIN_FILE": "/home/vas/repos/vcpkg/scripts/buildsystems/vcpkg.cmake"

@@ -2,9 +2,6 @@
 #include "representation/move.hpp"
 #include "move_generation.hpp"
 #include <assert.h>
-#include <cstdint>
-#include <iostream>
-#include <vector>
 
 /** Pseudolegal moves don't take check into account. */
 

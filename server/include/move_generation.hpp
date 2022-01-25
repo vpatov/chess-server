@@ -1,7 +1,7 @@
 #pragma once
 
-#include "representation/position.hpp"
 #include "representation/move.hpp"
+#include "representation/position.hpp"
 #include <cstdint>
 #include <vector>
 
@@ -63,13 +63,14 @@ std::vector<MoveKey>
 generate_pseudolegal_piece_moves(std::shared_ptr<Position> position,
                                  square_t square);
 
-std::vector<MoveKey>
-generate_legal_moves(std::shared_ptr<Position> position,
-                     square_t square);
+std::vector<MoveKey> generate_legal_moves(std::shared_ptr<Position> position,
+                                          square_t square);
 
 std::vector<MoveKey> get_all_moves(std::shared_ptr<Position> position);
 std::string get_all_moves_as_string(std::shared_ptr<Position> position);
-std::vector<std::string> string_list_all_moves(std::shared_ptr<Position> position);
+std::vector<std::string>
+string_list_all_moves(std::shared_ptr<Position> position);
 
 Move unpack_move_key(MoveKey move_key);
-MoveKey generate_move_key(square_t src_square, square_t dest_square, piece_t promotion_piece);
+MoveKey generate_move_key(square_t src_square, square_t dest_square,
+                          piece_t promotion_piece);
