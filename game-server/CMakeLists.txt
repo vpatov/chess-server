@@ -46,6 +46,7 @@ set(SOURCES
     src/game_instance_manager.cpp
     src/uuid.cpp
     src/login.cpp
+    src/ws.cpp
     include/login.hpp
     include/move_generation.hpp
     include/server.hpp
@@ -62,6 +63,7 @@ set(SOURCES
     include/game_instance.hpp
     include/game_instance_manager.hpp
     include/uuid.hpp
+    include/ws.hpp
 )
 
 # find_package(PQXX REQUIRED)
@@ -86,6 +88,7 @@ add_executable (chess_server src/main.cpp)
 target_link_libraries(chess_server PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(chess_server PRIVATE chess_server_lib)
 target_link_libraries(chess_server PRIVATE spdlog::spdlog)
+target_link_libraries(chess_server PRIVATE websocketpp::websocketpp)
 # target_link_libraries(chess_server PRIVATE libpqxx:pqxx)
 # target_link_libraries(chess_server PRIVATE ${PQ_LIB})
 
