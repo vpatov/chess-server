@@ -8,5 +8,6 @@ int main()
 {
   GameInstance gameInstance;
   ChessServer server;
+  server.init();
   server.start();
 }
