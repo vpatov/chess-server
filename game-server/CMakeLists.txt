@@ -77,6 +77,8 @@ set(SOURCES
 #     message("found libpqxx")
 # endif()
 
+find_package(websocketpp REQUIRED)
+
 
 add_library (chess_server_lib ${SOURCES})
 add_executable (chess_server src/main.cpp)
