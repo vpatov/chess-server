@@ -1,7 +1,5 @@
 #include "ws.hpp"
 
-
-
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
 using websocketpp::lib::bind;
@@ -14,6 +12,8 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg) {
     std::cout << "on_message called with hdl: " << hdl.lock().get()
               << " and message: " << msg->get_payload()
               << std::endl;
+
+    std::cout << "WOW" << std::endl;
 
     // check for a special command to instruct the server to stop listening so
     // it can be cleanly exited.

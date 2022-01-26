@@ -10,6 +10,7 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/spdlog.h"
+#include "login.hpp"
 
 using json = nlohmann::json;
 
@@ -32,7 +33,9 @@ spdlog::logger create_logger()
   return logger;
 }
 
-void ChessServer::start() { m_svr.listen("0.0.0.0", 8080); }
+void ChessServer::start() { 
+  std::cout << "Listening on port 8080..." << std::endl;
+  m_svr.listen("0.0.0.0", 8080); }
 
 void ChessServer::init()
 {
@@ -121,22 +124,18 @@ void ChessServer::init_routes()
 
   m_svr.Post("/signup", [](const httplib::Request &req, httplib::Response &res)
              {
+      json body = json::parse(req.body);
 
-    json body = json::parse(req.body);
+      if (!body.contains("username") || !body.contains("password"))
+      {
+        res.status = 400;
+        res.set_content("Invalid request.", "text/plain");
+        return;
+      }
 
-    if (!body.contains("username") || !body.contains("password")){
-      res.status = 400;
-      res.set_content("Invalid request.", "text/plain");
-      return;
-    }
-
-    // check to see if username exists
-    // salt and hash password
-    // store user, salt, and salted hash
-    // in database
-
-    res.set_content("Welcome " + body["username"].get<std::string>(),"text/plain"); });
-
+      json response = signup(body["username"].get<std::string>(), body["password"].get<std::string>());
+      res.set_content(response.dump(), "application/json");
+             });
 
   m_svr.Post("/login", [](const httplib::Request &req, httplib::Response &res)
              {
