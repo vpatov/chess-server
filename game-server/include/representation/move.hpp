@@ -4,6 +4,7 @@
 #include "representation/pieces.hpp"
 #include "representation/notation.hpp"
 #include <sstream>
+#include <cassert>
 
 // move key is bit-wise concatenation of
 // 0x00 + start_square + end_square + promotion_piece

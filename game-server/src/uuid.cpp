@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
+#include <cassert>
 
 uint64_t random_bitstring()
 {

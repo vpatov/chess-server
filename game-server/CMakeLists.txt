@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(nlohmann_json 3.2.0 REQUIRED)
 set(Boost_USE_STATIC_LIBS OFF) 
 set(Boost_USE_MULTITHREADED ON)  
 set(Boost_USE_STATIC_RUNTIME OFF) 
@@ -55,8 +54,12 @@ set(SOURCES
     include/ws.hpp
 )
 
+file(GLOB_RECURSE websocket_sources "cget/include/websocketpp/*.cpp" "cget/include/websocketpp/*.hpp")
+
 find_package(Boost 1.76.0 COMPONENTS algorithm format) 
 include_directories( ${Boost_INCLUDE_DIRS} )
+
+find_package(nlohmann_json CONFIG REQUIRED)
 
 if(NOT TARGET spdlog)
     # Stand-alone build
@@ -66,17 +69,16 @@ if(NOT TARGET spdlog)
 endif()
 
 find_package(websocketpp REQUIRED)
-message("webscoketpp ${websocketpp}")
-include_directories( ${websocketpp_INCLUDE_DIRS} )
-message("websocketpp include dirs: ${websocketpp_INCLUDE_DIRS}")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/cget/include")
+include_directories("/usr/local/cget/include")
 
-add_library (chess_server_lib ${SOURCES})
+add_library (chess_server_lib ${SOURCES} ${websocket_sources})
 add_executable (chess_server src/main.cpp)
 
-target_link_libraries(chess_server PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(chess_server PRIVATE chess_server_lib)
-target_link_libraries(chess_server PRIVATE spdlog::spdlog)
-target_link_libraries(chess_server PRIVATE websocketpp::websocketpp)
+target_link_libraries(chess_server  nlohmann_json nlohmann_json::nlohmann_json)
+target_link_libraries(chess_server  chess_server_lib)
+target_link_libraries(chess_server  spdlog::spdlog)
+target_link_libraries(chess_server  websocketpp::websocketpp)
 # target_link_libraries(chess_server PRIVATE libpqxx:pqxx)
 # target_link_libraries(chess_server PRIVATE ${PQ_LIB})
 

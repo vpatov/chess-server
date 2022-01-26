@@ -20,7 +20,7 @@ spdlog::logger create_logger()
   console_sink->set_pattern("[%^%l%$] %v");
 
   auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(
-      "/Users/vas/log/chess-server-log.txt", true);
+      "./logs/chess-server-log.txt", true);
   file_sink->set_level(spdlog::level::trace);
 
   auto logger = spdlog::logger("multi_sink", {console_sink, file_sink});

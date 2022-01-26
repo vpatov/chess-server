@@ -5,3 +5,4 @@ CMakeCache.txt
 Makefile
 libchess_server_lib.a
 build/
+cget/
