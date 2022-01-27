@@ -1,0 +1,1 @@
+psql -U vas -d chess_server -f db_init.sql

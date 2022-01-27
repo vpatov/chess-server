@@ -1,5 +1,4 @@
--- CREATE DATABASE IF NOT EXISTS chess_server;
-DROP TABLE users;
+DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username varchar(64) NOT NULL,
@@ -7,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     hashed_password CHAR(64) NOT NULL
 );
 
-CREATE INDEX username_index ON users
+CREATE INDEX IF NOT EXISTS username_index ON users
 (
     username
 );

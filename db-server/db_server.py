@@ -6,6 +6,7 @@ import random
 import os
 
 conn = psycopg2.connect('dbname=chess_server user=vas')
+table_name = 'users'
 
 app = Flask(__name__)
 
