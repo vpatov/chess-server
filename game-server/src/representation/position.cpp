@@ -12,7 +12,7 @@ std::unique_ptr<Position> generate_starting_position()
 {
   std::unique_ptr<Position> position = std::make_unique<Position>();
   populate_starting_position(position.get());
-  return std::move(position);
+  return position;
 }
 
 std::shared_ptr<Position> starting_position()
@@ -68,7 +68,7 @@ void populate_starting_position(Position *position)
 
 void print_position(Position *position)
 {
-  int i = 0x70; //0x70 is the top-left corner of the board
+  int i = 0x70; // 0x70 is the top-left corner of the board
   while (1)
   {
     std::cout << piece_to_char(position->m_mailbox[i]) << " ";
@@ -232,7 +232,7 @@ void Position::print_with_borders_highlight_squares(square_t src_square, square_
 std::vector<uint8_t> check_diagonals(Position *position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
-  //look for bishops/queens attacking square on diagonals
+  // look for bishops/queens attacking square on diagonals
   for (int i = 0; i < 4; i++)
   {
     square_t square = check_line(
@@ -270,7 +270,7 @@ std::vector<square_t> find_attacking_knights(Position *position, square_t target
 std::vector<square_t> find_attacking_bishops(Position *position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
-  //look for bishops attacking square on diagonals
+  // look for bishops attacking square on diagonals
   for (int i = 0; i < 4; i++)
   {
     square_t square = check_line(
@@ -290,7 +290,7 @@ std::vector<square_t> find_attacking_bishops(Position *position, square_t target
 std::vector<square_t> find_attacking_rooks(Position *position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
-  //look for rooks attacking square on diagonals
+  // look for rooks attacking square on diagonals
   for (int i = 0; i < 4; i++)
   {
     square_t square = check_line(position, target_square, rook_offsets[i], color_of_attackers ? &is_w_rook : &is_b_rook);
@@ -306,7 +306,7 @@ std::vector<square_t> find_attacking_rooks(Position *position, square_t target_s
 std::vector<square_t> find_attacking_queens(Position *position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
-  //look for queens attacking square on diagonals
+  // look for queens attacking square on diagonals
   for (int i = 0; i < 4; i++)
   {
     square_t square = check_line(
@@ -356,7 +356,7 @@ square_t Position::find_king(bool king_color)
 std::vector<square_t> check_files_ranks(Position *position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
-  //look for rooks/queens attacking square on files and ranks
+  // look for rooks/queens attacking square on files and ranks
   for (int i = 0; i < 4; i++)
   {
     square_t square = check_line(
@@ -466,7 +466,7 @@ bool Position::is_king_in_check(bool white_king)
     return true;
   }
 
-  //look for bishops/queens attacking king on diagonals
+  // look for bishops/queens attacking king on diagonals
   if (!check_files_ranks(this, king_square, !white_king).empty())
   {
     return true;
@@ -607,9 +607,9 @@ PositionAdjustment Position::advance_position(square_t src_square, square_t dst_
 
     // Remove the pawn that is being captured
     uint8_t square_of_pawn_being_captured = BACKWARD_RANK(C, dst_square);
-    assert(m_mailbox[square_of_pawn_being_captured] == m_whites_turn
-               ? B_PAWN
-               : W_PAWN);
+    assert(m_mailbox[square_of_pawn_being_captured] == (m_whites_turn
+                                                            ? B_PAWN
+                                                            : W_PAWN));
     m_mailbox[square_of_pawn_being_captured] = 0;
     adjustment.pawn_captured_en_passant_square = square_of_pawn_being_captured;
   }
