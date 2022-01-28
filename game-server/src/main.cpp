@@ -12,75 +12,76 @@
 #include "managers/UserManager.hpp"
 
 #include "external/di.hpp"
+
 namespace di = boost::di;
 
-// class ctor
-// {
-// public:
-//   explicit ctor(int i) : i(i) {}
-//   int i;
-// };
+class ctor {
+public:
+    explicit ctor(int i) : i(i) {}
 
-// struct aggregate
-// {
-//   double d;
-// };
+    int i;
+};
 
-// class example
-// {
-// public:
-//   example(aggregate a, const ctor &c)
-//   {
-//     assert(87.0 == a.d);
-//     assert(42 == c.i);
-//   };
-// };
+struct aggregate {
+    double d;
+};
 
-// class database_driver
-// {
-// public:
-//   explicit database_driver(int i) : i(i) {}
-//   int i;
-// };
+class example {
+public:
+    example(aggregate a, const ctor &c) {
+        assert(87.0 == a.d);
+        assert(42 == c.i);
+    };
+};
 
-// class random_server
-// {
-// public:
-//   explicit random_server(std::shared_ptr<database_driver> driver) : m_driver(driver) {}
-//   std::shared_ptr<database_driver> m_driver;
-// };
+class database_driver {
+public:
+    explicit database_driver(int i) : i(i) {}
 
-// class http_server
-// {
-// public:
-//   explicit http_server(std::shared_ptr<database_driver> driver) : m_driver(driver) {}
-//   std::shared_ptr<database_driver> m_driver;
-// };
+    int i;
+};
 
-// class main_server
-// {
-// public:
-//   explicit main_server(
-//       std::shared_ptr<http_server> hserver,
-//       std::shared_ptr<random_server> rserver)
-//       : m_hserver(hserver), m_rserver(rserver)
-//   {
-//   }
-//   std::shared_ptr<http_server> m_hserver;
-//   std::shared_ptr<random_server> m_rserver;
-// };
+class random_server {
+public:
+    explicit random_server(std::shared_ptr<database_driver> driver) : m_driver(driver) {}
 
-int main()
-{
-  const auto injector = di::make_injector(
-      di::bind<std::string>.to(
-          std::string("dbname=chess_server user=postgres")));
+    std::shared_ptr<database_driver> m_driver;
+};
 
-  auto gameManager = injector.create<GameManager>();
-  // auto userManager = injector.create<UserManager>();
-  // assert(userManager.dbConnectionManager == gameManager.dbConnectionManager);
-  // std::cout << instance.m_hserver->m_driver << std::endl;
-  // std::cout << instance.m_rserver->m_driver << std::endl;
+class http_server {
+public:
+    explicit http_server(std::shared_ptr<database_driver> driver) : m_driver(driver) {}
+
+    std::shared_ptr<database_driver> m_driver;
+};
+
+class main_server {
+public:
+    explicit main_server(
+            std::shared_ptr<http_server> hserver,
+            std::shared_ptr<random_server> rserver)
+            : m_hserver(hserver), m_rserver(rserver) {
+    }
+
+    std::shared_ptr<http_server> m_hserver;
+    std::shared_ptr<random_server> m_rserver;
+};
+
+int main() {
+    const auto dbManager =
+            std::make_shared<DBConnectionManager>("dbname=chess_server user=postgres");
+
+    const auto injector = di::make_injector(
+            di::bind<DBConnectionManager>.to(
+                    dbManager));
+
+    auto server = injector.create<ChessServer>();
+
+    server.init();
+    server.start();
+
+//    auto gameManager = injector.create<GameManager>();
+//    auto userManager = injector.create<UserManager>();
 }
 
 // int main()

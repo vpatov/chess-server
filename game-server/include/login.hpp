@@ -7,4 +7,4 @@ using json = nlohmann::json;
 
 void fn();
 
-json signup(std::string username, std::string password);
+//json signup(std::string username, std::string password);
