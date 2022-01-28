@@ -3,13 +3,13 @@
     "configurations": [
         {
             "name": "Launch",
-            "type": "lldb",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/chess_server",
+            "program": "${workspaceFolder}/game-server/chess_server",
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "build",
             "targetArchitecture":"x86_64",
-            "miDebuggerPath": "/usr/bin/lldb"
+            "miDebuggerPath": "/usr/bin/gdb"
 
 
         }

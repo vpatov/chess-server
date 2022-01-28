@@ -13,21 +13,30 @@
                 "args": [
                     "-c",
                     "mingw32-make"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c",
                     "make"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c",
                     "make"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             }
         },
         {
@@ -38,21 +47,30 @@
                 "args": [
                     "-c",
                     "'mingw32-make run'"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c",
                     "'make run'"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c",
                     "'make run'"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             }
         },
         {
@@ -63,21 +81,30 @@
                 "args": [
                     "-c",
                     "'mingw32-make clean'"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c",
                     "'make clean'"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c",
                     "'make clean'"
-                ]
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/game-server"
+                }
             }
         }
     ]

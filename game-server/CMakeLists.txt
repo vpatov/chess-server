@@ -62,6 +62,8 @@ target_link_libraries(chess_server PRIVATE PostgreSQL::PostgreSQL)
 target_link_libraries(chess_server PRIVATE OpenSSL::SSL)
 # target_link_libraries(chess_server PRIVATE fmt)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 
 add_compile_definitions(PROJECT_ROOT_DIR="${CMAKE_CURRENT_SOURCE_DIR}/..")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../build)

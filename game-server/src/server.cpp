@@ -76,6 +76,7 @@ void ChessServer::init_middleware() {
                 char buf[BUFSIZ];
                 snprintf(buf, sizeof(buf), fmt, e.what());
                 res.set_content(buf, "text/html");
+                
             });
 }
 
@@ -141,16 +142,16 @@ void ChessServer::init_routes() {
             return;
         }
 
-        bool correct_login = m_user_manager->validate_credentials(
+        bool valid_credentials = m_user_manager->validate_credentials(
                 body["username"].get<std::string>(), body["password"].get<std::string>());
 
-        if (correct_login) {
+        if (!valid_credentials) {
             json response = {"error", "Invalid login credentials."};
-            res.set_content(response, "application/json");
+            res.set_content(response.dump(), "application/json");
             return;
         }
         json response = {"status", "ok"};
-        res.set_content(response, "application/json");
+        res.set_content(response.dump(), "application/json");
 
     });
 }

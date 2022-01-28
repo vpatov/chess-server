@@ -72,17 +72,19 @@ public:
     }
 
     void create_user(std::string username, std::string password) {
-        uint8_t salt[20];
-        generate_random_bytes(salt, 20);
+        uint8_t salt[10];
+        generate_random_bytes(salt, 10);
 
-        std::string salt_hexdigest = bytes_to_hexdigest(salt, 20);
+        std::string salt_hexdigest = bytes_to_hexdigest(salt, 10);
         std::string salted_password = password + salt_hexdigest;
         std::string hashed_password = sha256(salted_password);
-        auto fmt = boost::format("INSERT INTO users (username, salt_hexdigest, hashed_password_hexdigest) VALUES"
+        auto fmt = boost::format("INSERT INTO users (username, salt, hashed_password) VALUES"
                                  "('%1%', '%2%', '%3%')") %
                    username % salt_hexdigest % hashed_password;
 
         pqxx::work W{m_db->C};
+
+        std::cout << fmt.str() << std::endl;
         W.exec0(fmt.str());
         W.commit();
     }

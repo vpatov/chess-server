@@ -1,27 +1,76 @@
-[2022-01-28 15:56:08.197] [multi_sink] [debug] START ----- 1643403368
-[2022-01-28 15:56:12.687] [multi_sink] [debug] Logging request:
+[2022-01-28 17:10:32.691] [multi_sink] [debug] START ----- 1643407832
+[2022-01-28 17:10:37.831] [multi_sink] [debug] Logging request:
  ==============
 REQUEST
-body: 
+body: {"username": "damn1", "password": "bar"}
 headers: 
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept: */*
 Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.5
-Cache-Control: max-age=0
 Connection: keep-alive
+Content-Length: 40
+Content-Type: application/json
 Host: vasinator:8080
-REMOTE_ADDR: 192.168.1.8
-REMOTE_PORT: 50832
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+REMOTE_ADDR: 127.0.0.1
+REMOTE_PORT: 33864
+User-Agent: python-requests/2.22.0
 
-[2022-01-28 15:56:12.687] [multi_sink] [debug] Logging response:
+[2022-01-28 17:10:37.831] [multi_sink] [debug] Logging response:
  ==============
 RESPONSE
-body: {"name":"chess_server","status":"healthy"}
+body: ["status","ok"]
 headers: 
 Access-Control-Allow-Origin: *
-Content-Length: 42
+Content-Length: 15
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-01-28 17:10:41.268] [multi_sink] [debug] Logging request:
+ ==============
+REQUEST
+body: {"username": "damn2", "password": "bar"}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 40
+Content-Type: application/json
+Host: vasinator:8080
+REMOTE_ADDR: 127.0.0.1
+REMOTE_PORT: 33868
+User-Agent: python-requests/2.22.0
+
+[2022-01-28 17:10:41.268] [multi_sink] [debug] Logging response:
+ ==============
+RESPONSE
+body: ["error","Invalid login credentials."]
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 38
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-01-28 17:24:27.867] [multi_sink] [debug] Logging request:
+ ==============
+REQUEST
+body: {"username": "damn1", "password": "bar"}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 40
+Content-Type: application/json
+Host: vasinator:8080
+REMOTE_ADDR: 127.0.0.1
+REMOTE_PORT: 33870
+User-Agent: python-requests/2.22.0
+
+[2022-01-28 17:24:27.867] [multi_sink] [debug] Logging response:
+ ==============
+RESPONSE
+body: ["status","ok"]
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 15
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 

@@ -23,7 +23,7 @@ std::string bytes_to_hexdigest(uint8_t *src, size_t n){
     ss << std::hex << std::uppercase << std::setfill('0');
     for (size_t i = 0; i < n; i++)
     {
-        ss << std::setw(2) << *(src + i);
+        ss << std::hex << std::setw(2) << std::setfill('0') << (int)(*(src + i));
     }
     return ss.str();
 }
