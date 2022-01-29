@@ -51,6 +51,7 @@ public:
         std::string salted_password = password + user->salt_hexdigest;
         std::string hashed_password_hexdigest = sha256(salted_password);
 
+        // TODO something here is incorrect
         return (hashed_password_hexdigest.compare(user->hashed_password_hexdigest) == 0);
     }
 
@@ -79,7 +80,7 @@ public:
         std::string salted_password = password + salt_hexdigest;
         std::string hashed_password = sha256(salted_password);
         auto fmt = boost::format("INSERT INTO users (username, salt, hashed_password) VALUES"
-                                 "('%1%', '%2%', '%3%')") %
+                                 "('%1%', '%2%', '%3%');") %
                    username % salt_hexdigest % hashed_password;
 
         pqxx::work W{m_db->C};
@@ -87,6 +88,27 @@ public:
         std::cout << fmt.str() << std::endl;
         W.exec0(fmt.str());
         W.commit();
+    }
+
+    User from_row(pqxx::row row){
+        long id = std::stol(row[0].c_str());
+        std::string username = row[1].c_str();
+        std::string salt_hexdigest = row[2].c_str();
+        std::string hashed_password_hexdigest = row[3].c_str();
+        return User(id,username,salt_hexdigest,hashed_password_hexdigest);
+    }
+
+    std::vector<User> get_all_users(){
+        pqxx::work W{m_db->C};
+        std::string query = "SELECT * FROM users";
+        pqxx::result R{W.exec(query)};
+
+        std::vector<User> users;
+        for (auto it = R.begin(); it!= R.end(); it++){
+            users.push_back(std::move(from_row(*it)));
+        }
+
+        return users;
     }
 
 };

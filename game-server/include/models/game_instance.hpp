@@ -1,13 +1,16 @@
+
 #pragma once
 
 #include "representation/move.hpp"
 #include "representation/position.hpp"
+#include "models/player.hpp"
 #include "uuid.hpp"
+#include <string>
+#include <vector>
 
-class Player
-{
-    uint64_t time_left_ms;
-    bool is_white;
+class TimeControl {
+    long time_left_ms;
+    long increment_ms;
 };
 
 class GameInstance
@@ -16,10 +19,10 @@ public:
     std::string uuid;
     std::shared_ptr<Position> position;
 
-    std::vector<MoveKey> moves;
+    std::vector<MoveKey> moves_made;
 
-    Player white_player;
-    Player black_player;
+    std::shared_ptr<Player> white_player;
+    std::shared_ptr<Player> black_player;
 
     GameInstance()
     {

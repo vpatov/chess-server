@@ -1,76 +1,75 @@
-[2022-01-28 17:10:32.691] [multi_sink] [debug] START ----- 1643407832
-[2022-01-28 17:10:37.831] [multi_sink] [debug] Logging request:
+[2022-01-29 03:32:50.568] [multi_sink] [debug] START ----- 1643445170
+[2022-01-29 03:34:03.247] [multi_sink] [debug] Logging request:
  ==============
 REQUEST
-body: {"username": "damn1", "password": "bar"}
+body: 
 headers: 
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Content-Length: 40
+Content-Length: 0
+Host: vasinator:8080
+REMOTE_ADDR: 127.0.0.1
+REMOTE_PORT: 33880
+User-Agent: python-requests/2.22.0
+
+[2022-01-29 03:34:03.247] [multi_sink] [debug] Logging response:
+ ==============
+RESPONSE
+body: <h1>Error 500! Nobody's perfect eh...</h1><p>[json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - unexpected end of input; expected '[', '{', or a literal</p>
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 206
+Content-Type: text/html
+Keep-Alive: timeout=5, max=5
+
+[2022-01-29 03:34:43.183] [multi_sink] [debug] Logging request:
+ ==============
+REQUEST
+body: {}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 2
 Content-Type: application/json
 Host: vasinator:8080
 REMOTE_ADDR: 127.0.0.1
-REMOTE_PORT: 33864
+REMOTE_PORT: 33884
 User-Agent: python-requests/2.22.0
 
-[2022-01-28 17:10:37.831] [multi_sink] [debug] Logging response:
+[2022-01-29 03:34:43.183] [multi_sink] [debug] Logging response:
  ==============
 RESPONSE
-body: ["status","ok"]
+body: ["game_instance_uuid","29605088-7b3c-43a7-19f9-accdf714a16f"]
 headers: 
 Access-Control-Allow-Origin: *
-Content-Length: 15
+Content-Length: 61
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 
-[2022-01-28 17:10:41.268] [multi_sink] [debug] Logging request:
+[2022-01-29 03:34:50.165] [multi_sink] [debug] Logging request:
  ==============
 REQUEST
-body: {"username": "damn2", "password": "bar"}
+body: {}
 headers: 
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Content-Length: 40
+Content-Length: 2
 Content-Type: application/json
 Host: vasinator:8080
 REMOTE_ADDR: 127.0.0.1
-REMOTE_PORT: 33868
+REMOTE_PORT: 33886
 User-Agent: python-requests/2.22.0
 
-[2022-01-28 17:10:41.268] [multi_sink] [debug] Logging response:
+[2022-01-29 03:34:50.165] [multi_sink] [debug] Logging response:
  ==============
 RESPONSE
-body: ["error","Invalid login credentials."]
+body: ["game_instance_uuid","3a7a8c3a-36c2-4961-0e3b-11664270f41c"]
 headers: 
 Access-Control-Allow-Origin: *
-Content-Length: 38
-Content-Type: application/json
-Keep-Alive: timeout=5, max=5
-
-[2022-01-28 17:24:27.867] [multi_sink] [debug] Logging request:
- ==============
-REQUEST
-body: {"username": "damn1", "password": "bar"}
-headers: 
-Accept: */*
-Accept-Encoding: gzip, deflate
-Connection: keep-alive
-Content-Length: 40
-Content-Type: application/json
-Host: vasinator:8080
-REMOTE_ADDR: 127.0.0.1
-REMOTE_PORT: 33870
-User-Agent: python-requests/2.22.0
-
-[2022-01-28 17:24:27.867] [multi_sink] [debug] Logging response:
- ==============
-RESPONSE
-body: ["status","ok"]
-headers: 
-Access-Control-Allow-Origin: *
-Content-Length: 15
+Content-Length: 61
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 

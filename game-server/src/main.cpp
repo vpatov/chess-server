@@ -1,96 +1,28 @@
 
 #include "server.hpp"
-#include "game_instance.hpp"
-#include "game_instance_manager.hpp"
-#include "uuid.hpp"
 #include "ws.hpp"
-#include <pqxx/pqxx>
 #include <memory>
 
 #include "managers/DBConnectionManager.hpp"
-#include "managers/GameManager.hpp"
-#include "managers/UserManager.hpp"
-
 #include "external/di.hpp"
 
 namespace di = boost::di;
 
-class ctor {
-public:
-    explicit ctor(int i) : i(i) {}
-
-    int i;
-};
-
-struct aggregate {
-    double d;
-};
-
-class example {
-public:
-    example(aggregate a, const ctor &c) {
-        assert(87.0 == a.d);
-        assert(42 == c.i);
-    };
-};
-
-class database_driver {
-public:
-    explicit database_driver(int i) : i(i) {}
-
-    int i;
-};
-
-class random_server {
-public:
-    explicit random_server(std::shared_ptr<database_driver> driver) : m_driver(driver) {}
-
-    std::shared_ptr<database_driver> m_driver;
-};
-
-class http_server {
-public:
-    explicit http_server(std::shared_ptr<database_driver> driver) : m_driver(driver) {}
-
-    std::shared_ptr<database_driver> m_driver;
-};
-
-class main_server {
-public:
-    explicit main_server(
-            std::shared_ptr<http_server> hserver,
-            std::shared_ptr<random_server> rserver)
-            : m_hserver(hserver), m_rserver(rserver) {
-    }
-
-    std::shared_ptr<http_server> m_hserver;
-    std::shared_ptr<random_server> m_rserver;
-};
-
-int main() {
+int main()
+{
     const auto dbManager =
-            std::make_shared<DBConnectionManager>("dbname=chess_server user=postgres");
+        std::make_shared<DBConnectionManager>("dbname=chess_server user=postgres");
 
     const auto injector = di::make_injector(
-            di::bind<DBConnectionManager>.to(
-                    dbManager));
+        di::bind<DBConnectionManager>.to(
+            dbManager));
 
-    auto server = injector.create<ChessServer>();
+    ChessServer server = injector.create<ChessServer>();
+
+    std::string game_instance_uuid = server.m_game_instance_manager->create_game_instance();
+    server.m_game_instance_manager->add_player(57,game_instance_uuid, true);
+    server.m_game_instance_manager->add_player(56,game_instance_uuid, false);
 
     server.init();
     server.start();
-
-//    auto gameManager = injector.create<GameManager>();
-//    auto userManager = injector.create<UserManager>();
 }
-
-// int main()
-// {
-//   // GameInstance gameInstance;
-//   // ChessServer server;
-//   // server.init();
-//   // server.start();
-//   // std::cout << "Starting websocket server..." << std::endl;
-
-//   // websocket_server_run();
-// }
