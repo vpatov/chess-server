@@ -18,11 +18,7 @@ int main()
             dbManager));
 
     ChessServer server = injector.create<ChessServer>();
-
-    std::string game_instance_uuid = server.m_game_instance_manager->create_game_instance();
-    server.m_game_instance_manager->add_player(57,game_instance_uuid, true);
-    server.m_game_instance_manager->add_player(56,game_instance_uuid, false);
-
+    
     server.init();
     server.start();
 }

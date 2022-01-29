@@ -8,10 +8,7 @@
 #include <string>
 #include <vector>
 
-class TimeControl {
-    long time_left_ms;
-    long increment_ms;
-};
+
 
 class GameInstance
 {
@@ -28,5 +25,7 @@ public:
     {
         uuid = generate_uuid();
         position = starting_position();
+        white_player = std::make_shared<Player>();
+        black_player = std::make_shared<Player>();
     }
 };

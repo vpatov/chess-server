@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 #include <regex>
 
+#include "models/create_game_request.hpp"
 #include "move_generation.hpp"
 #include "representation/fen.hpp"
 #include "representation/position.hpp"
@@ -14,7 +15,7 @@
 
 using json = nlohmann::json;
 
-const char* JSON_CONTENT_TYPE = "application/json";
+const char *JSON_CONTENT_TYPE = "application/json";
 
 std::shared_ptr<spdlog::logger> create_logger() {
   auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -96,14 +97,42 @@ void ChessServer::init_routes() {
     res.set_content(status.dump(), JSON_CONTENT_TYPE);
   });
 
-  m_svr->Post(
-      "/create_game", [this](const httplib::Request &req, httplib::Response &res) {
-        std::string uuid = m_game_instance_manager->create_game_instance();
-        json response = {{"game_instance_uuid", uuid}};
-        res.set_content(response.dump(), JSON_CONTENT_TYPE);
-      });
+  m_svr->Post("/create_game", [this](const httplib::Request &req,
+                                     httplib::Response &res) {
+    json body = json::parse(req.body);
+    CreateGameRequest request;
 
-    // TODO model interaction between BE and FE and design rest of APIs around that
+    request.white_time_control.time_left_ms =
+        body["white_time_control"]["time_left_ms"].get<uint64_t>();
+    request.white_time_control.increment_ms =
+        body["white_time_control"]["increment_ms"].get<uint64_t>();
+    request.black_time_control.time_left_ms =
+        body["black_time_control"]["time_left_ms"].get<uint64_t>();
+    request.black_time_control.increment_ms =
+        body["black_time_control"]["increment_ms"].get<uint64_t>();
+    request.use_matchmaking_pool = body["use_matchmaking_pool"].get<bool>();
+    request.player_requests_white = body["player_requests_white"].get<bool>();
+    request.requestor_client_uuid =
+        body["requestor_client_uuid"].get<std::string>();
+
+    std::string uuid = m_game_instance_manager->create_game_instance(request);
+    json response = {{"game_instance_uuid", uuid}};
+    res.set_content(response.dump(), JSON_CONTENT_TYPE);
+  });
+
+  m_svr->Post("/join_game", [this](const httplib::Request &req,
+                                   httplib::Response &res) {
+    json body = json::parse(req.body);
+
+    m_game_instance_manager->add_player(
+        body["client_uuid"].get<std::string>(),
+        body["game_instance_uuid"].get<std::string>());
+
+    res.set_content((json{{"status", "ok"}}).dump(), JSON_CONTENT_TYPE);
+  });
+
+  // TODO model interaction between BE and FE and design rest of APIs around
+  // that
 
   m_svr->Post(
       "/legal_moves", [](const httplib::Request &req, httplib::Response &res) {

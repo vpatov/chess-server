@@ -1,75 +1,151 @@
-[2022-01-29 03:32:50.568] [multi_sink] [debug] START ----- 1643445170
-[2022-01-29 03:34:03.247] [multi_sink] [debug] Logging request:
+[2022-01-29 16:44:28.677] [multi_sink] [debug] START ----- 1643492668
+[2022-01-29 16:44:47.093] [multi_sink] [debug] Logging request:
  ==============
 REQUEST
-body: 
+body: {"white_time_control": {"time_left_ms": 50000, "increment_ms": 0}, "black_time_control": {"time_left_ms": 50000, "increment_ms": 0}, "use_matchmaking_pool": false, "player_requests_white": true, "requestor_client_uuid": "5efdab91"}
 headers: 
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Content-Length: 0
+Content-Length: 231
+Content-Type: application/json
 Host: vasinator:8080
 REMOTE_ADDR: 127.0.0.1
-REMOTE_PORT: 33880
+REMOTE_PORT: 50164
 User-Agent: python-requests/2.22.0
 
-[2022-01-29 03:34:03.247] [multi_sink] [debug] Logging response:
+[2022-01-29 16:44:47.094] [multi_sink] [debug] Logging response:
  ==============
 RESPONSE
-body: <h1>Error 500! Nobody's perfect eh...</h1><p>[json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - unexpected end of input; expected '[', '{', or a literal</p>
+body: {"game_instance_uuid":"3c3faebc-717f-4331-07b6-c821deda280c"}
 headers: 
 Access-Control-Allow-Origin: *
-Content-Length: 206
+Content-Length: 61
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-01-29 16:45:07.442] [multi_sink] [debug] Logging request:
+ ==============
+REQUEST
+body: {"client_uuid": "1234", "game_instance_uuid": "3c3faebc-717f-4331-07b6-c821deda280c"}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 85
+Content-Type: application/json
+Host: vasinator:8080
+REMOTE_ADDR: 127.0.0.1
+REMOTE_PORT: 50166
+User-Agent: python-requests/2.22.0
+
+[2022-01-29 16:45:07.442] [multi_sink] [debug] Logging response:
+ ==============
+RESPONSE
+body: {"status":"ok"}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 15
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-01-29 16:45:10.439] [multi_sink] [debug] Logging request:
+ ==============
+REQUEST
+body: {"client_uuid": "1234", "game_instance_uuid": "3c3faebc-717f-4331-07b6-c821deda280c"}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 85
+Content-Type: application/json
+Host: vasinator:8080
+REMOTE_ADDR: 127.0.0.1
+REMOTE_PORT: 50168
+User-Agent: python-requests/2.22.0
+
+[2022-01-29 16:45:10.439] [multi_sink] [debug] Logging response:
+ ==============
+RESPONSE
+body: <h1>Error 500! Nobody's perfect eh...</h1><p>Both players are already initialized for game 3c3faebc-717f-4331-07b6-c821deda280c</p>
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 131
 Content-Type: text/html
 Keep-Alive: timeout=5, max=5
 
-[2022-01-29 03:34:43.183] [multi_sink] [debug] Logging request:
+[2022-01-29 16:45:17.198] [multi_sink] [debug] Logging request:
  ==============
 REQUEST
-body: {}
+body: {"white_time_control": {"time_left_ms": 50000, "increment_ms": 0}, "black_time_control": {"time_left_ms": 50000, "increment_ms": 0}, "use_matchmaking_pool": false, "player_requests_white": true, "requestor_client_uuid": "5efdab91"}
 headers: 
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Content-Length: 2
+Content-Length: 231
 Content-Type: application/json
 Host: vasinator:8080
 REMOTE_ADDR: 127.0.0.1
-REMOTE_PORT: 33884
+REMOTE_PORT: 50170
 User-Agent: python-requests/2.22.0
 
-[2022-01-29 03:34:43.183] [multi_sink] [debug] Logging response:
+[2022-01-29 16:45:17.198] [multi_sink] [debug] Logging response:
  ==============
 RESPONSE
-body: ["game_instance_uuid","29605088-7b3c-43a7-19f9-accdf714a16f"]
+body: {"game_instance_uuid":"2c7bf768-276c-0f0b-109e-69d79383281f"}
 headers: 
 Access-Control-Allow-Origin: *
 Content-Length: 61
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 
-[2022-01-29 03:34:50.165] [multi_sink] [debug] Logging request:
+[2022-01-29 16:45:36.450] [multi_sink] [debug] Logging request:
  ==============
 REQUEST
-body: {}
+body: {"client_uuid": "5efdab91", "game_instance_uuid": "2c7bf768-276c-0f0b-109e-69d79383281f"}
 headers: 
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Content-Length: 2
+Content-Length: 89
 Content-Type: application/json
 Host: vasinator:8080
 REMOTE_ADDR: 127.0.0.1
-REMOTE_PORT: 33886
+REMOTE_PORT: 50172
 User-Agent: python-requests/2.22.0
 
-[2022-01-29 03:34:50.165] [multi_sink] [debug] Logging response:
+[2022-01-29 16:45:36.450] [multi_sink] [debug] Logging response:
  ==============
 RESPONSE
-body: ["game_instance_uuid","3a7a8c3a-36c2-4961-0e3b-11664270f41c"]
+body: <h1>Error 500! Nobody's perfect eh...</h1><p>client uuid 5efdab91 is already being used on game instance 2c7bf768-276c-0f0b-109e-69d79383281f</p>
 headers: 
 Access-Control-Allow-Origin: *
-Content-Length: 61
+Content-Length: 145
+Content-Type: text/html
+Keep-Alive: timeout=5, max=5
+
+[2022-01-29 16:45:46.690] [multi_sink] [debug] Logging request:
+ ==============
+REQUEST
+body: {"client_uuid": "5", "game_instance_uuid": "2c7bf768-276c-0f0b-109e-69d79383281f"}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 82
+Content-Type: application/json
+Host: vasinator:8080
+REMOTE_ADDR: 127.0.0.1
+REMOTE_PORT: 50174
+User-Agent: python-requests/2.22.0
+
+[2022-01-29 16:45:46.690] [multi_sink] [debug] Logging response:
+ ==============
+RESPONSE
+body: {"status":"ok"}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 15
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 

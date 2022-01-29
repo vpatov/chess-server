@@ -32,7 +32,6 @@ def get_user(username):
     cur.close()
 
     return result
-
     
 
 @app.route('/signup', methods=['POST'])

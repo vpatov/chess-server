@@ -30,12 +30,8 @@ std::string bytes_to_hexdigest(uint8_t *src, size_t n){
 
 void generate_random_bytes(uint8_t *dest, size_t n){
     size_t i = 0;
-    while(i < n - 8){
-        *((uint64_t*)(dest)) = random_bitstring();
-        i+=8;
-    }
     while(i < n){
-        (*dest) = random_bitstring() & 0xff;
+        *(dest + i) = random_bitstring();
         i++;
     }
 }
