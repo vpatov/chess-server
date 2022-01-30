@@ -1,0 +1,7 @@
+.game-sidebar-container {
+    border: solid 2px black;
+    width: 30vw;
+    height: 50vh;
+    margin: 5vw;
+    font-family: 'Courier New', Courier, monospace;
+}

@@ -92,7 +92,7 @@ void ChessServer::init_routes() {
       });
 
   m_svr->Get("/", [](const httplib::Request &req, httplib::Response &res) {
-    json body = json::parse(req.body);
+    // json body = json::parse(req.body);
     json status = {{"name", "chess_server"}, {"status", "healthy"}};
     res.set_content(status.dump(), JSON_CONTENT_TYPE);
   });

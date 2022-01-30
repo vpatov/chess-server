@@ -2,7 +2,7 @@
   text-align: center;
   position: fixed;
   top: 50%;
-  left: 30%;
+  left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 
@@ -15,5 +15,5 @@
 
 .app-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }

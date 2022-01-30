@@ -19,7 +19,7 @@ function FenInput() {
     const isValid: boolean = isValidFen(fen);
     setIsCurrentFenValid(isValid);
     if (isValid) {
-      dispatch({ type: ActionType.UPDATE_POSITION, payload: fen });
+      dispatch({ type: ActionType.UPDATE_FEN, payload: fen });
     }
   }
 
@@ -29,7 +29,7 @@ function FenInput() {
         className={`fen-input ${isCurrentFenValid ? "" : "invalid-fen"}`}
         type="text"
         defaultValue={fenString}
-        onChange={(e) => processFen(e.target.value)}
+        // onChange={(e) => processFen(e.target.value)}
       ></input>
     </div>
   );

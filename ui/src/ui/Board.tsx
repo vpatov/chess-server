@@ -5,6 +5,7 @@ import Position from "./Position";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedSquareSelector } from "../store/selectors";
 import { Action, ActionType } from "../models/actions";
+import FenInput from "./FenInput";
 
 function Square(props: any) {
   const { dark, rank, file } = props;
@@ -55,7 +56,9 @@ function Board() {
       <div>
         <div className="board">{rows}</div>
         <Position></Position>
+        <FenInput></FenInput>
       </div>
+      
     </>
   );
 }

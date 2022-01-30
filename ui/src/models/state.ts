@@ -8,13 +8,16 @@ import {
 export declare interface State {
   selectedSquare: number | undefined;
   positionInfo: PositionInfo;
-  legal_moves: Array<LANMove>;
+  legalMoves: Array<LANMove>;
+  clientUUID: string;
+  
 }
 
 export function getCleanState(): State {
   return {
     selectedSquare: undefined,
     positionInfo: getStartingPosition(),
-    legal_moves: getStartingPositionLegalMoves(),
+    legalMoves: getStartingPositionLegalMoves(),
+    clientUUID: '',
   };
 }

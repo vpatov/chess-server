@@ -15,18 +15,25 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
         selectedSquare,
       };
     }
-    case ActionType.UPDATE_POSITION: {
-      get_legal_moves(action.payload);
+    case ActionType.UPDATE_FEN: {
       return {
         ...state,
         positionInfo: fenToPosition(action.payload),
-        legal_moves: [],
+        legalMoves: [],
       };
+    }
+    case ActionType.SERVER_GAME_STATE_UPDATE: {
+      const update = action.serverGameStateUpdate!;
+      return {
+        ...state,
+        positionInfo: fenToPosition(update.fen),
+        legalMoves: update.legal_moves,
+      }
     }
     case ActionType.FETCHED_LEGAL_MOVES: {
       return {
         ...state,
-        legal_moves: action.payload,
+        legalMoves: action.payload,
       };
     }
     default:
