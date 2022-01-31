@@ -11,8 +11,8 @@ export declare interface CreateGameRequest {
 }
 
 export declare interface TimeControl {
-   time_left_ms: number;
-   increment_ms: number;
+  time_left_ms: number;
+  increment_ms: number;
 }
 
 
@@ -24,13 +24,33 @@ export async function get_legal_moves(fenString: FenString) {
   return response;
 }
 
+const api = axios.create({
+  baseURL: server_url,
+});
+
 export async function get_status() {
   const response = await axios.get(`${server_url}`);
   console.log(response);
 }
 
-export async function create_game(request: CreateGameRequest){
-  const data = request;
-  const response = await axios.post(`${server_url}/create_game`, data);
-  return response;
-}
+export const create_game = (request: CreateGameRequest, onSuccess: any, onError: any) => {
+  const url = '/create_game';
+  return api.post(url, request).then(onSuccess).catch(onError);
+};
+
+// export function create_game(request: CreateGameRequest) {
+//   axios.post(`${server_url}/create_game`, request)
+//     .then((response) => { })
+//     .catch(() => { });
+
+  // const r = async () => {
+  //   try {
+  //     const resp = await axios.post(`${server_url}/create_game`, request);
+  //     return resp.data['gameInstanceUUID'];
+  //   } catch (err) {
+  //     // Handle Error Here
+  //     console.error(err);
+  //   }
+  // };
+  // return r();
+// }

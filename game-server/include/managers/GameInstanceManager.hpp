@@ -7,8 +7,13 @@
 #include "move_generation.hpp"
 #include "representation/move.hpp"
 #include "uuid.hpp"
+#include "representation/fen.hpp"
 #include <memory>
 #include <stdexcept>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
+
 
 using gameptr = std::shared_ptr<GameInstance>;
 class GameInstanceManager
@@ -50,10 +55,27 @@ public:
         {
             throw std::invalid_argument(
                 (boost::format("Couldn't find game instance with uuid: %1%") %
-                 uuid)
+                    uuid)
                     .str());
         }
         return string_list_all_moves(game_instance->position);
+    }
+
+    std::string get_game_state_json(std::string game_instance_uuid) {
+        auto game_instance = get_game_instance(game_instance_uuid);
+        if (game_instance == nullptr)
+        {
+            throw std::invalid_argument(
+                (boost::format("Couldn't find game instance with uuid: %1%") %
+                    game_instance_uuid)
+                    .str());
+        }
+
+        json game_state = {
+            {"fen", position_to_fen(game_instance->position)},
+            {"legal_moves", string_list_all_moves(game_instance->position)}
+        };
+        return game_state.dump();
     }
 
     bool make_move(std::string uuid, std::string lan_move, long player_user_id)
@@ -63,13 +85,13 @@ public:
         {
             throw std::invalid_argument(
                 (boost::format("Couldn't find game instance with uuid: %1%") %
-                 uuid)
+                    uuid)
                     .str());
         }
 
         std::shared_ptr<Player> player = game_instance->position->m_whites_turn
-                                             ? game_instance->white_player
-                                             : game_instance->black_player;
+            ? game_instance->white_player
+            : game_instance->black_player;
         if (player->user_id != player_user_id)
         {
             throw std::invalid_argument("It is not your turn to move, player " +
@@ -95,7 +117,7 @@ public:
         {
             throw std::invalid_argument(
                 (boost::format("Couldn't find game instance with uuid: %1%") %
-                 game_instance_uuid)
+                    game_instance_uuid)
                     .str());
         }
 
@@ -110,11 +132,11 @@ public:
         {
             throw std::invalid_argument(
                 (boost::format("client uuid %1% is already being used on game instance %2%") %
-                 client_uuid % game_instance_uuid)
+                    client_uuid % game_instance_uuid)
                     .str());
         }
 
-        if (game_instance->white_player->client_uuid.empty()){
+        if (game_instance->white_player->client_uuid.empty()) {
             game_instance->white_player->client_uuid = client_uuid;
         }
         else {

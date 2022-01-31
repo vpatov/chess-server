@@ -10,7 +10,6 @@ export declare interface State {
   positionInfo: PositionInfo;
   legalMoves: Array<LANMove>;
   clientUUID: string;
-  
 }
 
 export function getCleanState(): State {

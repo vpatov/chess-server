@@ -4,6 +4,9 @@ import TimeControlInput from './TimeControlInput';
 import { CreateGameRequest, TimeControl, create_game } from '../api/api';
 import { clientUUIDSelector } from '../store/selectors';
 import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
+import { AxiosResponse } from 'axios';
+
 
 enum PlayerColor {
     WHITE = 'WHITE',
@@ -18,8 +21,9 @@ function durationToMilliseconds(duration: string) {
     return ((minutes * 60) + seconds) * 1000;
 }
 
-function CreateGame() {
+function CreateGame(props: any) {
 
+    const { history } = props;
     const clientUUID = useSelector(clientUUIDSelector);
 
     const [useSameTimeControl, setUseSameTimeControl] = useState(true);
@@ -30,6 +34,15 @@ function CreateGame() {
 
     const [blackClock, setBlackClock] = useState("5:00");
     const [blackIncrement, setBlackIncrement] = useState(3);
+
+    function onSuccess(response: AxiosResponse) {
+        const gameInstanceUUID = response.data['game_instance_uuid'];
+        history.push(`/game/${gameInstanceUUID}`);
+    }
+
+    function onError() {
+        console.log("create_game failed");
+    }
 
     function onClickCreateGame() {
         const request: CreateGameRequest = {
@@ -47,8 +60,9 @@ function CreateGame() {
                 : (playerColor === PlayerColor.WHITE),
             requestor_client_uuid: clientUUID
         }
-        const response = create_game(request);
-        console.log(response);
+
+        create_game(request, onSuccess, onError);
+
     }
 
 
@@ -142,4 +156,4 @@ function CreateGame() {
 }
 
 
-export default CreateGame;
+export default withRouter(CreateGame);

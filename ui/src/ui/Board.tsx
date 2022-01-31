@@ -3,15 +3,17 @@ import "./Board.css";
 import "./Pieces.css";
 import Position from "./Position";
 import { useSelector, useDispatch } from "react-redux";
-import { selectedSquareSelector } from "../store/selectors";
+import { selectedSquareSelector, legalMovesSelector } from "../store/selectors";
 import { Action, ActionType } from "../models/actions";
 import FenInput from "./FenInput";
+import { algebraicSquareToIndex } from "../logic/fen";
 
 function Square(props: any) {
   const { dark, rank, file } = props;
   const thisSquare = rank * 8 + file;
 
   const selectedSquare = useSelector(selectedSquareSelector);
+  const legalMoves = useSelector(legalMovesSelector);
   const dispatch = useDispatch();
 
   const colorClass = dark ? "dark-square" : "light-square";
@@ -20,7 +22,14 @@ function Square(props: any) {
     : "light-square-highlighted";
 
   function onClickFn() {
-    dispatch({ type: ActionType.SELECT_SQUARE, payload: thisSquare });
+    const possibleStartingSquares = new Set<number>();
+    for (const move of legalMoves) {
+      possibleStartingSquares.add(algebraicSquareToIndex(move.substring(0, 2)));
+    }
+    // TODO some interesting bug here, selection of a2 causes h3 to also be selected.
+    if (possibleStartingSquares.has(thisSquare)) {
+      dispatch({ type: ActionType.SELECT_SQUARE, payload: thisSquare });
+    }
   }
 
   return (
@@ -58,7 +67,7 @@ function Board() {
         <Position></Position>
         <FenInput></FenInput>
       </div>
-      
+
     </>
   );
 }

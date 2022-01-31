@@ -33,12 +33,13 @@ export class WsServer {
 
     private static onGameMessage(msg: MessageEvent) {
         const jsonData = JSON.parse(msg.data);
-        // const jsonData = JSON.parse(get(msg, 'data', {}));
         console.log(jsonData);
         Object.keys(WsServer.subscriptions).forEach((key) => {
-            if (jsonData[key]) {
-                WsServer.subscriptions[key].forEach((func) => func(jsonData[key]));
-            }
+            // TODO this isn't generalized rn, its hardcoded
+            WsServer.subscriptions['serverGameStateUpdate'].forEach((func) => func(jsonData));
+            // if (jsonData[key]) {
+            //     WsServer.subscriptions[key].forEach((func) => func(jsonData[key]));
+            // }
         });
     }
 

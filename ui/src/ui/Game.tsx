@@ -25,8 +25,8 @@ function Game() {
                 serverGameStateUpdate: update
             }
             dispatch(action);
-            if (!gameLoaded){
-             setGameLoaded(true);
+            if (!gameLoaded) {
+                setGameLoaded(true);
             }
 
         };
@@ -36,7 +36,7 @@ function Game() {
             WsServer.subscribe('serverGameStateUpdate', onReceiveNewGame);
         }
 
-    },[]);
+    }, [dispatch, gameInstanceUUID, gameLoaded]);
 
     return (
         <>

@@ -9,6 +9,7 @@
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/roles/client_endpoint.hpp>
 #include <websocketpp/server.hpp>
+#include <websocketpp/frame.hpp>
 #include <regex>
 
 const std::regex query_param_regex(
@@ -86,8 +87,12 @@ public:
 
       m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
       m_connections.insert(hdl);
+
+      m_server.send(hdl,
+        m_game_instance_manager->get_game_state_json(game_instance_uuid),
+        websocketpp::frame::opcode::TEXT);
     }
-    catch (const std::exception &e){
+    catch (const std::exception& e) {
       std::cout << "Exception while opening a connection: " << e.what() << std::endl;
     }
 
