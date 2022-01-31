@@ -4,7 +4,9 @@
 #include <iostream>
 #include <filesystem>
 #include <string>
+#include <mutex>
 
+extern std::mutex STDOUT_MUTEX;
 
 namespace fs = std::filesystem;
 

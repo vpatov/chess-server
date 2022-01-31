@@ -121,34 +121,4 @@ public:
             game_instance->black_player->client_uuid = client_uuid;
         }
     }
-
-    // TODO these methods should be class methods on a game instance, and the gameInstanceManager
-    // should be a lighter wrapper
-
-    void add_player(long user_id, std::string game_instance_uuid, bool white)
-    {
-        // auto game_instance = get_game_instance(game_instance_uuid);
-        // if (game_instance == nullptr)
-        // {
-        //     throw std::invalid_argument(
-        //         (boost::format("Couldn't find game instance with uuid: %1%") %
-        //          game_instance_uuid)
-        //             .str());
-        // }
-
-        // // if the color player we are about to add is already present on the game
-        // if ((white ? game_instance->white_player : game_instance->black_player) != nullptr)
-        // {
-        //     throw std::invalid_argument(
-        //         (boost::format("Game instance with uuid: %1% already has a %2% player.") %
-        //          game_instance_uuid % (white ? "white" : "black"))
-        //             .str());
-        // }
-
-        // std::shared_ptr<Player> player = std::make_shared<Player>();
-        // player->time_left_ms = 0;
-        // player->user_id = user_id;
-        // // player->white = white;
-        // (white ? game_instance->white_player : game_instance->black_player) = player;
-    }
 };

@@ -39,7 +39,8 @@ void generate_random_bytes(uint8_t *dest, size_t n){
 std::string generate_uuid()
 {
     /*
-        Follows operation from https://www.cryptosys.net/pki/uuid-rfc4122.html
+        Follows operation from https://www.cryptosys.net/pki/uuid-rfc4122.html,
+        without the dashes
     */
     uint64_t a = random_bitstring();
     uint64_t b = random_bitstring();
@@ -53,12 +54,7 @@ std::string generate_uuid()
     std::string hexstring(stream.str());
 
     assert(hexstring.size() == 32);
-
-    return hexstring.substr(0, 8) + "-" +
-           hexstring.substr(8, 4) + "-" +
-           hexstring.substr(12, 4) + "-" +
-           hexstring.substr(16, 4) + "-" +
-           hexstring.substr(20, 12);
+    return hexstring;
 }
 
 using namespace std;

@@ -3,6 +3,9 @@ project(chess_server LANGUAGES C CXX VERSION 0.1.0)
 
 file(GLOB_RECURSE INCLUDE_FILES ${PROJECT_SOURCE_DIR}/include/*.hpp)
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+list(REMOVE_ITEM SRC_FILES ${PROJECT_SOURCE_DIR}/src/main.cpp)
+
+message(${SRC_FILES})
 
 ## Variables
 set(CMAKE_CXX_STANDARD 20)
@@ -14,6 +17,8 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 #set(BOOST_ROOT /usr/local/boost_1_76_0)
 
+
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Q")
 
 ## Flags
 if (CMAKE_COMPILER_IS_GNUCC)
