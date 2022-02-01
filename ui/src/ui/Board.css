@@ -6,17 +6,22 @@
   background-color: rgb(125, 135, 150);
 }
 
+.highlight-color {
+  background-color: rgb(144, 244, 225, 0.5);
+}
+
 .light-square-highlighted {
-  background-color: rgb(202, 205, 209);
+  background-color: rgb(189, 240, 232);
 }
 
 .dark-square-highlighted {
-  background-color: rgb(95, 105, 120);
+  background-color: rgb(135, 190, 188);
 }
 
 .square {
   width: 10vh;
   height: 10vh;
+  position: relative;
 }
 
 .row {
@@ -30,4 +35,17 @@
   max-height: 100vh; */
   /* width: 100vh; */
   /* height: 100vh; */
+}
+
+.possible-destination-square {
+  border: solid 1px black;
+  background-color: rgb(144, 244, 225, 0.5);
+  border-radius: 50%;
+  width: 2vh;
+  height: 2vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
 }

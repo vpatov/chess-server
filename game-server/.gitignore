@@ -7,3 +7,4 @@ Makefile
 libchess_server_lib.a
 build/
 cget/
+logs/

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { WsServer } from "../api/ws";
-import { ActionType, Action, ServerGameStateUpdate } from "../models/actions";
+import { ActionType, Action, ServerGameStateUpdatePayload } from "../models/actions";
 import { GameInstanceUUID } from "../models/uuid";
 import Board from "./Board";
 import GameSidebar from "./GameSidebar";
@@ -18,11 +18,10 @@ function Game() {
 
 
     useEffect(() => {
-        const onReceiveNewGame = (update: ServerGameStateUpdate) => {
+        const onReceiveNewGame = (update: ServerGameStateUpdatePayload) => {
             const action: Action = {
                 type: ActionType.SERVER_GAME_STATE_UPDATE,
-                payload: undefined,
-                serverGameStateUpdate: update
+                serverGameStateUpdatePayload: update
             }
             dispatch(action);
             if (!gameLoaded) {
