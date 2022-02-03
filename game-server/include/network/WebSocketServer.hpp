@@ -5,6 +5,8 @@
 #include "managers/GameInstanceManager.hpp"
 #include <iostream>
 #include <memory>
+#include <map>
+#include <unordered_map>
 #include <set>
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/roles/client_endpoint.hpp>
@@ -27,8 +29,10 @@ typedef websocketpp_server::message_ptr message_ptr;
 class WebSocketServer {
 private:
   typedef std::set<connection_hdl, std::owner_less<connection_hdl>> connections;
+  typedef std::map<connection_hdl, std::string, std::owner_less<connection_hdl>> connection_map;
 
   connections m_connections;
+  connection_map m_connection_map;
   websocketpp_server m_server;
   std::shared_ptr<GameInstanceManager> m_game_instance_manager;
   void _run();
@@ -85,8 +89,12 @@ public:
         throw std::invalid_argument("clientUUID and gameInstanceUUID must be provided in the WS connection query params.");
       }
 
-      m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
+      if (!m_game_instance_manager->game_full(game_instance_uuid)){
+        m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
+      }
       m_connections.insert(hdl);
+      m_connection_map[hdl] = client_uuid;
+
 
       m_server.send(hdl,
         m_game_instance_manager->get_game_state_json(game_instance_uuid),
@@ -105,10 +113,21 @@ public:
   }
 
 
+
   void on_message(connection_hdl hdl, message_ptr msg) {
     std::cout << "on_message: " << msg->get_payload() << std::endl;
+    json body = json::parse(msg->get_payload());
+    std::string game_instance_uuid = body["gameInstanceUUID"].get<std::string>();
+    std::string lan_move = body["lanMove"].get<std::string>();
+
+    std::string client_uuid = m_connection_map[hdl];
+    bool succ = m_game_instance_manager->make_move(game_instance_uuid, lan_move, client_uuid);
+    if (!succ) {
+      throw std::invalid_argument("Illegal move: " + lan_move);
+    }
+    auto state = m_game_instance_manager->get_game_state_json(game_instance_uuid);
     for (auto it : m_connections) {
-      m_server.send(it, msg);
+      m_server.send(it, state, websocketpp::frame::opcode::TEXT);
     }
   }
 };

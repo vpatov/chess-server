@@ -3,7 +3,7 @@ import "./Board.css";
 import "./Pieces.css";
 import Position from "./Position";
 import { useSelector, useDispatch } from "react-redux";
-import { selectedSquareSelector, legalMovesSelector, possibleDestinationSquaresSelector } from "../store/selectors";
+import { selectedSquareSelector, legalMovesSelector, possibleDestinationSquaresSelector, clientUUIDSelector, currentTurnClientUUIDSelector } from "../store/selectors";
 import { Action, ActionType, SelectSquarePayload } from "../models/actions";
 import FenInput from "./FenInput";
 import { algebraicSquareToIndex } from "../logic/fen";
@@ -17,6 +17,8 @@ function Square(props: any) {
   const selectedSquare = useSelector(selectedSquareSelector);
   const possibleDestinationSquares = useSelector(possibleDestinationSquaresSelector);
   const legalMoves = useSelector(legalMovesSelector);
+  const clientUUID = useSelector(clientUUIDSelector)
+  const currentTurnClientUUID = useSelector(currentTurnClientUUIDSelector);
   const dispatch = useDispatch();
 
   const colorClass = dark ? "dark-square" : "light-square";
@@ -33,19 +35,6 @@ function Square(props: any) {
       }
     };
     dispatch(action);
-
-    // const legalMoveMap = calculateLegalMoveMap(legalMoves);
-    // if (legalMoveMap.has(thisSquare)) {
-    //   const action: Action = {
-    //     type: ActionType.SELECT_SQUARE,
-    //     selectSquarePayload: {
-    //       selectedSquare: thisSquare,
-    //       possibleDestinationSquares: legalMoveMap.get(thisSquare)!
-    //     }
-    //   }
-    //   dispatch(action);
-    // }
-    // else if ()
   }
 
   return (

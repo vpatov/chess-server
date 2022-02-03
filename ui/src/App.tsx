@@ -23,10 +23,12 @@ function App() {
     if (!localStorageClientUUID) {
       const clientUUID = generateUUID();
       window.localStorage.setItem(CLIENT_UUID_KEY, clientUUID);
-      dispatch({ type: ActionType.SET_CLIENT_UUID, payload: clientUUID });
+      const action: Action =  {type: ActionType.SET_CLIENT_UUID, clientUUID: clientUUID };
+      dispatch(action);
     }
     else {
-      dispatch({ type: ActionType.SET_CLIENT_UUID, payload: localStorageClientUUID });
+      const action: Action =  {type: ActionType.SET_CLIENT_UUID, clientUUID: localStorageClientUUID };
+      dispatch(action);
     }
 
     get_status();

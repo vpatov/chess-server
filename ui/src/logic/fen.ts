@@ -69,6 +69,7 @@ export function fenToPosition(fen: FenString): PositionInfo {
 
   return {
     board,
+    fen_string: fen,
     whites_turn: fenComponents[1] == "w",
     wk_castle: fenComponents[2].includes("K"),
     wq_castle: fenComponents[2].includes("Q"),

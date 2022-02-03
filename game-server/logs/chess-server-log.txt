@@ -1,19 +1,21 @@
-[2022-01-31 18:59:42.277] [multi_sink] [info] Logger initialized.
-[2022-01-31 18:59:47.966] [multi_sink] [debug] === REQUEST === 
+[2022-02-03 00:41:16.609] [multi_sink] [info] Logger initialized.
+[2022-02-03 00:41:23.467] [multi_sink] [debug] === REQUEST === 
 body: {{{}}}
 headers: 
 Accept: application/json, text/plain, */*
 Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.5
+Cache-Control: no-cache
 Connection: keep-alive
-Host: 192.168.1.12:8080
+Host: 151.205.184.130:8080
 Origin: http://localhost:3000
+Pragma: no-cache
 Referer: http://localhost:3000/
-REMOTE_ADDR: 192.168.1.8
-REMOTE_PORT: 52310
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59860
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
 
-[2022-01-31 18:59:47.966] [multi_sink] [debug] === RESPONSE === 
+[2022-02-03 00:41:23.467] [multi_sink] [debug] === RESPONSE === 
 body: {{{{"name":"chess_server","status":"healthy"}}}}
 headers: 
 Access-Control-Allow-Origin: *
@@ -21,7 +23,7 @@ Content-Length: 42
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 
-[2022-01-31 18:59:48.997] [multi_sink] [debug] === REQUEST === 
+[2022-02-03 00:41:24.941] [multi_sink] [debug] === REQUEST === 
 body: {{{}}}
 headers: 
 Accept: */*
@@ -29,15 +31,17 @@ Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.5
 Access-Control-Request-Headers: content-type
 Access-Control-Request-Method: POST
+Cache-Control: no-cache
 Connection: keep-alive
-Host: 192.168.1.12:8080
+Host: 151.205.184.130:8080
 Origin: http://localhost:3000
+Pragma: no-cache
 Referer: http://localhost:3000/
-REMOTE_ADDR: 192.168.1.8
-REMOTE_PORT: 52310
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59860
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
 
-[2022-01-31 18:59:48.997] [multi_sink] [debug] === RESPONSE === 
+[2022-02-03 00:41:24.941] [multi_sink] [debug] === RESPONSE === 
 body: {{{}}}
 headers: 
 Access-Control-Allow-Headers: *
@@ -47,27 +51,692 @@ Content-Length: 0
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 
-[2022-01-31 18:59:49.042] [multi_sink] [debug] === REQUEST === 
-body: {{{{"white_time_control":{"time_left_ms":300000,"increment_ms":3000},"black_time_control":{"time_left_ms":300000,"increment_ms":3000},"use_matchmaking_pool":false,"player_requests_white":true,"requestor_client_uuid":""}}}}
+[2022-02-03 00:41:24.951] [multi_sink] [debug] === REQUEST === 
+body: {{{{"white_time_control":{"time_left_ms":300000,"increment_ms":3000},"black_time_control":{"time_left_ms":300000,"increment_ms":3000},"use_matchmaking_pool":false,"player_requests_white":true,"requestor_client_uuid":"3uekqdca9jkq2ateoswpy"}}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 237
+Content-Type: application/json
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Pragma: no-cache
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59860
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:41:24.951] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"game_instance_uuid":"2fdcdfdbff890cba0db57b04beb9710c"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 57
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:41:24.993] [multi_sink] [debug] client uuid 3uekqdca9jkq2ateoswpy is already being used on game instance 2fdcdfdbff890cba0db57b04beb9710c
+[2022-02-03 00:41:29.458] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59879
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+
+[2022-02-03 00:41:29.458] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:43:21.041] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59923
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+
+[2022-02-03 00:43:21.041] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: no-cache
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Pragma: no-cache
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59922
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:43:21.041] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:43:21.041] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:43:29.802] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: no-cache
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Pragma: no-cache
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59939
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:43:29.802] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:43:39.885] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59957
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+
+[2022-02-03 00:43:39.885] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:44:27.979] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: no-cache
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Pragma: no-cache
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59976
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:44:27.979] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:44:44.874] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 59998
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+
+[2022-02-03 00:44:44.874] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:48:54.439] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: max-age=0
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60296
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:48:54.439] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:48:54.491] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60298
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+
+[2022-02-03 00:48:54.491] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:52:45.423] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60387
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+
+[2022-02-03 00:52:45.423] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:52:45.779] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
 headers: 
 Accept: application/json, text/plain, */*
 Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.5
 Connection: keep-alive
-Content-Length: 216
-Content-Type: application/json
-Host: 192.168.1.12:8080
+Host: 151.205.184.130:8080
 Origin: http://localhost:3000
 Referer: http://localhost:3000/
-REMOTE_ADDR: 192.168.1.8
-REMOTE_PORT: 52310
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60388
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
 
-[2022-01-31 18:59:49.042] [multi_sink] [debug] === RESPONSE === 
-body: {{{{"game_instance_uuid":"34924dbc550148dc1d176080f25491a3"}}}}
+[2022-02-03 00:52:45.780] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:55:54.562] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: max-age=0
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60471
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:55:54.563] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:56:07.729] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: max-age=0
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60490
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:56:07.729] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:56:11.265] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60505
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+
+[2022-02-03 00:56:11.265] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:56:34.112] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60525
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:56:34.112] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:56:40.591] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Access-Control-Request-Headers: content-type
+Access-Control-Request-Method: POST
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60526
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:56:40.591] [multi_sink] [debug] === RESPONSE === 
+body: {{{}}}
+headers: 
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: OPTIONS,POST,GET
+Access-Control-Allow-Origin: *
+Content-Length: 0
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:56:40.624] [multi_sink] [debug] === REQUEST === 
+body: {{{{"white_time_control":{"time_left_ms":300000,"increment_ms":3000},"black_time_control":{"time_left_ms":300000,"increment_ms":3000},"use_matchmaking_pool":false,"player_requests_white":true,"requestor_client_uuid":"3uekqdca9jkq2ateoswpy"}}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+Content-Length: 237
+Content-Type: application/json
+Host: 151.205.184.130:8080
+Origin: http://localhost:3000
+Referer: http://localhost:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60527
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:56:40.625] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"game_instance_uuid":"232f5793e1af059d19e25e2713a83ee7"}}}}
 headers: 
 Access-Control-Allow-Origin: *
 Content-Length: 57
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:56:40.734] [multi_sink] [debug] client uuid 3uekqdca9jkq2ateoswpy is already being used on game instance 232f5793e1af059d19e25e2713a83ee7
+[2022-02-03 00:57:29.469] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://192.168.1.12:3000
+Referer: http://192.168.1.12:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60561
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:57:29.469] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:58:49.937] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://192.168.1.12:3000
+Referer: http://192.168.1.12:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60590
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:58:49.937] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:59:13.432] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Access-Control-Request-Headers: content-type
+Access-Control-Request-Method: POST
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://192.168.1.12:3000
+Referer: http://192.168.1.12:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60596
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:59:13.432] [multi_sink] [debug] === RESPONSE === 
+body: {{{}}}
+headers: 
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: OPTIONS,POST,GET
+Access-Control-Allow-Origin: *
+Content-Length: 0
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:59:13.446] [multi_sink] [debug] === REQUEST === 
+body: {{{{"white_time_control":{"time_left_ms":300000,"increment_ms":3000},"black_time_control":{"time_left_ms":300000,"increment_ms":3000},"use_matchmaking_pool":false,"player_requests_white":true,"requestor_client_uuid":"rw26m6gg3aog19lknlnflb"}}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+Content-Length: 238
+Content-Type: application/json
+Host: 151.205.184.130:8080
+Origin: http://192.168.1.12:3000
+Referer: http://192.168.1.12:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 60597
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-03 00:59:13.446] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"game_instance_uuid":"332e3720707b4ceb0186fbc589c7defa"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 57
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:59:13.556] [multi_sink] [debug] client uuid rw26m6gg3aog19lknlnflb is already being used on game instance 332e3720707b4ceb0186fbc589c7defa
+[2022-02-03 00:59:25.790] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://192.168.1.12:3000
+Referer: http://192.168.1.12:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 44522
+User-Agent: Mozilla/5.0 (Linux; Android 12; Pixel 4a (5G) Build/SQ1A.211205.008; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36 [FB_IAB/Orca-Android;FBAV/345.1.0.12.117;]
+X-Requested-With: com.facebook.orca
+
+[2022-02-03 00:59:25.790] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:59:35.955] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://192.168.1.12:3000
+Referer: http://192.168.1.12:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 44534
+User-Agent: Mozilla/5.0 (Linux; Android 12; Pixel 4a (5G)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.98 Mobile Safari/537.36
+
+[2022-02-03 00:59:35.955] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 00:59:42.100] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7
+Connection: keep-alive
+Host: 151.205.184.130:8080
+Origin: http://192.168.1.12:3000
+Referer: http://192.168.1.12:3000/
+REMOTE_ADDR: 151.205.184.130
+REMOTE_PORT: 44554
+User-Agent: Mozilla/5.0 (Linux; Android 12; Pixel 4a (5G)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.98 Mobile Safari/537.36
+
+[2022-02-03 00:59:42.100] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 02:03:47.346] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: */*
+Accept-Encoding: gzip
+Host: 151.205.184.130:8080
+REMOTE_ADDR: 192.241.212.215
+REMOTE_PORT: 37640
+User-Agent: Mozilla/5.0 zgrab/0.x
+
+[2022-02-03 02:03:47.346] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 02:17:34.280] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: en-GB,en;q=0.5
+Connection: close
+Host: 151.205.184.130:8080
+REMOTE_ADDR: 62.171.132.199
+REMOTE_PORT: 53508
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0
+
+[2022-02-03 02:17:34.280] [multi_sink] [debug] === RESPONSE === 
+body: {{{}}}
+headers: 
+Access-Control-Allow-Origin: *
+Connection: close
+Content-Length: 0
+
+[2022-02-03 02:26:57.256] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Content-Length: 0
+Host: 151.205.184.130:8080
+REMOTE_ADDR: 223.25.103.42
+REMOTE_PORT: 32957
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36
+
+[2022-02-03 02:26:57.257] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-03 02:50:21.103] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Connection: close
+Host: 151.205.184.130:8080
+REMOTE_ADDR: 178.32.197.84
+REMOTE_PORT: 36025
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0
+
+[2022-02-03 02:50:21.103] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Connection: close
+Content-Length: 42
+Content-Type: application/json
+
+[2022-02-03 03:35:47.898] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Connection: close
+Host: 151.205.184.130:8080
+REMOTE_ADDR: 62.210.5.253
+REMOTE_PORT: 37831
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0
+
+[2022-02-03 03:35:47.899] [multi_sink] [debug] === RESPONSE === 
+body: {{{}}}
+headers: 
+Access-Control-Allow-Origin: *
+Connection: close
+Content-Length: 0
+
+[2022-02-03 03:41:57.242] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: */*
+Accept-Encoding: gzip
+Host: 151.205.184.130:8080
+REMOTE_ADDR: 128.14.134.170
+REMOTE_PORT: 60636
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+
+[2022-02-03 03:41:57.243] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
 Content-Type: application/json
 Keep-Alive: timeout=5, max=5
 

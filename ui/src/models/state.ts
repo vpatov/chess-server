@@ -6,13 +6,17 @@ import {
   PositionInfo,
 } from "./position";
 
+export declare type MoveMap = Map<number, Map<number,string>>;
+
 export declare interface State {
   selectedSquare: number | undefined;
   possibleDestinationSquares: Set<number>;
   positionInfo: PositionInfo;
   legalMoves: Array<LANMove>;
-  legalMoveMap: Map<number, Set<number>>;
+  legalMoveMap: MoveMap;
   clientUUID: string;
+  gameInstanceUUID: string;
+  currentTurnClientUUID: string;
 }
 
 export function getCleanState(): State {
@@ -24,5 +28,7 @@ export function getCleanState(): State {
     legalMoves: legalMoves,
     legalMoveMap: calculateLegalMoveMap(legalMoves),
     clientUUID: '',
+    gameInstanceUUID: '',
+    currentTurnClientUUID: '',
   };
 }

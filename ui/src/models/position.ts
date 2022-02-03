@@ -4,6 +4,7 @@ import { PieceType } from "./piece";
 
 export declare interface PositionInfo {
   board: PieceType[][];
+  fen_string: string;
   en_passant_square: number;
   move_number: number;
   moves_since_pawn_move_or_capture: number;
@@ -42,6 +43,7 @@ export function getStartingPositionLegalMoves(): Array<LanMove> {
 export function getStartingPosition(): PositionInfo {
   return {
     en_passant_square: 0,
+    fen_string: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
     move_number: 1,
     moves_since_pawn_move_or_capture: 0,
     whites_turn: true,

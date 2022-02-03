@@ -2,6 +2,7 @@ import { assert } from "console";
 import { CHESS_SERVER_HOST, CLIENT_UUID_KEY, WS_SERVER_PORT } from "../models/constants";
 import { ClientUUID, GameInstanceUUID } from "../models/uuid";
 import queryString, { ParsedQuery } from 'query-string';
+import { LANMove } from "../models/fen";
 
 
 
@@ -25,6 +26,9 @@ export class WsServer {
             query: { clientUUID, gameInstanceUUID }
         };
 
+        if (this.ws?.OPEN){
+            return true;
+        }
         WsServer.ws = new WebSocket(queryString.stringifyUrl(wsURI), []);
         WsServer.ws.onmessage = WsServer.onGameMessage;
         // WsServer.ws.onclose = WsServer.onWSClose;
@@ -49,5 +53,14 @@ export class WsServer {
         } else {
             WsServer.subscriptions[key] = [onMessage];
         }
+    }
+
+    static makeMove(gameInstanceUUID: string, lanMove: LANMove){
+        if (!(gameInstanceUUID.length > 1 && lanMove.length > 1)){
+            console.assert(false);
+            console.log("gameInstanceUUID is empty");
+            return;
+        }
+        this.ws.send(JSON.stringify({gameInstanceUUID, lanMove}));
     }
 }

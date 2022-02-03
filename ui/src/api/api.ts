@@ -38,6 +38,8 @@ export const create_game = (request: CreateGameRequest, onSuccess: any, onError:
   return api.post(url, request).then(onSuccess).catch(onError);
 };
 
+
+
 // export function create_game(request: CreateGameRequest) {
 //   axios.post(`${server_url}/create_game`, request)
 //     .then((response) => { })

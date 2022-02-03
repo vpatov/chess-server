@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router";
+import { useParams  } from "react-router";
 import { WsServer } from "../api/ws";
 import { ActionType, Action, ServerGameStateUpdatePayload } from "../models/actions";
 import { GameInstanceUUID } from "../models/uuid";
@@ -29,6 +29,9 @@ function Game() {
             }
 
         };
+
+        const action: Action = {type:ActionType.REDIRECT_TO_GAME_INSTANCE, gameInstanceUUID};
+        dispatch(action);
 
         const succ = WsServer.openWs(gameInstanceUUID as GameInstanceUUID);
         if (succ) {
