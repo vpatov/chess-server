@@ -29,8 +29,8 @@ public:
 
     std::string create_game_instance(CreateGameRequest request) {
         auto game_instance = std::make_shared<GameInstance>();
-        game_instance->position = fen_to_position(
-            "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4");
+        // game_instance->position = fen_to_position(
+        //     "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4");
         while (m_game_instances.find(game_instance->uuid) !=
                m_game_instances.end()) {
             game_instance->uuid = generate_uuid();
