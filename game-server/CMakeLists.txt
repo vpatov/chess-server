@@ -19,6 +19,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 
 
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Q")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable -Wno-unused-parameter")
 
 ## Flags
 if (CMAKE_COMPILER_IS_GNUCC)

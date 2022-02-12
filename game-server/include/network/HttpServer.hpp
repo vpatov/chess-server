@@ -4,7 +4,7 @@
 #include "logger/logger.hpp"
 #include "managers/GameInstanceManager.hpp"
 #include "managers/UserManager.hpp"
-#include "models/create_game_request.hpp"
+#include "models/api.hpp"
 #include "util.hpp"
 
 const char *const JSON_CONTENT_TYPE = "application/json";

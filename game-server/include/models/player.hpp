@@ -4,7 +4,7 @@
 class Player
 {
 public:
-    long user_id;
+    bool white;
     std::string client_uuid;
     TimeControl time_control;
 };
