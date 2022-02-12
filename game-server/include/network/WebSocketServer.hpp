@@ -60,6 +60,7 @@ public:
     m_server.set_fail_handler(bind(&WebSocketServer::on_fail, this, ::_1));
     m_server.set_message_handler(
         bind(&WebSocketServer::on_message, this, ::_1, ::_2));
+
   }
 
   std::thread run() {
@@ -118,6 +119,8 @@ public:
   }
 
   void on_close(connection_hdl hdl) {
+    ClientConnectionInfo ccinfo = m_connection_client_uuid_map[hdl];
+    m_game_instance_manager->remove_connection_handle(ccinfo.game_instance_uuid, hdl);
     m_connection_client_uuid_map.erase(hdl);
   }
 
@@ -126,6 +129,7 @@ public:
   }
 
   void on_message(connection_hdl hdl, message_ptr msg) {
+    try{
     json body = json::parse(msg->get_payload());
     ClientConnectionInfo ccinfo = m_connection_client_uuid_map[hdl];
     WsAction ws_action(body["type"].get<ActionType>(), body["payload"].get<std::string>());
@@ -141,7 +145,17 @@ public:
 
     // broadcast to connections of that game
     for (auto it : *(m_game_instance_manager->get_connections(ccinfo.game_instance_uuid))) {
+      // TODO this is sending to clients it shouldnt be right now
       m_server.send(it, state, websocketpp::frame::opcode::TEXT);
+    }
+    }
+    catch (websocketpp::exception const &e)
+    {
+        std::cout << "on_message: websocketpp::exception: " << e.what() << std::endl;
+    }
+    catch (std::invalid_argument const &e)
+    {
+        std::cout << "invalid_argument in on_message: " << e.what() << std::endl;
     }
   }
 

@@ -127,6 +127,10 @@ public:
         return !white_player->client_uuid.empty() && !black_player->client_uuid.empty();
     }
 
+    void remove_connection(connection_hdl hdl){
+        connections.erase(hdl);
+    }
+
 
     void add_connection(connection_hdl hdl) {
         connections.insert(hdl);

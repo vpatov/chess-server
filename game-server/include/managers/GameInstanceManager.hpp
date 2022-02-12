@@ -133,6 +133,11 @@ public:
         game_instance->add_connection(hdl);
     }
 
+    void remove_connection_handle(std::string game_instance_uuid, connection_hdl hdl){
+        auto game_instance = get_game_instance(game_instance_uuid);
+        game_instance->remove_connection(hdl);
+    }
+
 
     auto get_connections(std::string game_instance_uuid){
         auto game_instance = get_game_instance(game_instance_uuid);
