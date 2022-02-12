@@ -32,7 +32,7 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
 
       else if (state.possibleDestinationSquares.has(payload.selectedSquare)){
         const lanMove = state.legalMoveMap.get(state.selectedSquare!)?.get(payload.selectedSquare);
-        WsServer.makeMove(state.gameInstanceUUID, lanMove!);
+        WsServer.makeMove(lanMove!);
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
       }

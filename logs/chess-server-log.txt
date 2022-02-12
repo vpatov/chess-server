@@ -1,1 +1,80 @@
-[2022-02-02 13:35:45.898] [multi_sink] [info] Logger initialized.
+[2022-02-11 18:56:33.406] [multi_sink] [info] Logger initialized.
+[2022-02-11 18:56:41.769] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: no-cache
+Connection: keep-alive
+Host: 192.168.0.128:8080
+Origin: http://localhost:3000
+Pragma: no-cache
+Referer: http://localhost:3000/
+REMOTE_ADDR: 192.168.0.116
+REMOTE_PORT: 65451
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-11 18:56:41.769] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"name":"chess_server","status":"healthy"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 42
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-11 18:56:43.166] [multi_sink] [debug] === REQUEST === 
+body: {{{}}}
+headers: 
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Access-Control-Request-Headers: content-type
+Access-Control-Request-Method: POST
+Cache-Control: no-cache
+Connection: keep-alive
+Host: 192.168.0.128:8080
+Origin: http://localhost:3000
+Pragma: no-cache
+Referer: http://localhost:3000/
+REMOTE_ADDR: 192.168.0.116
+REMOTE_PORT: 65451
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-11 18:56:43.166] [multi_sink] [debug] === RESPONSE === 
+body: {{{}}}
+headers: 
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: OPTIONS,POST,GET
+Access-Control-Allow-Origin: *
+Content-Length: 0
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-11 18:56:43.217] [multi_sink] [debug] === REQUEST === 
+body: {{{{"white_time_control":{"time_left_ms":300000,"increment_ms":3000},"black_time_control":{"time_left_ms":300000,"increment_ms":3000},"use_matchmaking_pool":false,"player_requests_white":true,"requestor_client_uuid":"3uekqdca9jkq2ateoswpy"}}}}
+headers: 
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 237
+Content-Type: application/json
+Host: 192.168.0.128:8080
+Origin: http://localhost:3000
+Pragma: no-cache
+Referer: http://localhost:3000/
+REMOTE_ADDR: 192.168.0.116
+REMOTE_PORT: 65451
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
+
+[2022-02-11 18:56:43.217] [multi_sink] [debug] === RESPONSE === 
+body: {{{{"game_instance_uuid":"2a87284adcc7050f1ccf831cb52b0d0b"}}}}
+headers: 
+Access-Control-Allow-Origin: *
+Content-Length: 57
+Content-Type: application/json
+Keep-Alive: timeout=5, max=5
+
+[2022-02-11 18:56:43.264] [multi_sink] [debug] client uuid 3uekqdca9jkq2ateoswpy is already being used on game instance 2a87284adcc7050f1ccf831cb52b0d0b
