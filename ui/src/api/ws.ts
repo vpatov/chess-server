@@ -37,9 +37,11 @@ export class WsServer {
             query: { clientUUID, gameInstanceUUID }
         };
 
-        if (this.ws?.OPEN){
-            return true;
-        }
+        // if (this.ws?.OPEN){
+        //     return true;
+        // }
+        // TODO write some sort of logic that tries to assert that the incoming game state updates
+        // are only ever for the current game instance, to help with debugging.
         WsServer.ws = new WebSocket(queryString.stringifyUrl(wsURI), []);
         WsServer.ws.onmessage = WsServer.onGameMessage;
         // WsServer.ws.onclose = WsServer.onWSClose;

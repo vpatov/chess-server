@@ -1,10 +1,24 @@
 import './GameSidebar.css';
+import { useHistory } from "react-router-dom";
+function GameSidebar() {
+    const history = useHistory();
 
-function GameSidebar(){
+    const routeChange = () => {
+        history.push('/');
+    }
     return (
-        <div className="game-sidebar-container">
-            GameSidebar
-        </div>
+        <>
+
+            <div className="game-sidebar-container">
+
+                <div>
+                    <button onClick={routeChange}>
+                        Home
+                    </button>
+                </div>
+            </div>
+        </>
+
     );
 
 }

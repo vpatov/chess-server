@@ -19,18 +19,6 @@ function App() {
 
 
   useEffect(() => {
-    const localStorageClientUUID = window.localStorage.getItem(CLIENT_UUID_KEY);
-    if (!localStorageClientUUID) {
-      const clientUUID = generateUUID();
-      window.localStorage.setItem(CLIENT_UUID_KEY, clientUUID);
-      const action: Action =  {type: ActionType.SET_CLIENT_UUID, clientUUID: clientUUID };
-      dispatch(action);
-    }
-    else {
-      const action: Action =  {type: ActionType.SET_CLIENT_UUID, clientUUID: localStorageClientUUID };
-      dispatch(action);
-    }
-
     get_status();
   });
 
