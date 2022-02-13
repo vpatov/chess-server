@@ -35,10 +35,10 @@ generate_pseudolegal_pawn_moves(std::shared_ptr<Position> position,
         // if this square is the last rank, then we must promote
         if (IN_LAST_PAWN_RANK_C(C, candidate_square))
         {
-            moves.push_back(pack_move_key(src_square, candidate_square, QUEEN_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, BISHOP_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, KNIGHT_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, ROOK_C(C)));
+            moves.push_back(pack_move_key(src_square, candidate_square, QUEEN));
+            moves.push_back(pack_move_key(src_square, candidate_square, BISHOP));
+            moves.push_back(pack_move_key(src_square, candidate_square, KNIGHT));
+            moves.push_back(pack_move_key(src_square, candidate_square, ROOK));
         }
         // otherwise just move to that rank
         else
@@ -64,10 +64,10 @@ generate_pseudolegal_pawn_moves(std::shared_ptr<Position> position,
         // if this square is the last rank, then we must promote
         if (IN_LAST_PAWN_RANK_C(C, candidate_square))
         {
-            moves.push_back(pack_move_key(src_square, candidate_square, QUEEN_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, BISHOP_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, KNIGHT_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, ROOK_C(C)));
+            moves.push_back(pack_move_key(src_square, candidate_square, QUEEN));
+            moves.push_back(pack_move_key(src_square, candidate_square, BISHOP));
+            moves.push_back(pack_move_key(src_square, candidate_square, KNIGHT));
+            moves.push_back(pack_move_key(src_square, candidate_square, ROOK));
         }
         else
         {
@@ -82,10 +82,10 @@ generate_pseudolegal_pawn_moves(std::shared_ptr<Position> position,
         // if this square is the last rank, then we must promote
         if (IN_LAST_PAWN_RANK_C(C, candidate_square))
         {
-            moves.push_back(pack_move_key(src_square, candidate_square, QUEEN_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, BISHOP_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, KNIGHT_C(C)));
-            moves.push_back(pack_move_key(src_square, candidate_square, ROOK_C(C)));
+            moves.push_back(pack_move_key(src_square, candidate_square, QUEEN));
+            moves.push_back(pack_move_key(src_square, candidate_square, BISHOP));
+            moves.push_back(pack_move_key(src_square, candidate_square, KNIGHT));
+            moves.push_back(pack_move_key(src_square, candidate_square, ROOK));
         }
         else
         {

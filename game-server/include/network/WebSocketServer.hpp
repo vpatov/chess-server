@@ -143,7 +143,7 @@ public:
   }
 
   void on_message(connection_hdl hdl, message_ptr msg) {
-    std::cout << "incoming message: \n" << msg->get_payload() << std::endl;
+    std::cout << "incoming message: \n" << ColorCode::blue << msg->get_payload() << ColorCode::end << std::endl;
     try {
       json body = json::parse(msg->get_payload());
       ClientConnectionInfo ccinfo = m_connection_client_uuid_map[hdl];
@@ -171,14 +171,14 @@ public:
     }
     catch (websocketpp::exception const& e)
     {
-      std::cout << "on_message: websocketpp::exception: " << e.what() << std::endl;
+      std::cout << ColorCode::red << "on_message: websocketpp::exception: " << e.what() << ColorCode::end << std::endl;
     }
     catch (std::invalid_argument const& e)
     {
-      std::cout << "invalid_argument in on_message: " << e.what() << std::endl;
+      std::cout << ColorCode::red << "invalid_argument in on_message: " << e.what() << ColorCode::end<< std::endl;
     }
     catch (json::exception const &e){
-      std::cout << "json exception in on_message: " << e.what() << std::endl;
+      std::cout << ColorCode::red << "json exception in on_message: " << e.what() << ColorCode::end << std::endl;
     }
   }
 

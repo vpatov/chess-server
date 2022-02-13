@@ -1,6 +1,7 @@
 #pragma once
 
 #include "logger/logger.hpp"
+#include "util.hpp"
 #include "models/api.hpp"
 #include "models/game_instance.hpp"
 #include "GameInstanceManager.hpp"
@@ -68,9 +69,20 @@ public:
                 std::string lan_move = ws_action.payload;
                 MoveKey movekey = lan_to_movekey(lan_move);
                 auto moves = get_all_moves(game_instance->position);
+
+                // debugging code
+                std::cout << ColorCode::purple << "movekey: " << movekey
+                    << ", lanmove: " << lan_move << ColorCode::end << std::endl;
+                std::cout << ColorCode::green << "printout of all lan moves" << std::endl;
+                for (auto it = moves.begin(); it != moves.end(); it++) {
+                    std::cout << *it << ": " << movekey_to_lan(*it) << " ";
+                }
+                std::cout << ColorCode::end << std::endl;
+                // end debugging code
+
                 auto it = std::find(moves.begin(), moves.end(), movekey);
                 if (it == moves.end()) {
-                    throw std::invalid_argument(std::string() + "Move " + lan_move + " is not a legal move.");
+                    throw std::invalid_argument(std::string() + "ValidationService: Move " + lan_move + " is not a legal move.");
                 }
 
                 break;
