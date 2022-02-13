@@ -6,7 +6,7 @@ import {
   PositionInfo,
 } from "./position";
 
-export declare type MoveMap = Map<number, Map<number,string>>;
+export declare type MoveMap = Map<number, Map<number,string[]>>;
 
 export declare interface State {
   selectedSquare: number | undefined;
@@ -18,6 +18,7 @@ export declare interface State {
   gameInstanceUUID: string;
   currentTurnClientUUID: string;
   clientPlayingWhite: boolean;
+  // promotionChoice: number | undefined;
 }
 
 export function getCleanState(): State {
@@ -31,6 +32,7 @@ export function getCleanState(): State {
     clientUUID: '',
     gameInstanceUUID: '',
     currentTurnClientUUID: '',
-    clientPlayingWhite: true
+    clientPlayingWhite: true,
+    // promotionChoice: undefined
   };
 }

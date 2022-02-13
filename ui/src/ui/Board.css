@@ -29,6 +29,15 @@
   flex-direction: row;
 }
 
+.promotion-choice {
+  background: rgba(22,21,18,0.7);
+  z-index: 205;
+  position: absolute;
+  width: var(--cg-width, 100%);
+  height: var(--cg-height, 100%);
+  right: 0;
+}
+
 .board {
   border: solid black 2px;
   /* max-width: 100vh;

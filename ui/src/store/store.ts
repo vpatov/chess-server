@@ -22,22 +22,40 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
       if (state.selectedSquare === payload.selectedSquare){
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
+        // result.promotionChoice = undefined;
       }
 
       // if the piece on this square can move right now
       else if (state.legalMoveMap.has(payload.selectedSquare)) {
+        // result.promotionChoice = undefined;
         result.selectedSquare = payload.selectedSquare;
         result.possibleDestinationSquares = new Set(state.legalMoveMap.get(payload.selectedSquare)?.keys());
       }
 
       else if (state.possibleDestinationSquares.has(payload.selectedSquare)){
-        const lanMove = state.legalMoveMap.get(state.selectedSquare!)?.get(payload.selectedSquare);
-        WsServer.makeMove(lanMove!);
+        const lanMoves = state.legalMoveMap.get(state.selectedSquare!)?.get(payload.selectedSquare);
+
+        if (!lanMoves){
+          throw Error ("Impossible error in SELECT_SQUARE");
+        }
+
+        // if there is more than one move from src_sq to dst_sq its a promotion move
+        var lanMove: string;
+        if (lanMoves.length > 1){
+          console.assert(lanMoves!.length == 4); 
+          // just auto queen for now, until I implement a proper piece selector
+          lanMove = lanMoves?.filter((move) => move.includes('Q'))[0]; 
+        }
+        else {
+          lanMove = lanMoves![0];
+        }
+        WsServer.makeMove(lanMove);
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
       }
 
       else {
+        // result.promotionChoice = undefined;
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
       }
