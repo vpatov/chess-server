@@ -68,7 +68,7 @@ public:
         return string_list_all_moves(game_instance->position);
     }
 
-    std::string get_game_state_json(std::string game_instance_uuid) {
+    json get_game_state_json(std::string game_instance_uuid) {
         auto game_instance = get_game_instance(game_instance_uuid);
         return game_instance->get_json();
     }
@@ -142,6 +142,11 @@ public:
     auto get_connections(std::string game_instance_uuid){
         auto game_instance = get_game_instance(game_instance_uuid);
         return &(game_instance->connections);
+    }
+
+    std::shared_ptr<Player> get_player(std::string client_uuid, std::string game_instance_uuid){
+        auto game_instance = get_game_instance(game_instance_uuid);
+        return game_instance->get_player(client_uuid);
     }
 
     // TODO create_game_instance should call this method, and this method should accept the player color as a parameter.

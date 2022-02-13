@@ -17,6 +17,7 @@ export declare interface State {
   clientUUID: string;
   gameInstanceUUID: string;
   currentTurnClientUUID: string;
+  clientPlayingWhite: boolean;
 }
 
 export function getCleanState(): State {
@@ -30,5 +31,6 @@ export function getCleanState(): State {
     clientUUID: '',
     gameInstanceUUID: '',
     currentTurnClientUUID: '',
+    clientPlayingWhite: true
   };
 }

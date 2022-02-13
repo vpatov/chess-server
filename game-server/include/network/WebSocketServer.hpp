@@ -46,13 +46,14 @@ private:
 
 public:
   WebSocketServer(std::shared_ptr<GameInstanceManager> game_instance_manager,
-   std::shared_ptr<ValidationService> validation_service, 
+   std::shared_ptr<ValidationService> validation_service,
    std::shared_ptr<MessageProcessor> message_processor)
     : m_game_instance_manager(game_instance_manager),
     m_validation_service(validation_service),
     m_message_processor(message_processor) {
-    m_server.set_access_channels(websocketpp::log::alevel::all);
-    m_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
+    // m_server.set_access_channels(websocketpp::log::alevel::all);
+    // m_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
+    m_server.set_reuse_addr(true);
     m_server.init_asio();
 
     m_server.set_open_handler(bind(&WebSocketServer::on_open, this, ::_1));
@@ -73,6 +74,7 @@ public:
     });
     return t;
   }
+
 
 
   // TODO set exception handler so that gameInstance=1234 doesnt crash app
@@ -102,14 +104,26 @@ public:
         throw std::invalid_argument("clientUUID and gameInstanceUUID must be provided in the WS connection query params.");
       }
 
-
       m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
+      auto player = m_game_instance_manager->get_player(client_uuid, game_instance_uuid);
+
       m_game_instance_manager->start_game(game_instance_uuid); // TODO remove this line
       m_connection_client_uuid_map[hdl] = ClientConnectionInfo(client_uuid, game_instance_uuid);
       m_game_instance_manager->add_connection_handle(game_instance_uuid, hdl);
 
+      json game_init_message = {
+        {"messageType", messageTypeString[ServerMessageType::GAME_INIT]}, {"payload", {{"client_playing_white", player->white}}}
+      };
       m_server.send(hdl,
-        m_game_instance_manager->get_game_state_json(game_instance_uuid),
+        game_init_message.dump(),
+        websocketpp::frame::opcode::TEXT);
+
+      json game_state_update_message = {
+        {"messageType", messageTypeString[ServerMessageType::GAME_STATE_UPDATE]}, 
+        {"payload", m_game_instance_manager->get_game_state_json(game_instance_uuid)}
+      };
+      m_server.send(hdl,
+        game_state_update_message.dump(),
         websocketpp::frame::opcode::TEXT);
     }
     catch (const std::exception& e) {
@@ -129,33 +143,42 @@ public:
   }
 
   void on_message(connection_hdl hdl, message_ptr msg) {
-    try{
-    json body = json::parse(msg->get_payload());
-    ClientConnectionInfo ccinfo = m_connection_client_uuid_map[hdl];
-    WsAction ws_action(body["type"].get<ActionType>(), body["payload"].get<std::string>());
+    std::cout << "incoming message: \n" << msg->get_payload() << std::endl;
+    try {
+      json body = json::parse(msg->get_payload());
+      ClientConnectionInfo ccinfo = m_connection_client_uuid_map[hdl];
+      ClientWsMessage ws_action(body["type"].get<ActionType>(), body["payload"].get<std::string>());
 
-    // throws for now, but in the future should return an error object instead
-    m_validation_service->validate_ws_action(ccinfo, ws_action);
+      // throws for now, but in the future should return an error object instead
+      m_validation_service->validate_ws_action(ccinfo, ws_action);
 
-    // update (mutate) game state
-    m_message_processor->process_message(ccinfo, ws_action);
+      // update (mutate) game state
+      m_message_processor->process_message(ccinfo, ws_action);
 
-    // retrive updated state
-    auto state = m_game_instance_manager->get_game_state_json(ccinfo.game_instance_uuid);
+      // retrive updated state
+      json game_state_update_message = {
+        {"messageType", messageTypeString[ServerMessageType::GAME_STATE_UPDATE]}, 
+        {"payload", m_game_instance_manager->get_game_state_json(ccinfo.game_instance_uuid)}
+      };
 
-    // broadcast to connections of that game
-    for (auto it : *(m_game_instance_manager->get_connections(ccinfo.game_instance_uuid))) {
-      // TODO this is sending to clients it shouldnt be right now
-      m_server.send(it, state, websocketpp::frame::opcode::TEXT);
+      // broadcast to connections of that game
+      for (auto it : *(m_game_instance_manager->get_connections(ccinfo.game_instance_uuid))) {
+        // TODO if this tries to send to a dead connection, it throws an exception
+        // can surround just this in a specific try block, and remove failing connection handles from
+        // the map.
+        m_server.send(it, game_state_update_message.dump(), websocketpp::frame::opcode::TEXT);
+      }
     }
-    }
-    catch (websocketpp::exception const &e)
+    catch (websocketpp::exception const& e)
     {
-        std::cout << "on_message: websocketpp::exception: " << e.what() << std::endl;
+      std::cout << "on_message: websocketpp::exception: " << e.what() << std::endl;
     }
-    catch (std::invalid_argument const &e)
+    catch (std::invalid_argument const& e)
     {
-        std::cout << "invalid_argument in on_message: " << e.what() << std::endl;
+      std::cout << "invalid_argument in on_message: " << e.what() << std::endl;
+    }
+    catch (json::exception const &e){
+      std::cout << "json exception in on_message: " << e.what() << std::endl;
     }
   }
 

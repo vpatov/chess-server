@@ -11,11 +11,31 @@ enum ActionType {
   DECLINE_DRAW_OFFER
 };
 
-struct WsAction {
+enum ServerMessageType {
+  GAME_STATE_UPDATE,
+  GAME_INIT
+};
+
+const std::string messageTypeString[] = {
+  "GAME_STATE_UPDATE",
+  "GAME_INIT"
+};
+
+struct GameInitPayload {
+  bool client_playing_white;
+  // time control info
+};
+
+struct ServerWsMessage {
+  ServerMessageType message_type;
+  std::string payload;
+};
+
+struct ClientWsMessage {
     ActionType type;
     std::string payload;
 
-    WsAction(ActionType type, std::string payload) : type(type), payload(payload) {}
+    ClientWsMessage(ActionType type, std::string payload) : type(type), payload(payload) {}
 };
 
 struct CreateGameRequest {

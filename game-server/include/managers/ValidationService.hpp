@@ -23,7 +23,7 @@ public:
     ValidationService(std::shared_ptr<GameInstanceManager> game_instance_manager)
         : m_game_instance_manager(game_instance_manager) {}
 
-    void validate_ws_action(ClientConnectionInfo ccinfo, WsAction ws_action) {
+    void validate_ws_action(ClientConnectionInfo ccinfo, ClientWsMessage ws_action) {
 
         auto game_instance = m_game_instance_manager->get_game_instance(ccinfo.game_instance_uuid);
         auto state = game_instance->get_game_state();

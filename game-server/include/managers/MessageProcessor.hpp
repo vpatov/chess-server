@@ -13,19 +13,19 @@ public:
         : m_game_instance_manager(game_instance_manager) {}
 
 
-    void process_message(ClientConnectionInfo ccinfo, WsAction ws_action) {
+    void process_message(ClientConnectionInfo ccinfo, ClientWsMessage message) {
         // assuming message is legal, execute action
 
         auto game_instance = m_game_instance_manager->get_game_instance(ccinfo.game_instance_uuid);
         auto acting_player = game_instance->get_player(ccinfo.client_uuid);
 
-        switch (ws_action.type) {
+        switch (message.type) {
         case START_GAME: {
                 game_instance->start_game();
                 break;
             }
         case MAKE_MOVE: {
-                std::string lan_move = ws_action.payload;
+                std::string lan_move = message.payload;
                 game_instance->make_move(lan_move);
                 break;
             }
@@ -53,7 +53,7 @@ public:
                 break;
             }
         default: {
-                throw std::invalid_argument("Unrecognized ActionType " + ws_action.type);
+                throw std::invalid_argument("Unrecognized ActionType " + message.type);
             }
 
         }

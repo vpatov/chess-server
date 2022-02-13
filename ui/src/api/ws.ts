@@ -3,6 +3,7 @@ import { CHESS_SERVER_HOST, CLIENT_UUID_KEY, WS_SERVER_PORT } from "../models/co
 import { ClientUUID, GameInstanceUUID } from "../models/uuid";
 import queryString, { ParsedQuery } from 'query-string';
 import { LANMove } from "../models/fen";
+import { ServerWsMessageType } from "../models/actions";
 
 export const enum ActionType {
     START_GAME = 0, 
@@ -23,7 +24,7 @@ export declare interface WsAction {
 export class WsServer {
     static clientUUID: ClientUUID | null = null;
     static ws: WebSocket;
-    static subscriptions: { [key: string]: Array<Function> } = {};
+    static subscriptions: { [key: string]: Function } = {};
     static timeLastSentMsg: number;
 
     static openWs(gameInstanceUUID: GameInstanceUUID) {
@@ -43,29 +44,26 @@ export class WsServer {
         // TODO write some sort of logic that tries to assert that the incoming game state updates
         // are only ever for the current game instance, to help with debugging.
         WsServer.ws = new WebSocket(queryString.stringifyUrl(wsURI), []);
-        WsServer.ws.onmessage = WsServer.onGameMessage;
+        WsServer.ws.onmessage = WsServer.onServerMessage;
         // WsServer.ws.onclose = WsServer.onWSClose;
         return true;
     }
 
-    private static onGameMessage(msg: MessageEvent) {
-        const jsonData = JSON.parse(msg.data);
-        console.log(jsonData);
-        Object.keys(WsServer.subscriptions).forEach((key) => {
-            // TODO this isn't generalized rn, its hardcoded
-            WsServer.subscriptions['serverGameStateUpdate'].forEach((func) => func(jsonData));
-            // if (jsonData[key]) {
-            //     WsServer.subscriptions[key].forEach((func) => func(jsonData[key]));
-            // }
-        });
+    private static onServerMessage(msg: MessageEvent) {
+        const message = JSON.parse(msg.data);
+        const messageType = message["messageType"];
+
+        console.log(message);
+
+        const subscriptionFn = WsServer.subscriptions[messageType];
+        if (!subscriptionFn){
+            throw Error(`Received unknown messageType: ${messageType}`);
+        }
+        subscriptionFn(message["payload"]);
     }
 
-    static subscribe(key: string, onMessage: Function) {
-        if (WsServer.subscriptions[key]) {
-            WsServer.subscriptions[key].push(onMessage);
-        } else {
-            WsServer.subscriptions[key] = [onMessage];
-        }
+    static subscribe(key: ServerWsMessageType, onMessage: Function) {
+            WsServer.subscriptions[key] = onMessage;
     }
 
     static sendMessage(wsAction: WsAction){

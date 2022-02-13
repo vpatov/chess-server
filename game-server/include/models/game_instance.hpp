@@ -168,7 +168,7 @@ public:
         end_game();
     }
 
-    std::string get_json() {
+    json get_json() {
         json game_state = {
             {"fen", position_to_fen(position)},
             {"legal_moves", string_list_all_moves(position)},
@@ -177,6 +177,6 @@ public:
                 ? white_player->client_uuid
                 : black_player->client_uuid}
         };
-        return game_state.dump();
+        return game_state;
     }
 };

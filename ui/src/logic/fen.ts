@@ -36,6 +36,7 @@ export function isValidFen(fen: FenString): boolean {
   return (matches?.length || 0) > 0;
 }
 
+
 export function fenToPosition(fen: FenString): PositionInfo {
   const board = [];
   const fenComponents = fen.split(" ");

@@ -65,13 +65,28 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
 
       const legalMoveMap = calculateLegalMoveMap(update.legal_moves);
 
+      const positionInfo = fenToPosition(update.fen);
+
+
       return {
         ...state,
-        positionInfo: fenToPosition(update.fen),
+        positionInfo: positionInfo,
         legalMoves: update.legal_moves,
         legalMoveMap: legalMoveMap,
         currentTurnClientUUID: update.currentTurnClientUUID
       }
+    }
+
+    case ActionType.SERVER_GAME_STATE_INIT: {
+      const payload = action.serverGameInitPayload;
+      if (payload?.client_playing_white === undefined){
+        console.log(payload);
+        throw Error("client_playing_white needs to be present on the ServerGameStateInit payload.");
+      }
+      return {
+        ...state,
+        clientPlayingWhite: payload.client_playing_white
+      };
     }
 
     // TODO UI needs gameInstanceUUID at all times when in the game.
