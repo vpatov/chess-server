@@ -27,6 +27,7 @@ public:
         case MAKE_MOVE: {
                 std::string lan_move = message.payload;
                 game_instance->make_move(lan_move);
+                game_instance->check_apply_game_over_condition();
                 break;
             }
         case RESIGN: {

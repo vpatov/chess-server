@@ -85,13 +85,13 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
 
       const positionInfo = fenToPosition(update.fen);
 
-
       return {
         ...state,
         positionInfo: positionInfo,
         legalMoves: update.legal_moves,
         legalMoveMap: legalMoveMap,
-        currentTurnClientUUID: update.currentTurnClientUUID
+        currentTurnClientUUID: update.currentTurnClientUUID,
+        gameResult: update.result
       }
     }
 

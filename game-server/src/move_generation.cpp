@@ -342,6 +342,8 @@ generate_pseudolegal_piece_moves(std::shared_ptr<Position> position,
                : generate_pseudolegal_piece_moves<Color::BLACK>(position, src_square);
 }
 
+
+
 std::vector<MoveKey> get_all_moves(std::shared_ptr<Position> position)
 {
     Color c = position->m_whites_turn ? Color::WHITE : Color::BLACK;

@@ -1,4 +1,5 @@
 import { calculateLegalMoveMap } from "../logic/position";
+import { GameResult } from "./actions";
 import { LANMove } from "./fen";
 import {
   getStartingPosition,
@@ -18,6 +19,7 @@ export declare interface State {
   gameInstanceUUID: string;
   currentTurnClientUUID: string;
   clientPlayingWhite: boolean;
+  gameResult: GameResult | undefined;
   // promotionChoice: number | undefined;
 }
 
@@ -33,6 +35,7 @@ export function getCleanState(): State {
     gameInstanceUUID: '',
     currentTurnClientUUID: '',
     clientPlayingWhite: true,
+    gameResult: undefined
     // promotionChoice: undefined
   };
 }

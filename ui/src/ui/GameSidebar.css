@@ -5,3 +5,13 @@
     margin: 5vw;
     font-family: 'Courier New', Courier, monospace;
 }
+
+.game-result-label {
+    margin-top: 50px;
+    font-size: 20px;
+    color: red;
+}
+
+.game-sidebar-home-button {
+    margin-top: 20px;
+}

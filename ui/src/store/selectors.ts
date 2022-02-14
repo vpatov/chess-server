@@ -1,3 +1,4 @@
+import { GameResult } from "../models/actions";
 import { PositionInfo } from "../models/position";
 import { State } from "../models/state";
 
@@ -6,6 +7,9 @@ export const possibleDestinationSquaresSelector = (state: State): Set<number> =>
   state.possibleDestinationSquares;
 // export const promotionChoiceSelector = (state: State): number | undefined =>
 //   state.promotionChoice;
+
+export const gameResultSelector = (state: State): GameResult | undefined =>
+  state.gameResult;
 export const selectedSquareSelector = (state: State): number | undefined =>
   state.selectedSquare;
 export const fenStringSelector = (state: State): string => state.positionInfo.fen_string;

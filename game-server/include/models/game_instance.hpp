@@ -23,11 +23,20 @@ enum GameInstanceState {
     FINISHED
 };
 
+const std::string gameResultConditionString[] = {
+    "TIMEOUT",
+    "CHECKMATE",
+    "RESIGNATION",
+    "DRAW",
+    "STALEMATE"
+};
+
 enum GameResultCondition {
     TIMEOUT,
     CHECKMATE,
     RESIGNATION,
-    DRAW
+    DRAW,
+    STALEMATE
 };
 
 struct GameInstanceResult {
@@ -45,7 +54,7 @@ public:
     std::shared_ptr<Position> position;
     GameInstanceState state;
 
-    std::vector<MoveKey> moves_made;
+    std::vector<std::string> moves_played;
 
     std::shared_ptr<Player> white_player;
     std::shared_ptr<Player> black_player;
@@ -108,6 +117,23 @@ public:
         // eventually expire this game instance
     }
 
+    bool check_apply_game_over_condition() {
+        bool king_is_in_check = position->is_king_in_check(position->m_whites_turn);
+        auto moves = get_all_moves(position);
+
+        if (moves.size() > 0) {
+            return false;
+        }
+
+        if (king_is_in_check){
+            win_by_checkmate(position->m_whites_turn ? black_player : white_player);
+        }
+        else {
+            draw_by_stalemate();
+        }
+        return true;
+    }
+
     bool make_move(std::string lan_move) {
         MoveKey movekey = lan_to_movekey(lan_move);
         auto moves = get_all_moves(position);
@@ -115,6 +141,9 @@ public:
         auto it = std::find(moves.begin(), moves.end(), movekey);
         if (it != moves.end()) {
             position->advance_position(movekey);
+            
+            // TODO also get short algebraic notation of move
+            moves_played.push_back(lan_move);
             return true;
         }
         return false;
@@ -127,10 +156,9 @@ public:
         return !white_player->client_uuid.empty() && !black_player->client_uuid.empty();
     }
 
-    void remove_connection(connection_hdl hdl){
+    void remove_connection(connection_hdl hdl) {
         connections.erase(hdl);
     }
-
 
     void add_connection(connection_hdl hdl) {
         connections.insert(hdl);
@@ -147,6 +175,12 @@ public:
     void accept_draw_offer() {
         result = std::make_shared<GameInstanceResult>(
             GameInstanceResult(GameResultCondition::DRAW, nullptr));
+        end_game();
+    }
+
+    void draw_by_stalemate() {
+        result = std::make_shared<GameInstanceResult>(
+            GameInstanceResult(GameResultCondition::STALEMATE, nullptr));
         end_game();
     }
 
@@ -168,15 +202,29 @@ public:
         end_game();
     }
 
+    json get_result_json(){
+        json result_json = {
+            {"condition", gameResultConditionString[result->game_result_condition]}
+        };
+        if (result->victor != nullptr){
+            result_json["winner"] = result->victor->client_uuid;
+        }
+        return result_json;
+    }
+
     json get_json() {
         json game_state = {
             {"fen", position_to_fen(position)},
             {"legal_moves", string_list_all_moves(position)},
+            {"moves_played", moves_played},
             {"currentTurnClientUUID",
             position->m_whites_turn
                 ? white_player->client_uuid
                 : black_player->client_uuid}
         };
+        if (result != nullptr){
+            game_state["result"] = get_result_json();
+        }
         return game_state;
     }
 };

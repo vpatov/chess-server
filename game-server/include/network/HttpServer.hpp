@@ -31,9 +31,9 @@ public:
     auto t = std::thread([this] {
       {
         std::unique_lock<std::mutex> lock(STDOUT_MUTEX);
-        std::cout << "HTTP Server listening on port 8080" << std::endl;
+        std::cout << "HTTP Server listening on port 59201" << std::endl;
       }
-      m_server.listen("0.0.0.0", 8080);
+      m_server.listen("0.0.0.0", 59201);
     });
     return t;
   }

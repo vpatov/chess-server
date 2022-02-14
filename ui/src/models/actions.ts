@@ -1,3 +1,5 @@
+import { ClientUUID } from "./uuid";
+
 export enum ActionType {
   UPDATE_FEN = "UPDATE_POSITION",
   SELECT_SQUARE = "SELECT_SQUARE",
@@ -25,14 +27,28 @@ export enum GameOverCondition {
 }
 
 export declare interface GameOverPayload {
-  winnerUUID: string;
+  winnerUUID: ClientUUID;
   condition: GameOverCondition
+}
+
+export const enum GameResultCondition {
+  TIMEOUT = "TIMEOUT",
+  CHECKMATE = "CHECKMATE",
+  RESIGNATION = "RESIGNATION",
+  DRAW = "DRAW",
+  STALEMATE = "STALEMATE"
+};
+
+export declare interface GameResult {
+  condition: GameResultCondition;
+  winner?: ClientUUID;
 }
 
 export declare interface ServerGameStateUpdatePayload {
   fen: string;
   legal_moves: Array<string>;
   currentTurnClientUUID: string;
+  result?: GameResult;
 
 }
 
