@@ -42,7 +42,7 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
         // if there is more than one move from src_sq to dst_sq its a promotion move
         var lanMove: string;
         if (lanMoves.length > 1){
-          console.assert(lanMoves!.length == 4); 
+          console.assert(lanMoves!.length === 4); 
           // just auto queen for now, until I implement a proper piece selector
           lanMove = lanMoves?.filter((move) => move.includes('Q'))[0]; 
         }
@@ -91,7 +91,8 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
         legalMoves: update.legal_moves,
         legalMoveMap: legalMoveMap,
         currentTurnClientUUID: update.currentTurnClientUUID,
-        gameResult: update.result
+        gameResult: update.result,
+        movesPlayed: update.moves_played
       }
     }
 

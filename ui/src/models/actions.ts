@@ -49,7 +49,7 @@ export declare interface ServerGameStateUpdatePayload {
   legal_moves: Array<string>;
   currentTurnClientUUID: string;
   result?: GameResult;
-
+  moves_played: string[];
 }
 
 export const enum ServerWsMessageType {

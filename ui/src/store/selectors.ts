@@ -8,6 +8,8 @@ export const possibleDestinationSquaresSelector = (state: State): Set<number> =>
 // export const promotionChoiceSelector = (state: State): number | undefined =>
 //   state.promotionChoice;
 
+export const movesPlayedSelector = (state: State): string[] =>
+  state.movesPlayed;
 export const gameResultSelector = (state: State): GameResult | undefined =>
   state.gameResult;
 export const selectedSquareSelector = (state: State): number | undefined =>
