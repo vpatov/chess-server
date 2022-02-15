@@ -20,5 +20,6 @@ export declare interface ReduxAction {
 
 export declare interface SelectSquarePayload {
   selectedSquare: number;
+  deselect?: boolean;
 }
 

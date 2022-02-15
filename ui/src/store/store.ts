@@ -17,7 +17,7 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
       }
 
       // if we're clicking the same square twice, deselect
-      if (state.selectedSquare === payload.selectedSquare){
+      if (state.selectedSquare === payload.selectedSquare || payload.deselect){
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
       }

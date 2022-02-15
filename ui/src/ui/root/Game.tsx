@@ -55,6 +55,21 @@ function Game(props: any) {
             dispatch(action);
         }
 
+        const onESC = (ev: KeyboardEvent) => {
+            ev.preventDefault();
+            if (ev.key === "Escape") {
+                const action: ReduxAction = {
+                    type: ReduxActionType.SELECT_SQUARE,
+                    selectSquarePayload: {
+                        selectedSquare: 0,
+                        deselect: true
+                    }
+                };
+              dispatch(action);
+            }
+          };
+        window.addEventListener("keydown", onESC, false);
+
         const onGameStateUpdate = (payload: ServerGameStateUpdatePayload) => {
             const action: ReduxAction = {
                 type: ReduxActionType.SERVER_GAME_STATE_UPDATE,
