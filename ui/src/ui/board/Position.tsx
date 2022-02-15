@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { PieceType, PIECE_TYPE_CLASSES } from "../models/piece";
+import { PieceType, PIECE_TYPE_CLASSES } from "../../models/piece";
 import Piece from "./Piece";
-import { positionSelector,clientPlayingWhiteSelector } from "../store/selectors";
+import { positionSelector,clientPlayingWhiteSelector } from "../../store/selectors";
 import { useSelector, useDispatch } from "react-redux";
+import "./Piece.css";
 
 function Position() {
   const position = useSelector(positionSelector);

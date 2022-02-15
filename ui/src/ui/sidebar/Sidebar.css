@@ -1,12 +1,7 @@
-.create-game-container {
+.sidebar {
     border: solid 2px black;
     width: 30vw;
     height: 50vh;
-    margin: 5vw;
+    margin-left: 5vw;
     font-family: 'Courier New', Courier, monospace;
-}
-
-
-.create-game-container > * {
-    margin: 1.5vh;
 }

@@ -1,5 +1,5 @@
 import { calculateLegalMoveMap } from "../logic/position";
-import { GameResult } from "./actions";
+import { GameResult } from "./api";
 import { LANMove } from "./fen";
 import {
   getStartingPosition,

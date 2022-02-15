@@ -1,0 +1,18 @@
+
+.game-result-label {
+    margin-top: 50px;
+    font-size: 20px;
+    color: red;
+}
+
+.game-sidebar-home-button {
+    margin-top: 20px;
+}
+
+.move-list {
+    height: 25vh;
+    overflow-y: scroll;
+    border: 2px solid rgb(145, 145, 145);
+    text-align: left;
+    margin: 1vw;
+}

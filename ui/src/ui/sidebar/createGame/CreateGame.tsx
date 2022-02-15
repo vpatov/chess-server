@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import './CreateGame.css';
 import TimeControlInput from './TimeControlInput';
-import { CreateGameRequest, TimeControl, create_game } from '../api/api';
-import { clientUUIDSelector } from '../store/selectors';
+import { CreateGameRequest, TimeControl, create_game } from '../../../api/api';
+import { clientUUIDSelector } from '../../../store/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { AxiosResponse } from 'axios';
-import { Action, ActionType } from '../models/actions';
+import { ReduxAction, ReduxActionType } from '../../../models/reduxAction';
 
 
 enum PlayerColor {
@@ -41,7 +41,7 @@ function CreateGame(props: any) {
     function onSuccess(response: AxiosResponse) {
         const gameInstanceUUID = response.data['game_instance_uuid'];
         history.push(`/game/${gameInstanceUUID}`);
-        const action: Action = {type: ActionType.REDIRECT_TO_GAME_INSTANCE, gameInstanceUUID};
+        const action: ReduxAction = {type: ReduxActionType.REDIRECT_TO_GAME_INSTANCE, gameInstanceUUID};
         dispatch(action);
     }
 

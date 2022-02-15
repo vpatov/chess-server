@@ -1,16 +1,13 @@
-import { assert } from "console";
-import { applyMiddleware, createStore } from "redux";
-import { get_legal_moves } from "../api/api";
+import { createStore } from "redux";
 import { WsServer } from "../api/ws";
-import { algebraicSquareToIndex, fenToPosition } from "../logic/fen";
+import {  fenToPosition } from "../logic/fen";
 import { calculateLegalMoveMap } from "../logic/position";
-import { Action, ActionType } from "../models/actions";
-import { PositionInfo, getStartingPosition } from "../models/position";
+import { ReduxAction, ReduxActionType } from "../models/reduxAction";
 import { getCleanState, State } from "../models/state";
 
-const rootReducer = (state = getCleanState(), action: Action): State => {
+const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
   switch (action.type) {
-    case ActionType.SELECT_SQUARE: {
+    case ReduxActionType.SELECT_SQUARE: {
       const payload = action.selectSquarePayload!;
       const result: Partial<State> = {};
 
@@ -22,12 +19,10 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
       if (state.selectedSquare === payload.selectedSquare){
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
-        // result.promotionChoice = undefined;
       }
 
       // if the piece on this square can move right now
       else if (state.legalMoveMap.has(payload.selectedSquare)) {
-        // result.promotionChoice = undefined;
         result.selectedSquare = payload.selectedSquare;
         result.possibleDestinationSquares = new Set(state.legalMoveMap.get(payload.selectedSquare)?.keys());
       }
@@ -55,7 +50,6 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
       }
 
       else {
-        // result.promotionChoice = undefined;
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
       }
@@ -66,14 +60,7 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
         ...result
       };
     }
-    case ActionType.UPDATE_FEN: {
-      return {
-        ...state,
-        positionInfo: fenToPosition(action.updateFenPayload!),
-        legalMoves: [],
-      };
-    }
-    case ActionType.SERVER_GAME_STATE_UPDATE: {
+    case ReduxActionType.SERVER_GAME_STATE_UPDATE: {
       const update = action.serverGameStateUpdatePayload!;
 
       if (update.legal_moves === undefined || update.fen === undefined){
@@ -96,7 +83,7 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
       }
     }
 
-    case ActionType.SERVER_GAME_STATE_INIT: {
+    case ReduxActionType.SERVER_GAME_STATE_INIT: {
       const payload = action.serverGameInitPayload;
       if (payload?.client_playing_white === undefined){
         console.log(payload);
@@ -114,14 +101,14 @@ const rootReducer = (state = getCleanState(), action: Action): State => {
     // TODO we should have only one websocket connection to the server ideally
     // TODO WS should never send malformed request, better to have exception 
     // on client side for now
-    case ActionType.REDIRECT_TO_GAME_INSTANCE: {
+    case ReduxActionType.REDIRECT_TO_GAME_INSTANCE: {
       return {
         ...state,
         gameInstanceUUID: action.gameInstanceUUID!
       };
     }
 
-    case ActionType.SET_CLIENT_UUID:{
+    case ReduxActionType.SET_CLIENT_UUID:{
       return {
         ...state,
         clientUUID: action.clientUUID!

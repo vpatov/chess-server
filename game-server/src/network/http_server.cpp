@@ -98,45 +98,10 @@ void HttpServer::init_routes()
         std::string uuid = m_game_instance_manager->create_game_instance(request);
         json response = { {"game_instance_uuid", uuid} };
         res.set_content(response.dump(), JSON_CONTENT_TYPE); });
-
-    m_server.Post("/join_game", [this](const httplib::Request& req,
-        httplib::Response& res)
-    {
-        json body = json::parse(req.body);
-        m_game_instance_manager->add_player(
-            body["client_uuid"].get<std::string>(),
-            body["game_instance_uuid"].get<std::string>());
-
-        res.set_content((json{ {"status", "ok"} }).dump(), JSON_CONTENT_TYPE); });
 }
 
 
 
-
-// m_server.Post(
-//     "/legal_moves", [](const httplib::Request &req, httplib::Response
-//     &res)
-//     {
-// json body = json::parse(req.body);
-// if (!body.contains("fen")) {
-//   res.status = 400;
-//   res.set_content(
-//       "The request must have a fen string as a value for \"fen\".",
-//       "text/plain");
-//   return;
-// }
-
-// std::string fen_string = body["fen"].get<std::string>();
-
-// std::smatch matches;
-// if (!std::regex_match(fen_string, matches, fen_regex)) {
-//   res.status = 400;
-//   res.set_content("Invalid fen string.", "text/plain");
-//   return;
-// }
-
-// json moves = string_list_all_moves(fen_to_position(fen_string));
-// res.set_content(moves.dump(), JSON_CONTENT_TYPE); });
 
 //     m_server.Post("/signup", [this](const httplib::Request &req,
 //                                      httplib::Response &res)
