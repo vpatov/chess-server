@@ -213,6 +213,8 @@ public:
     }
 
     json get_json() {
+        bool king_is_in_check = position->is_king_in_check(position->m_whites_turn);
+        square_t king_square = position->find_king(position->m_whites_turn);
         json game_state = {
             {"fen", position_to_fen(position)},
             {"legal_moves", string_list_all_moves(position)},
@@ -224,6 +226,9 @@ public:
         };
         if (result != nullptr){
             game_state["result"] = get_result_json();
+        }
+        if (king_is_in_check){
+            game_state["king_in_check_square"] = index_to_an_square(king_square);
         }
         return game_state;
     }

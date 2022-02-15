@@ -5,6 +5,7 @@ import { State } from "../models/state";
 
 export const possibleDestinationSquaresSelector = (state: State): Set<number> =>
   state.possibleDestinationSquares;
+export const kingInCheckSquareSelector = (state: State): number | undefined => state.kingInCheckSquare;
 export const squaresOfLastPlayedMoveSelector = (state: State): [number, number] => state.squaresOfLastPlayedMove;
 export const movesPlayedSelector = (state: State): string[] =>
   state.movesPlayed;

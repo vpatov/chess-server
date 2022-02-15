@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 import { WsServer } from "../api/ws";
-import {  fenToPosition } from "../logic/fen";
+import { algebraicSquareToIndex, fenToPosition } from "../logic/fen";
 import { calculateLegalMoveMap, getSquaresOfLastPlayedMove } from "../logic/position";
 import { ReduxAction, ReduxActionType } from "../models/reduxAction";
 import { getCleanState, State } from "../models/state";
@@ -12,12 +12,12 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
       const payload = action.selectSquarePayload!;
       const result: Partial<State> = {};
 
-      if (state.currentTurnClientUUID !== state.clientUUID){
+      if (state.currentTurnClientUUID !== state.clientUUID) {
         return state;
       }
 
       // if we're clicking the same square twice, deselect
-      if (state.selectedSquare === payload.selectedSquare || payload.deselect){
+      if (state.selectedSquare === payload.selectedSquare || payload.deselect) {
         result.selectedSquare = undefined;
         result.possibleDestinationSquares = new Set();
       }
@@ -28,19 +28,19 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
         result.possibleDestinationSquares = new Set(state.legalMoveMap.get(payload.selectedSquare)?.keys());
       }
 
-      else if (state.possibleDestinationSquares.has(payload.selectedSquare)){
+      else if (state.possibleDestinationSquares.has(payload.selectedSquare)) {
         const lanMoves = state.legalMoveMap.get(state.selectedSquare!)?.get(payload.selectedSquare);
 
-        if (!lanMoves){
-          throw Error ("Impossible error in SELECT_SQUARE");
+        if (!lanMoves) {
+          throw Error("Impossible error in SELECT_SQUARE");
         }
 
         // if there is more than one move from src_sq to dst_sq its a promotion move
         var lanMove: string;
-        if (lanMoves.length > 1){
-          console.assert(lanMoves!.length === 4); 
+        if (lanMoves.length > 1) {
+          console.assert(lanMoves!.length === 4);
           // just auto queen for now, until I implement a proper piece selector
-          lanMove = lanMoves?.filter((move) => move.includes('Q'))[0]; 
+          lanMove = lanMoves?.filter((move) => move.includes('Q'))[0];
         }
         else {
           lanMove = lanMoves![0];
@@ -64,7 +64,7 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
     case ReduxActionType.SERVER_GAME_STATE_UPDATE: {
       const update = action.serverGameStateUpdatePayload!;
 
-      if (update.legal_moves === undefined || update.fen === undefined){
+      if (update.legal_moves === undefined || update.fen === undefined) {
         console.log("SERVER_GAME_STATE_UPDATE is missing fields.");
         return state;
       }
@@ -72,6 +72,10 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
       const legalMoveMap = calculateLegalMoveMap(update.legal_moves);
 
       const positionInfo = fenToPosition(update.fen);
+
+      const kingInCheckSquare = update.king_in_check_square !== undefined
+        ? algebraicSquareToIndex(update.king_in_check_square)
+        : undefined;
 
       return {
         ...state,
@@ -82,12 +86,13 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
         gameResult: update.result,
         movesPlayed: update.moves_played,
         squaresOfLastPlayedMove: getSquaresOfLastPlayedMove(update.moves_played),
+        kingInCheckSquare: kingInCheckSquare
       }
     }
 
     case ReduxActionType.SERVER_GAME_STATE_INIT: {
       const payload = action.serverGameInitPayload;
-      if (payload?.client_playing_white === undefined){
+      if (payload?.client_playing_white === undefined) {
         console.log(payload);
         throw Error("client_playing_white needs to be present on the ServerGameStateInit payload.");
       }
@@ -110,7 +115,7 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
       };
     }
 
-    case ReduxActionType.SET_CLIENT_UUID:{
+    case ReduxActionType.SET_CLIENT_UUID: {
       return {
         ...state,
         clientUUID: action.clientUUID!

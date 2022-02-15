@@ -33,6 +33,7 @@ export declare interface ServerGameStateUpdatePayload {
     currentTurnClientUUID: ClientUUID;
     result?: GameResult;
     moves_played: string[];
+    king_in_check_square?: string;
 }
 
 export declare interface ServerGameInitPayload {

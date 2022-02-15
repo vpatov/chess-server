@@ -22,7 +22,7 @@ export declare interface State {
   gameResult: GameResult | undefined;
   movesPlayed: string[];
   squaresOfLastPlayedMove: [number, number];
-  // promotionChoice: number | undefined;
+  kingInCheckSquare: number | undefined;
 }
 
 export function getCleanState(): State {
@@ -40,6 +40,6 @@ export function getCleanState(): State {
     gameResult: undefined,
     movesPlayed: [],
     squaresOfLastPlayedMove: [-1,-1],
-    // promotionChoice: undefined
+    kingInCheckSquare: undefined
   };
 }
