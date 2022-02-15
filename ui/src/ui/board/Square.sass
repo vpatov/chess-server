@@ -1,0 +1,27 @@
+$light-color: rgb(232, 235, 239)
+$dark-color: rgb(125, 135, 150)
+$select-highlight-color: #02f0c4
+$last-move-color: #02a718
+$opacity: 0.2
+
+
+.lcol
+    background-color: $light-color
+.dcol
+    background-color: $dark-color
+.lshcol
+    background-color: mix($light-color, $select-highlight-color, 80%)
+.dshcol
+    background-color: mix($dark-color, $select-highlight-color, 80%)
+.llmcol
+    background-color: mix($light-color, $last-move-color, 70%)
+.dlmcol
+    background-color: mix($dark-color, $last-move-color, 70%)
+
+.square 
+  width: 10vh
+  height: 10vh
+  position: relative
+  mix-blend-mode: multipl
+
+

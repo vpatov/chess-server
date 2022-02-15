@@ -1,9 +1,10 @@
 import { createStore } from "redux";
 import { WsServer } from "../api/ws";
 import {  fenToPosition } from "../logic/fen";
-import { calculateLegalMoveMap } from "../logic/position";
+import { calculateLegalMoveMap, getSquaresOfLastPlayedMove } from "../logic/position";
 import { ReduxAction, ReduxActionType } from "../models/reduxAction";
 import { getCleanState, State } from "../models/state";
+
 
 const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
   switch (action.type) {
@@ -79,7 +80,8 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
         legalMoveMap: legalMoveMap,
         currentTurnClientUUID: update.currentTurnClientUUID,
         gameResult: update.result,
-        movesPlayed: update.moves_played
+        movesPlayed: update.moves_played,
+        squaresOfLastPlayedMove: getSquaresOfLastPlayedMove(update.moves_played),
       }
     }
 

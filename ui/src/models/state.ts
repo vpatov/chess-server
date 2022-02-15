@@ -21,6 +21,7 @@ export declare interface State {
   clientPlayingWhite: boolean;
   gameResult: GameResult | undefined;
   movesPlayed: string[];
+  squaresOfLastPlayedMove: [number, number];
   // promotionChoice: number | undefined;
 }
 
@@ -37,7 +38,8 @@ export function getCleanState(): State {
     currentTurnClientUUID: '',
     clientPlayingWhite: true,
     gameResult: undefined,
-    movesPlayed: []
+    movesPlayed: [],
+    squaresOfLastPlayedMove: [-1,-1],
     // promotionChoice: undefined
   };
 }

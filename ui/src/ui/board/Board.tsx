@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Board.css";
+import "./Board.scss";
 import FenLabel from "./FenLabel";
 import Square from "./Square";
 import Position from "./Position";

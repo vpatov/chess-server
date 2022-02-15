@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Board.css";
 import "./FenLabel.css";
 import { useSelector } from "react-redux";
 import { fenStringSelector } from "../../store/selectors";

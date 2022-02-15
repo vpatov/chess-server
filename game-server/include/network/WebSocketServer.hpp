@@ -119,7 +119,7 @@ public:
         websocketpp::frame::opcode::TEXT);
 
       json game_state_update_message = {
-        {"messageType", messageTypeString[ServerMessageType::GAME_STATE_UPDATE]}, 
+        {"messageType", messageTypeString[ServerMessageType::GAME_STATE_UPDATE]},
         {"payload", m_game_instance_manager->get_game_state_json(game_instance_uuid)}
       };
       m_server.send(hdl,
@@ -133,9 +133,15 @@ public:
   }
 
   void on_close(connection_hdl hdl) {
-    ClientConnectionInfo ccinfo = m_connection_client_uuid_map[hdl];
-    m_game_instance_manager->remove_connection_handle(ccinfo.game_instance_uuid, hdl);
-    m_connection_client_uuid_map.erase(hdl);
+    try {
+      ClientConnectionInfo ccinfo = m_connection_client_uuid_map[hdl];
+      m_game_instance_manager->remove_connection_handle(ccinfo.game_instance_uuid, hdl);
+      m_connection_client_uuid_map.erase(hdl);
+    }
+
+    catch (const std::exception& e) {
+      std::cout << "Exception while trying to close a connection: " << e.what() << std::endl;
+    }
   }
 
   void on_fail(connection_hdl hdl) {
@@ -157,7 +163,7 @@ public:
 
       // retrive updated state
       json game_state_update_message = {
-        {"messageType", messageTypeString[ServerMessageType::GAME_STATE_UPDATE]}, 
+        {"messageType", messageTypeString[ServerMessageType::GAME_STATE_UPDATE]},
         {"payload", m_game_instance_manager->get_game_state_json(ccinfo.game_instance_uuid)}
       };
 
@@ -175,9 +181,9 @@ public:
     }
     catch (std::invalid_argument const& e)
     {
-      std::cout << ColorCode::red << "invalid_argument in on_message: " << e.what() << ColorCode::end<< std::endl;
+      std::cout << ColorCode::red << "invalid_argument in on_message: " << e.what() << ColorCode::end << std::endl;
     }
-    catch (json::exception const &e){
+    catch (json::exception const& e) {
       std::cout << ColorCode::red << "json exception in on_message: " << e.what() << ColorCode::end << std::endl;
     }
   }

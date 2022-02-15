@@ -2,10 +2,21 @@ import './GamePlaySidebar.css';
 import { useHistory } from "react-router-dom";
 import { clientPlayingWhiteSelector, clientUUIDSelector, gameResultSelector, movesPlayedSelector } from '../../../store/selectors';
 import { useSelector } from 'react-redux';
+import { createRef, useEffect, useRef } from 'react';
 
 
 function MoveList() {
     const movesPlayed = useSelector(movesPlayedSelector);
+
+    const moveListEnd  = useRef<null | HTMLDivElement>(null);
+    function scrollToBottom(){
+        moveListEnd.current?.scrollIntoView({ behavior: "smooth" });
+      }
+      
+      useEffect(() => {
+          scrollToBottom();
+      },[movesPlayed]);
+
 
     const movesList = [];
     for (var i = 0; i < movesPlayed.length; i += 2) {
@@ -17,6 +28,8 @@ function MoveList() {
             <ol>
                 {movesList}
             </ol>
+            <div ref={moveListEnd}>
+            </div>
         </div>
     );
 }

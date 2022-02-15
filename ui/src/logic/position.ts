@@ -20,3 +20,15 @@ export function calculateLegalMoveMap(legalMoves: Array<LANMove>): MoveMap {
   return legalMoveMap;
 }
 
+
+export function getSquaresOfLastPlayedMove(movesPlayed: string[]): [number, number]{
+  if (movesPlayed.length === 0){
+    return [-1,-1];
+  }
+  const lastMove = movesPlayed[movesPlayed.length - 1];
+  const src_square = algebraicSquareToIndex(lastMove.substring(0, 2));
+  const dst_square = algebraicSquareToIndex(lastMove.substring(2, 4));
+
+  return [src_square, dst_square];
+}
+
