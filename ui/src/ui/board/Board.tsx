@@ -3,6 +3,7 @@ import "./Board.scss";
 import FenLabel from "./FenLabel";
 import Square from "./Square";
 import Position from "./Position";
+import { useSelector } from "react-redux";
 
 
 
@@ -17,6 +18,7 @@ function Row(props: any) {
   return <div className="row">{squares}</div>;
 }
 
+
 function Board() {
 
   const rows = [];
@@ -24,14 +26,9 @@ function Board() {
     rows.push(<Row key={i} rank={i}></Row>);
   }
   return (
-    <>
-      <div>
-        <div className="board">{rows}</div>
-        <Position></Position>
-        <FenLabel></FenLabel>
-      </div>
-
-    </>
+    <div className="board">
+      {rows}
+    </div>
   );
 }
 

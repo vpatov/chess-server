@@ -91,8 +91,4 @@ def login():
     else:
         return json.dumps({'error': 'Incorrect password.'})
 
-
-
-
-
 app.run(host='0.0.0.0', port=8081, debug=True)

@@ -5,7 +5,7 @@ import { get_status } from "../../api/api";
 import "./App.css";
 import Board from "../board/Board";
 import CreateGame from "../sidebar/createGame/CreateGame";
-import Game from "../root/Game";
+import Game from "../game/Game";
 import Sidebar, { SidebarMode } from "../sidebar/Sidebar";
 import {
   ThemeProvider,

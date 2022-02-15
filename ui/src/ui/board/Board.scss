@@ -9,6 +9,30 @@
   flex-direction: row;
 }
 
+.files-label {
+  width: 100%;
+  display: flex;
+  margin-top: 0.5vh;
+}
+
+.file-label {
+  flex: 1 1 auto;
+}
+
+.ranks-label {
+  display: flex;
+  position: absolute;
+  top: 0vh;
+  flex-direction: column;
+  right: 34.2vw;
+  height: 81vh;
+  margin-top: 3vh;
+}
+
+.rank-label {
+  flex: 1 1 auto;
+}
+
 .promotion-choice {
   background: rgba(22,21,18,0.7);
   z-index: 205;

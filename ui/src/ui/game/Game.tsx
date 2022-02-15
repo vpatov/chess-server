@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert from '@mui/material/Alert';
 
-import Board from "../board/Board";
+import GameContainer from "./GameContainer";
 import { ServerGameInitPayload, ServerGameStateUpdatePayload, ServerWsMessageType } from "../../models/api";
 import Sidebar, { SidebarMode } from "../sidebar/Sidebar";
 
@@ -107,7 +107,7 @@ function Game(props: any) {
 
     return (
         <>
-            <Board />
+            <GameContainer />
             <Sidebar sidebarMode={sidebarMode} />
             <Snackbar
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

@@ -72,7 +72,8 @@ public:
     GameInstance()
     {
         uuid = generate_uuid();
-        position = starting_position();
+        // position = starting_position();
+        position = fen_to_position("8/1p6/pP3b2/P7/K7/7r/8/k7 b - - 0 1");
         white_player = std::make_shared<Player>();
         white_player->white = true;
         black_player = std::make_shared<Player>();
