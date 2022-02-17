@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 #include "models/player.hpp"
 #include "uuid.hpp"
+#include "util.hpp"
 #include <string>
 #include <set>
 #include <vector>
@@ -60,8 +61,6 @@ public:
     std::shared_ptr<Player> black_player;
 
     std::time_t game_started;
-    std::time_t white_last_move;
-    std::time_t black_last_move;
 
     std::shared_ptr<GameInstanceResult> result;
 
@@ -86,6 +85,12 @@ public:
             : black_player;
     }
 
+    std::shared_ptr<Player> get_player_waiting_for_their_turn() {
+        return position->m_whites_turn
+            ? black_player
+            : white_player;
+    }
+
     std::shared_ptr<Player> get_player(std::string client_uuid) {
         if (white_player->client_uuid.compare(client_uuid) == 0) {
             return white_player;
@@ -100,10 +105,15 @@ public:
         return state;
     }
 
+    bool is_game_finished() {
+        return state == GameInstanceState::FINISHED;
+    }
+
     bool start_game() {
         state = GameInstanceState::IN_PLAY;
-        // TODO
-        // create timers
+        game_started = current_time_ms();
+        white_player->time_control.last_move_played = game_started;
+        black_player->time_control.last_move_played = game_started;
         return true;
     }
 
@@ -125,7 +135,7 @@ public:
             return false;
         }
 
-        if (king_is_in_check){
+        if (king_is_in_check) {
             win_by_checkmate(position->m_whites_turn ? black_player : white_player);
         }
         else {
@@ -139,17 +149,17 @@ public:
         auto moves = get_all_moves(position);
 
         auto it = std::find(moves.begin(), moves.end(), movekey);
-        if (it != moves.end()) {
-            position->advance_position(movekey);
-            
-            // TODO also get short algebraic notation of move
-            moves_played.push_back(lan_move);
-            return true;
+        if (it == moves.end()) {
+            return false;
         }
-        return false;
 
-        // TODO update player timers
-        // TODO update remaining player time
+        // TODO also get short algebraic notation of move
+        position->advance_position(movekey);
+        moves_played.push_back(lan_move);
+        // update the last_move_played time for the player who just went
+        get_player_waiting_for_their_turn()->time_control.last_move_played = current_time_ms();
+        return true;
+
     }
 
     bool is_game_full() {
@@ -202,14 +212,22 @@ public:
         end_game();
     }
 
-    json get_result_json(){
+    json get_result_json() {
         json result_json = {
             {"condition", gameResultConditionString[result->game_result_condition]}
         };
-        if (result->victor != nullptr){
-            result_json["winner"] = result->victor->client_uuid;
+        if (result->victor != nullptr) {
+            result_json["winner"] = result->victor->white ? "white" : "black";
         }
         return result_json;
+    }
+
+    json get_time_control_json(){
+        json time_control_json = {
+            {"white", white_player->time_control.time_left_ms},
+            {"black", black_player->time_control.time_left_ms}
+        };
+        return time_control_json;
     }
 
     json get_json() {
@@ -217,17 +235,25 @@ public:
         square_t king_square = position->find_king(position->m_whites_turn);
         json game_state = {
             {"fen", position_to_fen(position)},
-            {"legal_moves", string_list_all_moves(position)},
             {"moves_played", moves_played},
             {"currentTurnClientUUID",
             position->m_whites_turn
                 ? white_player->client_uuid
-                : black_player->client_uuid}
+                : black_player->client_uuid},
+            {"time_control", get_time_control_json()},
+            {"game_instance_state", state}
         };
-        if (result != nullptr){
+
+        // add the result if it exists
+        if (result != nullptr) {
             game_state["result"] = get_result_json();
         }
-        if (king_is_in_check){
+        // only calculate legal moves if the game is not over
+        else {
+            game_state["legal_moves"] = string_list_all_moves(position);
+        }
+
+        if (king_is_in_check) {
             game_state["king_in_check_square"] = index_to_an_square(king_square);
         }
         return game_state;

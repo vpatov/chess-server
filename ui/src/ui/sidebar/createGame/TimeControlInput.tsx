@@ -3,9 +3,16 @@ import './TimeControlInput.css';
 
 function TimeControl(props: any) {
 
+    
     const { clockSeconds, setClockSeconds, increment, setIncrement } = props;
     const [clockValidity, setClockValidity] = useState(true);
     const [incrementValidity, setIncrementValidity] = useState(true);
+    
+
+    function setClockSecondsHandler(value: any){
+        console.log(value);
+        setClockSeconds(value);
+    }
 
     return (
         <div>
@@ -15,8 +22,9 @@ function TimeControl(props: any) {
                 type="text"
                 name="clock"
                 required pattern="[0-9]{1,3}:[0-5][0-9]"
-                value={clockSeconds}
-                onChange={(e) => { setClockSeconds(e.target.value); setClockValidity(e.target.checkValidity()) }}
+                defaultValue={clockSeconds}
+                // onInput={(e) => { setClockSecondsHandler(e.target); }}
+                onChange={(e) => { setClockSecondsHandler(e.target.value); setClockValidity(e.target.checkValidity()) }}
                 title="Write a duration in the format mm:ss">
             </input>
             <input

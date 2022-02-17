@@ -5,15 +5,15 @@ import './Board.scss';
 function RanksLabel() {
     const clientPlayingWhite = useSelector(clientPlayingWhiteSelector);
   
-    const fileCharacters = '87654321';
-    const files = [...(
+    const rankCharacters = '87654321';
+    const ranks = [...(
       clientPlayingWhite ?
-        fileCharacters :
-        fileCharacters.split('').reverse().join('')
+        rankCharacters :
+        rankCharacters.split('').reverse().join('')
     )];
     return (
       <div className="ranks-label">
-        {files.map((file) => <span className="rank-label">{file}</span>)}
+        {ranks.map((rank) => <span key={rank} className="rank-label">{rank}</span>)}
       </div>
   
     )

@@ -15,7 +15,7 @@ function FilesLabel() {
     )];
     return (
         <div className="files-label">
-            {files.map((file) => <span className="file-label">{file}</span>)}
+            {files.map((file) => <span key={file} className="file-label">{file}</span>)}
         </div>
 
     )

@@ -1,5 +1,6 @@
+import { TimeControl } from "../api/api";
 import { calculateLegalMoveMap } from "../logic/position";
-import { GameResult } from "./api";
+import { GameInstanceState, GameResult, PlayerTimeControl } from "./api";
 import { LANMove } from "./fen";
 import {
   getStartingPosition,
@@ -23,7 +24,10 @@ export declare interface State {
   movesPlayed: string[];
   squaresOfLastPlayedMove: [number, number];
   kingInCheckSquare: number | undefined;
+  gameInstanceState: GameInstanceState;
+  timeControl: PlayerTimeControl;
 }
+
 
 export function getCleanState(): State {
   const legalMoves = getStartingPositionLegalMoves();
@@ -40,6 +44,8 @@ export function getCleanState(): State {
     gameResult: undefined,
     movesPlayed: [],
     squaresOfLastPlayedMove: [-1,-1],
-    kingInCheckSquare: undefined
+    kingInCheckSquare: undefined,
+    gameInstanceState: GameInstanceState.NOT_STARTED,
+    timeControl: {white: 0, black: 0}
   };
 }

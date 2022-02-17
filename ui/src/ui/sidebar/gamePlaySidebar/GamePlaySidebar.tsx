@@ -49,10 +49,11 @@ function GameResult() {
         if (!gameResult) {
             return <></>
         }
-        const winnerColor: string = ((gameResult.winner === clientUUID) !== (clientPlayingWhite))
-            ? 'white'
-            : 'black';
-        const loserColor: string = winnerColor === 'white' ? 'black' : 'white';
+        const white = 'white';
+        const black = 'black';
+        const winnerColor = gameResult.winner;
+        console.assert(winnerColor === white || winnerColor === black);
+        const loserColor: string = (winnerColor === white) ? black : white;
         var labelText = '';
         switch (gameResult.condition) {
             case GameResultCondition.CHECKMATE: {

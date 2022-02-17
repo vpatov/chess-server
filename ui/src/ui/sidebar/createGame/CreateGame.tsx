@@ -32,10 +32,10 @@ function CreateGame(props: any) {
     const [useSameTimeControl, setUseSameTimeControl] = useState(true);
     const [playerColor, setPlayerColor] = useState(PlayerColor.WHITE);
 
-    const [whiteClock, setWhiteClock] = useState("5:00");
+    const [whiteClock, setWhiteClock] = useState("0:50");
     const [whiteIncrement, setWhiteIncrement] = useState(3);
 
-    const [blackClock, setBlackClock] = useState("5:00");
+    const [blackClock, setBlackClock] = useState("0:50");
     const [blackIncrement, setBlackIncrement] = useState(3);
 
     function onSuccess(response: AxiosResponse) {

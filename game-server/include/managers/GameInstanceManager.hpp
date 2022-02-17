@@ -170,5 +170,9 @@ public:
         else {
             game_instance->black_player->client_uuid = client_uuid;
         }
+
+        if (game_instance->is_game_full()) {
+            game_instance->start_game();
+        }
     }
 };

@@ -2,6 +2,7 @@ import { createStore } from "redux";
 import { WsServer } from "../api/ws";
 import { algebraicSquareToIndex, fenToPosition } from "../logic/fen";
 import { calculateLegalMoveMap, getSquaresOfLastPlayedMove } from "../logic/position";
+import { GameInstanceState } from "../models/api";
 import { ReduxAction, ReduxActionType } from "../models/reduxAction";
 import { getCleanState, State } from "../models/state";
 
@@ -55,7 +56,6 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
         result.possibleDestinationSquares = new Set();
       }
 
-
       return {
         ...state,
         ...result
@@ -64,30 +64,41 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
     case ReduxActionType.SERVER_GAME_STATE_UPDATE: {
       const update = action.serverGameStateUpdatePayload!;
 
-      if (update.legal_moves === undefined || update.fen === undefined) {
-        console.log("SERVER_GAME_STATE_UPDATE is missing fields.");
-        return state;
-      }
+      const legalMoveMap = update.legal_moves ? calculateLegalMoveMap(update.legal_moves) : undefined;
 
-      const legalMoveMap = calculateLegalMoveMap(update.legal_moves);
-
-      const positionInfo = fenToPosition(update.fen);
+      const positionInfo = update.fen ? fenToPosition(update.fen) : undefined;
 
       const kingInCheckSquare = update.king_in_check_square !== undefined
         ? algebraicSquareToIndex(update.king_in_check_square)
         : undefined;
 
-      return {
-        ...state,
-        positionInfo: positionInfo,
-        legalMoves: update.legal_moves,
-        legalMoveMap: legalMoveMap,
+      const newState: Partial<State> = {
         currentTurnClientUUID: update.currentTurnClientUUID,
         gameResult: update.result,
         movesPlayed: update.moves_played,
         squaresOfLastPlayedMove: getSquaresOfLastPlayedMove(update.moves_played),
-        kingInCheckSquare: kingInCheckSquare
+        kingInCheckSquare: kingInCheckSquare,
+        timeControl: update.time_control,
+        gameInstanceState: update.game_instance_state
       }
+
+      if (positionInfo){
+        newState.positionInfo = positionInfo
+      }
+
+      if (legalMoveMap && update.game_instance_state === GameInstanceState.IN_PLAY){
+        newState.legalMoves = update.legal_moves;
+        newState.legalMoveMap = legalMoveMap;
+      }
+      else {
+        newState.legalMoves = [];
+        newState.legalMoveMap = new Map();
+      }
+
+      return {
+        ...state,
+        ...newState
+      };
     }
 
     case ReduxActionType.SERVER_GAME_STATE_INIT: {

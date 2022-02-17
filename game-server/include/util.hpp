@@ -27,3 +27,5 @@ namespace ColorCode
 };
 
 char getc(int i, std::smatch &matches);
+
+uint64_t current_time_ms();

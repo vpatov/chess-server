@@ -27,6 +27,11 @@ export declare interface ServerWsMessage {
     payload: ServerGameInitPayload | ServerGameStateUpdatePayload;
 }
 
+export declare interface PlayerTimeControl {
+    white: number;
+    black: number;
+}
+
 export declare interface ServerGameStateUpdatePayload {
     fen: FenString;
     legal_moves: Array<string>;
@@ -34,6 +39,8 @@ export declare interface ServerGameStateUpdatePayload {
     result?: GameResult;
     moves_played: string[];
     king_in_check_square?: string;
+    time_control: PlayerTimeControl;
+    game_instance_state: GameInstanceState
 }
 
 export declare interface ServerGameInitPayload {
@@ -51,5 +58,11 @@ export const enum GameResultCondition {
 
 export declare interface GameResult {
     condition: GameResultCondition;
-    winner?: ClientUUID;
+    winner?: string;
+}
+
+export const enum GameInstanceState {
+    NOT_STARTED,
+    IN_PLAY,
+    FINISHED
 }
