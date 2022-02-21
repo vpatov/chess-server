@@ -43,7 +43,7 @@ public:
         case START_GAME: {
                 std::cout << "Validating START_GAME" << std::endl;
                 // ensure game has not been started yet
-                if (state != GameInstanceState::NOT_STARTED) {
+                if (state != GameInstanceState::READY_TO_START) {
                     throw std::invalid_argument("Can only start a game that has not started yet.");
                 }
                 if (!player->white) {
@@ -69,16 +69,6 @@ public:
                 std::string lan_move = ws_action.payload;
                 MoveKey movekey = lan_to_movekey(lan_move);
                 auto moves = get_all_moves(game_instance->position);
-
-                // debugging code
-                std::cout << ColorCode::purple << "movekey: " << movekey
-                    << ", lanmove: " << lan_move << ColorCode::end << std::endl;
-                std::cout << ColorCode::green << "printout of all lan moves" << std::endl;
-                for (auto it = moves.begin(); it != moves.end(); it++) {
-                    std::cout << *it << ": " << movekey_to_lan(*it) << " ";
-                }
-                std::cout << ColorCode::end << std::endl;
-                // end debugging code
 
                 auto it = std::find(moves.begin(), moves.end(), movekey);
                 if (it == moves.end()) {

@@ -38,11 +38,8 @@ public:
 
         switch (message.type) {
         case START_GAME: {
-            // if there is an explicit action to start the game from the UI (without making a move),
-            //this code can be uncommented
-            
-                // game_instance->start_game();
-                // // whites time starts when the game is started
+        
+                game_instance->start_game();
                 // m_timer_dispatch->start_game_instance_timeout_timer(
                 //     game_instance->uuid,
                 //     game_instance->white_player->time_control.time_left_ms,
@@ -50,7 +47,7 @@ public:
                 //     game_instance->win_by_timeout(game_instance->black_player);
                 //     websocket_timer_callback(game_instance->uuid);
                 // });
-                // break;
+                break;
             }
         case MAKE_MOVE: {
                 std::string lan_move = message.payload;
@@ -72,6 +69,7 @@ public:
                     }
                     else {
                         player_just_acted->time_control.time_left_ms -= difference;
+                        player_just_acted->time_control.time_left_ms += player_just_acted->time_control.increment_ms;
                     }
 
                     // start timer for the player whose turn it is.

@@ -20,6 +20,7 @@ using websocketpp::connection_hdl;
 
 enum GameInstanceState {
     NOT_STARTED,
+    READY_TO_START,
     IN_PLAY,
     FINISHED
 };
@@ -122,9 +123,14 @@ public:
         if (result == nullptr) {
             throw std::invalid_argument("Result needs to be instantiated before game is ended.");
         }
+        player_offered_draw = nullptr;
         // TODO
         // destroy timers
         // eventually expire this game instance
+    }
+
+    void update_game_ready_to_start() {
+        state = GameInstanceState::READY_TO_START;
     }
 
     bool check_apply_game_over_condition() {
@@ -203,6 +209,8 @@ public:
     void win_by_timeout(std::shared_ptr<Player> winner) {
         result = std::make_shared<GameInstanceResult>(
             GameInstanceResult(GameResultCondition::TIMEOUT, winner));
+        auto other_player = get_player_to_act();
+        other_player->time_control.time_left_ms = 0;
         end_game();
     }
 
@@ -222,12 +230,56 @@ public:
         return result_json;
     }
 
-    json get_time_control_json(){
-        json time_control_json = {
-            {"white", white_player->time_control.time_left_ms},
-            {"black", black_player->time_control.time_left_ms}
-        };
-        return time_control_json;
+    json get_time_control_json() {
+        uint64_t time_now = current_time_ms();
+
+        switch (state) {
+        case GameInstanceState::NOT_STARTED: {}
+        case GameInstanceState::READY_TO_START: {}
+        case GameInstanceState::FINISHED: {
+                json time_control_json = {
+                        {"white", white_player->time_control.time_left_ms},
+                        {"black", black_player->time_control.time_left_ms},
+                        {"time_now", time_now}
+                };
+                return time_control_json;
+            }
+
+        case GameInstanceState::IN_PLAY: {
+
+                auto current_player = get_player_to_act();
+                auto other_player = get_player_waiting_for_their_turn();
+                uint64_t time_since_last_move = time_now - other_player->time_control.last_move_played;
+                uint64_t current_player_time_left = current_player->time_control.time_left_ms - time_since_last_move;
+
+                if (time_now < current_player->time_control.last_move_played) {
+                    std::cout << ColorCode::red
+                        << "whoopsie current_player_time_left is less than zero"
+                        << ColorCode::end << std::endl;
+                    current_player_time_left = 0;
+                }
+
+
+                json time_control_json = {
+                    {"white",
+                    (current_player->white) ?
+                    (current_player_time_left) :
+                    (white_player->time_control.time_left_ms)},
+                    {"black",
+                    (!current_player->white) ?
+                    (current_player_time_left) :
+                    (black_player->time_control.time_left_ms)
+                    },
+                    {"time_now", time_now}
+                };
+                std::cout << ColorCode::green << time_control_json.dump() << ColorCode::end << std::endl;
+                return time_control_json;
+
+            }
+        }
+        json empty = {};
+        return empty;
+
     }
 
     json get_json() {
@@ -243,6 +295,10 @@ public:
             {"time_control", get_time_control_json()},
             {"game_instance_state", state}
         };
+
+        if (player_offered_draw != nullptr) {
+            game_state["draw_offer"] = player_offered_draw->white ? "white" : "black";
+        }
 
         // add the result if it exists
         if (result != nullptr) {

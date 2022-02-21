@@ -23,9 +23,9 @@ export class WsServer {
             query: { clientUUID, gameInstanceUUID }
         };
 
-        // if (this.ws?.OPEN){
-        //     return true;
-        // }
+        if (this.ws?.OPEN){
+            this.ws.close();
+        }
         // TODO write some sort of logic that tries to assert that the incoming game state updates
         // are only ever for the current game instance, to help with debugging.
         WsServer.ws = new WebSocket(queryString.stringifyUrl(wsURI), []);
@@ -61,12 +61,45 @@ export class WsServer {
         });
     }
 
-    // static makeMove(gameInstanceUUID: string, lanMove: LANMove){
-    //     if (!(gameInstanceUUID.length > 1 && lanMove.length > 1)){
-    //         console.assert(false);
-    //         console.log("gameInstanceUUID is empty");
-    //         return;
-    //     }
-    //     this.ws.send(JSON.stringify({gameInstanceUUID, lanMove}));
-    // }
+    static startGame(){
+        this.sendMessage({
+            type: ClientWsActionType.START_GAME,
+            payload: '',
+        });
+    }
+
+    static resign(){
+        this.sendMessage({
+            type: ClientWsActionType.RESIGN,
+            payload: '',
+        });
+    }
+
+    static rescindDrawOffer(){
+        this.sendMessage({
+            type: ClientWsActionType.TAKE_BACK_DRAW_OFFER,
+            payload: '',
+        });
+    }
+
+    static acceptDrawOffer(){
+        this.sendMessage({
+            type: ClientWsActionType.ACCEPT_DRAW_OFFER,
+            payload: '',
+        });
+    }
+
+    static offerDraw(){
+        this.sendMessage({
+            type: ClientWsActionType.OFFER_DRAW,
+            payload: '',
+        });
+    }
+
+    static declineDrawOffer(){
+        this.sendMessage({
+            type: ClientWsActionType.DECLINE_DRAW_OFFER,
+            payload: '',
+        });
+    }
 }

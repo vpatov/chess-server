@@ -1,7 +1,24 @@
 .sidebar {
     border: solid 2px black;
     width: 30vw;
-    height: 50vh;
+    height: 80vh;
     margin-left: 5vw;
-    font-family: 'Courier New', Courier, monospace;
+    padding: 1vw;
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url("../../../public/forest_cropped_dimmed.webp");
+
 }
+
+/* .sidebar::after {    
+    content: "";
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.2;
+} */

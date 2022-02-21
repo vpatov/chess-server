@@ -1,4 +1,4 @@
-import { GameResult } from "../models/api";
+import { GameInstanceState, GameResult, TimeBank } from "../models/api";
 import { PositionInfo } from "../models/position";
 import { State } from "../models/state";
 
@@ -22,3 +22,9 @@ export const legalMovesSelector = (state: State): Array<string> =>
   state.legalMoves;
 export const clientUUIDSelector = (state: State): string => state.clientUUID;
 export const currentTurnClientUUIDSelector = (state: State): string => state.currentTurnClientUUID;
+
+export const timeBankSelector = (state: State): TimeBank => state.timeBank;
+
+export const gameInstanceStateSelector = (state: State): GameInstanceState => state.gameInstanceState;
+
+export const drawOfferSelector = (state: State): string => state.drawOffer;

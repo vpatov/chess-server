@@ -1,76 +1,18 @@
-[2022-02-17 15:17:06.328] [multi_sink] [info] Logger initialized.
-[2022-02-17 15:17:11.418] [multi_sink] [debug] === REQUEST === 
-body: {{{}}}
-headers: 
-Accept: */*
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.5
-Access-Control-Request-Headers: content-type
-Access-Control-Request-Method: POST
-Connection: keep-alive
-Host: 72.80.180.146:59201
-Origin: http://localhost:59200
-Referer: http://localhost:59200/
-REMOTE_ADDR: 72.80.180.146
-REMOTE_PORT: 50589
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
-
-[2022-02-17 15:17:11.418] [multi_sink] [debug] === RESPONSE === 
-body: {{{}}}
-headers: 
-Access-Control-Allow-Headers: *
-Access-Control-Allow-Methods: OPTIONS,POST,GET
-Access-Control-Allow-Origin: *
-Content-Length: 0
-Content-Type: application/json
-Keep-Alive: timeout=5, max=5
-
-[2022-02-17 15:17:11.426] [multi_sink] [debug] === REQUEST === 
-body: {{{{"white_time_control":{"time_left_ms":20000,"increment_ms":3000},"black_time_control":{"time_left_ms":20000,"increment_ms":3000},"use_matchmaking_pool":false,"player_requests_white":true,"requestor_client_uuid":"63ywpnuscx6qx8yl8y1zw8"}}}}
-headers: 
-Accept: application/json, text/plain, */*
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.5
-Connection: keep-alive
-Content-Length: 236
-Content-Type: application/json
-Host: 72.80.180.146:59201
-Origin: http://localhost:59200
-Referer: http://localhost:59200/
-REMOTE_ADDR: 72.80.180.146
-REMOTE_PORT: 50589
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
-
-[2022-02-17 15:17:11.427] [multi_sink] [debug] === RESPONSE === 
-body: {{{{"game_instance_uuid":"22860324271e0bda1ab7d6d9a4f24fa8"}}}}
-headers: 
-Access-Control-Allow-Origin: *
-Content-Length: 57
-Content-Type: application/json
-Keep-Alive: timeout=5, max=5
-
-[2022-02-17 15:17:11.473] [multi_sink] [debug] client uuid 63ywpnuscx6qx8yl8y1zw8 is already being used on game instance 22860324271e0bda1ab7d6d9a4f24fa8
-[2022-02-17 15:17:13.767] [multi_sink] [debug] === REQUEST === 
-body: {{{}}}
-headers: 
-Accept: application/json, text/plain, */*
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.5
-Connection: keep-alive
-DNT: 1
-Host: 72.80.180.146:59201
-Origin: http://localhost:59200
-Referer: http://localhost:59200/
-REMOTE_ADDR: 72.80.180.146
-REMOTE_PORT: 50598
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:95.0) Gecko/20100101 Firefox/95.0
-
-[2022-02-17 15:17:13.767] [multi_sink] [debug] === RESPONSE === 
-body: {{{{"name":"chess_server","status":"healthy"}}}}
-headers: 
-Access-Control-Allow-Origin: *
-Content-Length: 42
-Content-Type: application/json
-Keep-Alive: timeout=5, max=5
-
-[2022-02-17 15:17:13.806] [multi_sink] [debug] Both players are already initialized for game 22860324271e0bda1ab7d6d9a4f24fa8
+[2022-02-19 17:39:20.743] [multi_sink] [info] Logger initialized.
+[2022-02-19 17:41:30.300] [multi_sink] [debug] client uuid 63ywpnuscx6qx8yl8y1zw8 is already being used on game instance 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:41:34.013] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:46:21.500] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:46:21.529] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:46:21.550] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:46:21.581] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:47:04.812] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:47:04.821] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:47:04.870] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:47:04.896] [multi_sink] [debug] Both players are already initialized for game 24e893826deb46141fcb1dabf0edc0c7
+[2022-02-19 17:47:09.864] [multi_sink] [debug] client uuid 63ywpnuscx6qx8yl8y1zw8 is already being used on game instance 3e556a13778a40c10aed2b0d6203af26
+[2022-02-19 17:47:12.413] [multi_sink] [debug] Both players are already initialized for game 3e556a13778a40c10aed2b0d6203af26
+[2022-02-19 17:48:14.794] [multi_sink] [debug] client uuid 63ywpnuscx6qx8yl8y1zw8 is already being used on game instance 2dc9cce6bb0e4b9113fcd0f7b13d3057
+[2022-02-19 17:48:17.605] [multi_sink] [debug] Both players are already initialized for game 2dc9cce6bb0e4b9113fcd0f7b13d3057
+[2022-02-19 17:55:27.913] [multi_sink] [debug] client uuid 240zbaa6xzhi30svav325ra is already being used on game instance 34cfef87556348520e0876ce8e686f63
+[2022-02-19 17:55:27.945] [multi_sink] [debug] client uuid 240zbaa6xzhi30svav325ra is already being used on game instance 34cfef87556348520e0876ce8e686f63
+[2022-02-19 17:55:30.662] [multi_sink] [debug] Both players are already initialized for game 34cfef87556348520e0876ce8e686f63

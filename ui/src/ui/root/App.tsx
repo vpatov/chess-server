@@ -11,9 +11,8 @@ import {
   ThemeProvider,
   createTheme,
 } from "@material-ui/core/styles";
+
 const theme = createTheme();
-
-
 
 function App() {
 

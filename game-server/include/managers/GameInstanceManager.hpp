@@ -85,26 +85,6 @@ public:
         // TODO implement end_game function
     }
 
-    void offer_draw(std::string game_instance_uuid, std::string initiator_client_uuid){
-        // TODO implement
-    }
-
-    void accept_draw_offer(std::string game_instance_uuid, std::string acceptor_client_uuid){
-        // TODO implement
-    }
-
-    /*
-    TODO
-        - implement validation layer
-        - create logical separation between GameInstanceManager and GameInstance. GameInstanceManager
-            should be concerned with the aspect of managing multiple game states, creating and cleaning them up.
-            The GameInstance class should be concerned with mutating game state, i.e. making moves and what not.
-            You need a separate logical distinction for enforcing gameplay logic, like throwing exceptions if illegal
-            actions are performed, or returning messages to the user.
-        - create clean hierarchy of incoming messages and outgoing messages.
-    */
-
-
     bool start_game(std::string game_instance_uuid) {
         auto game_instance = get_game_instance(game_instance_uuid);
         return game_instance->start_game();
@@ -113,17 +93,6 @@ public:
     bool make_move(std::string game_instance_uuid, std::string lan_move,
                    std::string client_uuid) {
         auto game_instance = get_game_instance(game_instance_uuid);
-
-        if (game_instance->state != GameInstanceState::IN_PLAY) {
-            throw std::invalid_argument("Game instance " + game_instance_uuid + " has finished.");
-        }
-
-        auto player = game_instance->get_player_to_act();
-        if (player->client_uuid.compare(client_uuid) != 0) {
-            throw std::invalid_argument("It is not your turn to move, player " +
-                                        client_uuid + ".");
-        }
-
         return game_instance->make_move(lan_move);
     }
 
@@ -171,8 +140,8 @@ public:
             game_instance->black_player->client_uuid = client_uuid;
         }
 
-        if (game_instance->is_game_full()) {
-            game_instance->start_game();
+        if (game_instance->is_game_full()){
+            game_instance->update_game_ready_to_start();
         }
     }
 };

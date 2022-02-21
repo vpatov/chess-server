@@ -1,6 +1,19 @@
 import { FenString } from "./fen";
 import { ClientUUID } from "./uuid";
 
+export declare interface CreateGameRequest {
+    white_time_control: TimeControlParams;
+    black_time_control: TimeControlParams;
+    use_matchmaking_pool: boolean;
+    player_requests_white: boolean;
+    requestor_client_uuid: string;
+  }
+  
+  export declare interface TimeControlParams {
+    time_left_ms: number;
+    increment_ms: number;
+  }
+
 export const enum ClientWsActionType {
     START_GAME = 0,
     MAKE_MOVE = 1,
@@ -27,9 +40,10 @@ export declare interface ServerWsMessage {
     payload: ServerGameInitPayload | ServerGameStateUpdatePayload;
 }
 
-export declare interface PlayerTimeControl {
+export declare interface TimeBank {
     white: number;
     black: number;
+    server_time_now: number;
 }
 
 export declare interface ServerGameStateUpdatePayload {
@@ -39,8 +53,9 @@ export declare interface ServerGameStateUpdatePayload {
     result?: GameResult;
     moves_played: string[];
     king_in_check_square?: string;
-    time_control: PlayerTimeControl;
+    time_control: TimeBank;
     game_instance_state: GameInstanceState
+    draw_offer: string;
 }
 
 export declare interface ServerGameInitPayload {
@@ -63,6 +78,7 @@ export declare interface GameResult {
 
 export const enum GameInstanceState {
     NOT_STARTED,
+    READY_TO_START,
     IN_PLAY,
     FINISHED
 }

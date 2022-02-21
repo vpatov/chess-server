@@ -34,10 +34,8 @@ public:
     // after make move, the person whose turn it is loses in X seconds if they dont make a move
     // should call the lose function
     void start_game_instance_timeout_timer(std::string game_instance_uuid, long milliseconds, std::function<void(void)> callback) {
-        std::cout << ColorCode::purple << "start_game_instance_timeout_timer ms: " << milliseconds << ColorCode::end << std::endl;
         auto old_timer = timers[game_instance_uuid];
         if (old_timer != nullptr) {
-            std::cout << ColorCode::red << "cancelling old timer for " << game_instance_uuid << ColorCode::end << std::endl;
             old_timer->cancel();
             timers.erase(game_instance_uuid);
         }

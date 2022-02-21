@@ -1,4 +1,55 @@
 
-.create-game-container > * {
-    margin: 1.5vh;
+.create-game-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.time-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.time-control-color-label {
+    width: 5vw;
+}
+
+.player-color-input-container {
+    display:flex;
+    align-items: center;
+}
+.player-color-input {
+    background-color: #383838;
+    border-radius: 15px;
+    width: 8vw;
+    height: 5vh;
+    box-shadow: none;
+    border: none;
+    color: white;
+    text-align: center;
+}
+
+.player-color-input-description-label {
+    width: 7vw;
+}
+
+.create-game-submit {
+    background-color: #383838;
+    border-radius: 15px;
+    width: 8vw;
+    height: 7vh;
+    box-shadow: none;
+    border: none;
+    color: white;
+}
+
+.create-game-submit:hover {
+    background-color: #585858;
+}
+
+.create-game-submit:active {
+    background-color: #282828;
+
 }

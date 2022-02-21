@@ -1,4 +1,4 @@
-import { ServerGameInitPayload, ServerGameStateUpdatePayload } from "./api";
+import { CreateGameRequest, ServerGameInitPayload, ServerGameStateUpdatePayload } from "./api";
 import { ClientUUID } from "./uuid";
 
 export enum ReduxActionType {
@@ -7,6 +7,12 @@ export enum ReduxActionType {
   SERVER_GAME_STATE_UPDATE = "SERVER_GAME_STATE_UPDATE",
   SERVER_GAME_STATE_INIT = "SERVER_GAME_STATE_INIT",
   REDIRECT_TO_GAME_INSTANCE = "REDIRECT_TO_GAME_INSTANCE",
+  TIMER_TICK = 'TIMER_TICK',
+  DRAW_BUTTON_PRESS = 'DRAW_BUTTON_PRESS',
+  DECLINE_DRAW_OFFER = 'DECLINE_DRAW_OFFER',
+  RESIGN_BUTTON_PRESS = 'RESIGN_BUTTON_PRESS',
+  GO_HOME = 'GO_HOME',
+  CREATE_GAME_FORM_SUBMIT = 'CREATE_GAME_FORM_SUBMIT',
 }
 
 export declare interface ReduxAction {
@@ -16,6 +22,7 @@ export declare interface ReduxAction {
   selectSquarePayload?: SelectSquarePayload;
   gameInstanceUUID?: string;
   clientUUID?: ClientUUID;
+  createGameRequest?: CreateGameRequest;
 }
 
 export declare interface SelectSquarePayload {

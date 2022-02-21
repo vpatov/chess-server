@@ -1,19 +1,9 @@
 import axios from "axios";
+import { CreateGameRequest } from "../models/api";
 import { CHESS_SERVER_HOST, HTTP_SERVER_PORT } from "../models/constants";
 import { FenString } from "../models/fen";
 
-export declare interface CreateGameRequest {
-  white_time_control: TimeControl;
-  black_time_control: TimeControl;
-  use_matchmaking_pool: boolean;
-  player_requests_white: boolean;
-  requestor_client_uuid: string;
-}
 
-export declare interface TimeControl {
-  time_left_ms: number;
-  increment_ms: number;
-}
 
 
 const server_url = `http://${CHESS_SERVER_HOST}:${HTTP_SERVER_PORT}`;

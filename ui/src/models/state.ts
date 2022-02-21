@@ -1,6 +1,5 @@
-import { TimeControl } from "../api/api";
 import { calculateLegalMoveMap } from "../logic/position";
-import { GameInstanceState, GameResult, PlayerTimeControl } from "./api";
+import { CreateGameRequest, GameInstanceState, GameResult, TimeBank } from "./api";
 import { LANMove } from "./fen";
 import {
   getStartingPosition,
@@ -25,7 +24,24 @@ export declare interface State {
   squaresOfLastPlayedMove: [number, number];
   kingInCheckSquare: number | undefined;
   gameInstanceState: GameInstanceState;
-  timeControl: PlayerTimeControl;
+  timeBank: TimeBank;
+  drawOffer: string;
+}
+
+export function getCleanCreateGameRequest(): CreateGameRequest {
+  return {
+    white_time_control: {
+      time_left_ms: 60 * 1000 * 5,
+      increment_ms: 0
+    },
+    black_time_control: {
+      time_left_ms: 60 * 1000 * 5,
+      increment_ms: 0
+    },
+    use_matchmaking_pool: false,
+    player_requests_white: true,
+    requestor_client_uuid: '',
+  };
 }
 
 
@@ -46,6 +62,7 @@ export function getCleanState(): State {
     squaresOfLastPlayedMove: [-1,-1],
     kingInCheckSquare: undefined,
     gameInstanceState: GameInstanceState.NOT_STARTED,
-    timeControl: {white: 0, black: 0}
+    timeBank: {white: 0, black: 0, server_time_now: 0},
+    drawOffer: '',
   };
 }

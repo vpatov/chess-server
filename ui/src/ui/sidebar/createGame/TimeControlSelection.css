@@ -1,0 +1,65 @@
+.time-control-squares-container {
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+}
+
+.time-control-square {
+    width: 10vh;
+    height: 10vh;
+    border: 2px solid black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-control-square-unselected:hover {
+    background-color: rgb(189, 189, 189);
+}
+
+
+.time-control-square-unselected:active {
+    background-color: rgb(85, 85, 85);
+
+}
+
+
+
+.time-control-square-selected {
+    background-color:rgb(119, 119, 119);
+
+}
+
+
+.increment-slider {
+    color: black;
+    overflow: hidden;
+}
+
+.increment-input {
+    color: white;
+    text-align: center;
+    background-color: rgb(56, 56, 56);
+    margin: 1vw;
+    width: 3vw;
+    height: 3vw;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

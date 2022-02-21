@@ -17,7 +17,6 @@ function Sidebar(props: any) {
     const sidebarMode: SidebarMode = props.sidebarMode;
     const SidebarComponent = sidebarComponents[sidebarMode];
 
-    console.log("Sidebar:", sidebarMode, SidebarComponent);
     return (
         <div className="sidebar">
             <SidebarComponent></SidebarComponent>
