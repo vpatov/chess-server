@@ -21,7 +21,10 @@ function TimeBankDisplay(props: any) {
     const dispatch = useDispatch();
 
     function getTextLabel(millis: number) {
-        return `${Math.floor(millis / 60000)}:${pad(Math.ceil((millis % 60000) / 1000), 2)}`;
+        const millisRounded = Math.round(millis / 1000) * 1000;
+        const minutes = Math.floor(millisRounded / 60000);
+        const seconds = Math.floor((millisRounded % 60000) / 1000) % 60;
+        return `${minutes}:${pad(seconds, 2)}`;
     }
 
     useEffect(() => {
@@ -35,10 +38,10 @@ function TimeBankDisplay(props: any) {
 
 
     return <div className="time-banks-container">
-        <div className={`time-bank time-bank-white ${position.whites_turn ? 'time-bank-active' : ''}`}>
+        <div className={`time-bank time-bank-white ${ position.whites_turn ? 'time-bank-active' : '' } `}>
             {getTextLabel(timeBank.white)}
         </div>
-        <div className={`time-bank time-bank-black ${!position.whites_turn ? 'time-bank-active' : ''}`}>
+        <div className={`time-bank time-bank-black ${ !position.whites_turn ? 'time-bank-active' : '' } `}>
             {getTextLabel(timeBank.black)}
         </div>
     </div>
