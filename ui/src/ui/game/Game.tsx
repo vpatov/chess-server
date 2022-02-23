@@ -16,7 +16,6 @@ import GameContainer from "./GameContainer";
 import { ServerGameInitPayload, ServerGameStateUpdatePayload, ServerWsMessageType } from "../../models/api";
 import Sidebar, { SidebarMode } from "../sidebar/Sidebar";
 
-
 function Game(props: any) {
     const sidebarMode: SidebarMode = props.sidebarMode;
     console.log("Game:", sidebarMode);

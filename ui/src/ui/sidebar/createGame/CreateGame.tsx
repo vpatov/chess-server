@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './CreateGame.css';
 import TimeControlSelection from './TimeControlSelection';
-import { create_game } from '../../../api/api';
+import { create_game, get_games } from '../../../api/api';
 import { clientUUIDSelector } from '../../../store/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
@@ -55,6 +55,7 @@ function CreateGame() {
     const methods = useForm();
 
     const clientUUID = useSelector(clientUUIDSelector);
+    const [listOfGames, setListOfGames] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -85,7 +86,19 @@ function CreateGame() {
 
         create_game(createGameRequest, onSuccess, () => {});
 
+
+
     }
+
+    function onSucessGetGames(data: any){
+        console.log(data);
+        setListOfGames(data.games);
+    }
+
+    useEffect(() => {
+        console.log("useEffect is being called");
+        get_games(onSucessGetGames, () => {console.log("error in get_games")});
+    }, []);
 
     return (
         <FormProvider {...methods} >
@@ -96,6 +109,9 @@ function CreateGame() {
                     <button className="create-game-submit" type="submit">Create Game</button>
                     {/* <input className="create-game-submit" value="Create Game" type="submit"></input> */}
                 </form>
+            </div>
+            <div>
+                {listOfGames?.map((game) => <span>{game}</span>)}
             </div>
         </FormProvider>
     );

@@ -28,6 +28,12 @@ export const create_game = (request: CreateGameRequest, onSuccess: any, onError:
   return api.post(url, request).then(onSuccess).catch(onError);
 };
 
+export const get_games = (onSuccess: any, onError: any) => {
+  const url = '/metrics';
+  return api.get(url).then(onSuccess).catch(onError);
+};
+
+
 
 
 // export function create_game(request: CreateGameRequest) {
