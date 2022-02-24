@@ -15,6 +15,8 @@ import MuiAlert from '@mui/material/Alert';
 import GameContainer from "./GameContainer";
 import { ServerGameInitPayload, ServerGameStateUpdatePayload, ServerWsMessageType } from "../../models/api";
 import Sidebar, { SidebarMode } from "../sidebar/Sidebar";
+import { get_games } from "../../api/api";
+import { AxiosResponse } from "axios";
 
 function Game(props: any) {
     const sidebarMode: SidebarMode = props.sidebarMode;
@@ -94,6 +96,19 @@ function Game(props: any) {
         WsServer.openWs(gameInstanceUUID as GameInstanceUUID, wsErrorCallback);
         WsServer.subscribe(ServerWsMessageType.GAME_STATE_UPDATE, onGameStateUpdate);
         WsServer.subscribe(ServerWsMessageType.GAME_INIT, onGameInit);
+
+        function onSuccessGetGames(data: AxiosResponse) {
+            const action: ReduxAction = {
+                type: ReduxActionType.GET_GAME_INSTANCES,
+                gameInstances: data.data.games
+            };
+            dispatch(action);
+        }
+
+        get_games(onSuccessGetGames,
+            (e: any) => {console.log("error in get_games", e);}
+        );
+
 
     }, [dispatch, gameInstanceUUID, gameLoaded]);
 

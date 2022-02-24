@@ -53,3 +53,15 @@
     background-color: #282828;
 
 }
+
+.active-games-section {
+    margin-top: 2vh;
+}
+.active-games-list {
+    padding: 1.5vw;
+    text-align: left;
+    list-style: none;
+    overflow-y: scroll;
+    height: 8vh;
+    border: 1px solid grey;
+}

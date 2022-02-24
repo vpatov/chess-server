@@ -7,8 +7,8 @@
 }
 
 .time-control-square {
-    width: 10vh;
-    height: 10vh;
+    width: 9vh;
+    height: 9vh;
     border: 2px solid black;
     display:flex;
     justify-content: center;

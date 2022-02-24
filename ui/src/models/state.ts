@@ -6,6 +6,7 @@ import {
   getStartingPositionLegalMoves,
   PositionInfo,
 } from "./position";
+import { GameInstanceUUID } from "./uuid";
 
 export declare type MoveMap = Map<number, Map<number,string[]>>;
 
@@ -26,6 +27,7 @@ export declare interface State {
   gameInstanceState: GameInstanceState;
   timeBank: TimeBank;
   drawOffer: string;
+  gameInstances: GameInstanceUUID[];
 }
 
 export function getCleanCreateGameRequest(): CreateGameRequest {
@@ -64,5 +66,6 @@ export function getCleanState(): State {
     gameInstanceState: GameInstanceState.NOT_STARTED,
     timeBank: {white: 0, black: 0, server_time_now: 0},
     drawOffer: '',
+    gameInstances: [],
   };
 }

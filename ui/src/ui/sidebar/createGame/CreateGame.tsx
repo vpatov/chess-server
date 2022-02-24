@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './CreateGame.css';
 import TimeControlSelection from './TimeControlSelection';
-import { create_game, get_games } from '../../../api/api';
-import { clientUUIDSelector } from '../../../store/selectors';
+import { create_game } from '../../../api/api';
+import { clientUUIDSelector, gameInstancesSelector } from '../../../store/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
 import { AxiosResponse } from 'axios';
@@ -54,8 +54,8 @@ function TimeControl(props: any) {
 function CreateGame() {
     const methods = useForm();
 
+    const gameInstances = useSelector(gameInstancesSelector);
     const clientUUID = useSelector(clientUUIDSelector);
-    const [listOfGames, setListOfGames] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -80,25 +80,12 @@ function CreateGame() {
         function onSuccess(response: AxiosResponse) {
             const gameInstanceUUID = response.data['game_instance_uuid'];
             history.push(`/game/${gameInstanceUUID}`);
-            const action: ReduxAction = {type: ReduxActionType.REDIRECT_TO_GAME_INSTANCE, gameInstanceUUID};
+            const action: ReduxAction = { type: ReduxActionType.REDIRECT_TO_GAME_INSTANCE, gameInstanceUUID };
             dispatch(action);
         }
 
-        create_game(createGameRequest, onSuccess, () => {});
-
-
-
+        create_game(createGameRequest, onSuccess, () => { });
     }
-
-    function onSucessGetGames(data: any){
-        console.log(data);
-        setListOfGames(data.games);
-    }
-
-    useEffect(() => {
-        console.log("useEffect is being called");
-        get_games(onSucessGetGames, () => {console.log("error in get_games")});
-    }, []);
 
     return (
         <FormProvider {...methods} >
@@ -110,8 +97,14 @@ function CreateGame() {
                     {/* <input className="create-game-submit" value="Create Game" type="submit"></input> */}
                 </form>
             </div>
-            <div>
-                {listOfGames?.map((game) => <span>{game}</span>)}
+            <div className="active-games-section">
+                <span className="active-games-label">Active Games: {gameInstances.length}</span>
+                <ul className="active-games-list">
+                    {
+                        gameInstances?.map((gameInstanceUUID) =>
+                            <li><a href={`/game/${gameInstanceUUID}`}>{gameInstanceUUID}</a></li>
+                        )}
+                </ul>
             </div>
         </FormProvider>
     );

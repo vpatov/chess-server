@@ -69,6 +69,13 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
             };
         }
 
+        case ReduxActionType.GET_GAME_INSTANCES: {
+            return {
+                ...state,
+                gameInstances: action.gameInstances || []
+            };
+        }
+
         case ReduxActionType.GO_HOME: {
             const cleanState = getCleanState();
             return {

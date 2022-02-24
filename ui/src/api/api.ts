@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { CreateGameRequest } from "../models/api";
 import { CHESS_SERVER_HOST, HTTP_SERVER_PORT } from "../models/constants";
 import { FenString } from "../models/fen";
@@ -28,7 +28,7 @@ export const create_game = (request: CreateGameRequest, onSuccess: any, onError:
   return api.post(url, request).then(onSuccess).catch(onError);
 };
 
-export const get_games = (onSuccess: any, onError: any) => {
+export const get_games = (onSuccess: (arg: AxiosResponse) => void, onError: any) => {
   const url = '/metrics';
   return api.get(url).then(onSuccess).catch(onError);
 };

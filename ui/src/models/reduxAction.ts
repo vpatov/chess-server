@@ -1,5 +1,5 @@
 import { CreateGameRequest, ServerGameInitPayload, ServerGameStateUpdatePayload } from "./api";
-import { ClientUUID } from "./uuid";
+import { ClientUUID, GameInstanceUUID } from "./uuid";
 
 export enum ReduxActionType {
   SELECT_SQUARE = "SELECT_SQUARE",
@@ -13,6 +13,7 @@ export enum ReduxActionType {
   RESIGN_BUTTON_PRESS = 'RESIGN_BUTTON_PRESS',
   GO_HOME = 'GO_HOME',
   CREATE_GAME_FORM_SUBMIT = 'CREATE_GAME_FORM_SUBMIT',
+  GET_GAME_INSTANCES = 'GET_GAME_INSTANCES'
 }
 
 export declare interface ReduxAction {
@@ -23,6 +24,7 @@ export declare interface ReduxAction {
   gameInstanceUUID?: string;
   clientUUID?: ClientUUID;
   createGameRequest?: CreateGameRequest;
+  gameInstances?: GameInstanceUUID[];
 }
 
 export declare interface SelectSquarePayload {
