@@ -1,10 +1,1 @@
-[2022-02-23 23:37:01.883] [multi_sink] [info] Logger initialized.
-[2022-02-23 23:37:38.462] [multi_sink] [debug] client uuid 63ywpnuscx6qx8yl8y1zw8 is already being used on game instance 26ff0c3ded804d6f0100c8e2f96fc5f7
-[2022-02-23 23:37:38.522] [multi_sink] [debug] client uuid 63ywpnuscx6qx8yl8y1zw8 is already being used on game instance 26ff0c3ded804d6f0100c8e2f96fc5f7
-[2022-02-23 23:37:45.857] [multi_sink] [debug] Both players are already initialized for game 26ff0c3ded804d6f0100c8e2f96fc5f7
-[2022-02-23 23:38:12.394] [multi_sink] [debug] Both players are already initialized for game 26ff0c3ded804d6f0100c8e2f96fc5f7
-[2022-02-23 23:38:12.428] [multi_sink] [debug] Both players are already initialized for game 26ff0c3ded804d6f0100c8e2f96fc5f7
-[2022-02-23 23:38:14.274] [multi_sink] [debug] Both players are already initialized for game 26ff0c3ded804d6f0100c8e2f96fc5f7
-[2022-02-23 23:38:14.319] [multi_sink] [debug] Both players are already initialized for game 26ff0c3ded804d6f0100c8e2f96fc5f7
-[2022-02-23 23:38:57.903] [multi_sink] [debug] client uuid whiterobotplayer001 is already being used on game instance 36c461caae350a5d001703387a394e73
-[2022-02-23 23:39:29.199] [multi_sink] [debug] Both players are already initialized for game 36c461caae350a5d001703387a394e73
+[2022-02-24 12:18:19.547] [multi_sink] [info] Logger initialized.

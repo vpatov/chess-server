@@ -72,7 +72,7 @@ set(CMAKE_BUILD_TYPE Debug)
 
 
 
-add_compile_definitions(PROJECT_ROOT_DIR="${CMAKE_CURRENT_SOURCE_DIR}/..")
+add_compile_definitions(PROJECT_ROOT_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../build)
 
 set_target_properties(chess_server PROPERTIES LINKER_LANGUAGE CXX)

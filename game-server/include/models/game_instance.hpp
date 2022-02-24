@@ -71,7 +71,7 @@ public:
 
     GameInstance()
     {
-        uuid = generate_uuid();
+        uuid = generate_readable_uuid();
         position = starting_position();
         white_player = std::make_shared<Player>();
         white_player->white = true;

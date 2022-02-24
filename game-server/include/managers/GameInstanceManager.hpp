@@ -35,7 +35,7 @@ public:
 
         while (m_game_instances.find(game_instance->uuid) !=
                m_game_instances.end()) {
-            game_instance->uuid = generate_uuid();
+            game_instance->uuid = generate_readable_uuid();
         }
 
         auto player = request.player_requests_white ? game_instance->white_player
