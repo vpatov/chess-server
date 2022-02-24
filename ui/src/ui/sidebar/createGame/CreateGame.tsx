@@ -94,17 +94,20 @@ function CreateGame() {
                     <PlayerColorInput />
                     <TimeControl></TimeControl>
                     <button className="create-game-submit" type="submit">Create Game</button>
-                    {/* <input className="create-game-submit" value="Create Game" type="submit"></input> */}
                 </form>
             </div>
             <div className="active-games-section">
                 <span className="active-games-label">Active Games: {gameInstances.length}</span>
-                <ul className="active-games-list">
-                    {
-                        gameInstances?.map((gameInstanceUUID) =>
-                            <li><a href={`/game/${gameInstanceUUID}`}>{gameInstanceUUID}</a></li>
-                        )}
-                </ul>
+                {gameInstances?.length ?
+                    <ul className="active-games-list">
+                        {
+                            gameInstances?.map((gameInstanceUUID) =>
+                                <li><a href={`/game/${gameInstanceUUID}`}>{gameInstanceUUID}</a></li>
+                            )}
+                    </ul>
+                    :
+                    <></>
+                }
             </div>
         </FormProvider>
     );
