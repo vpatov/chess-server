@@ -8,10 +8,16 @@
             "program": "${workspaceFolder}/game-server/chess_server",
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "build",
-            "targetArchitecture":"x86_64",
+            "targetArchitecture": "x86_64",
             "miDebuggerPath": "/usr/bin/gdb"
-
-
+        },
+        {
+            "name": "LaunchPy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/robot-player/player.py",
+            "cwd": "${workspaceFolder}",
+            "args": ["white","2327d7e029fe012d0344c9edb59519ca"]
         }
     ]
 }

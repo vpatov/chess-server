@@ -7,12 +7,12 @@ export declare interface CreateGameRequest {
     use_matchmaking_pool: boolean;
     player_requests_white: boolean;
     requestor_client_uuid: string;
-  }
-  
-  export declare interface TimeControlParams {
+}
+
+export declare interface TimeControlParams {
     time_left_ms: number;
     increment_ms: number;
-  }
+}
 
 export const enum ClientWsActionType {
     START_GAME = 0,

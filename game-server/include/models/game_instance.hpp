@@ -292,6 +292,7 @@ public:
             position->m_whites_turn
                 ? white_player->client_uuid
                 : black_player->client_uuid},
+            {"currentTurn", position->m_whites_turn ? "white" : "black"},
             {"time_control", get_time_control_json()},
             {"game_instance_state", state}
         };

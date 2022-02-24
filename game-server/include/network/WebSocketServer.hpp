@@ -123,15 +123,25 @@ public:
             }
 
             // throw if query params were invalid for connection
-            if (client_uuid.size() == 0 || game_instance_uuid.size() == 0) {
+            if (client_uuid.size() == 0) {
                 throw std::invalid_argument(
-                    "clientUUID and gameInstanceUUID must be provided in the WS "
+                    "clientUUID must be provided in the WS "
+                    "connection query params.");
+            }
+            if (game_instance_uuid.size() == 0) {
+                throw std::invalid_argument(
+                    "gameInstanceUUID must be provided in the WS "
                     "connection query params.");
             }
 
-            m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
-            auto player =
-                m_game_instance_manager->get_player(client_uuid, game_instance_uuid);
+            auto game_instance = m_game_instance_manager->get_game_instance(game_instance_uuid);
+            bool client_playing_white = false;
+            if (!game_instance->is_game_full()){
+                m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
+                auto player =
+                    m_game_instance_manager->get_player(client_uuid, game_instance_uuid);
+                    client_playing_white = player->white;
+            }
 
             m_connection_client_uuid_map[hdl] =
                 ClientConnectionInfo(client_uuid, game_instance_uuid);
@@ -141,7 +151,7 @@ public:
             // Everything the client needs should be made available in the game state.
             json game_init_message = {
                 {"messageType", messageTypeString[ServerMessageType::GAME_INIT]},
-                {"payload", {{"client_playing_white", player->white}}} };
+                {"payload", {{"client_playing_white", client_playing_white}}} };
             m_server.send(hdl, game_init_message.dump(),
                           websocketpp::frame::opcode::TEXT);
 
