@@ -1,15 +1,19 @@
 import './GamePlaySidebar.css';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { gameResultSelector, drawOfferSelector, movesPlayedSelector, clientPlayingWhiteSelector } from '../../../store/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef } from 'react';
-import { GameResultCondition } from '../../../models/api';
+import { useEffect, useRef, useState } from 'react';
+import { GameResultCondition, ServerGameInitPayload, ServerGameStateUpdatePayload, ServerWsMessageType } from '../../../models/api';
 import { ReduxAction, ReduxActionType } from '../../../models/reduxAction';
 import FlagIcon from '@mui/icons-material/Flag';
 import HomeIcon from '@mui/icons-material/Home';
-import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 import TimeBankDisplay from './TimeBankDisplay';
+import { WsServer } from '../../../api/ws';
+
+import { GameInstanceUUID } from '../../../models/uuid';
+
+import CloseIcon from '@mui/icons-material/Close';
 
 
 function MoveList() {
@@ -168,6 +172,33 @@ function NewGameButton() {
 
 function GameSidebar() {
 
+    const dispatch = useDispatch();
+    const { gameInstanceUUID } = useParams() as any;
+
+    useEffect(() => {
+        const onGameStateUpdate = (payload: ServerGameStateUpdatePayload) => {
+            const action: ReduxAction = {
+                type: ReduxActionType.SERVER_GAME_STATE_UPDATE,
+                serverGameStateUpdatePayload: payload
+            }
+            dispatch(action);
+        };
+
+        const onGameInit = (payload: ServerGameInitPayload) => {
+            const action: ReduxAction = {
+                type: ReduxActionType.SERVER_GAME_STATE_INIT,
+                serverGameInitPayload: payload
+            };
+            dispatch(action);
+        }
+
+        WsServer.openWs(gameInstanceUUID as GameInstanceUUID, 
+            () => {console.error("could not open websocket.")});
+        WsServer.subscribe(ServerWsMessageType.GAME_STATE_UPDATE, onGameStateUpdate);
+        WsServer.subscribe(ServerWsMessageType.GAME_INIT, onGameInit);
+
+    }, [gameInstanceUUID, dispatch]);
+
 
     return (
         <>
@@ -188,7 +219,6 @@ function GameSidebar() {
                 <GameResult />
                 <DrawResignationButtons></DrawResignationButtons>
                 <NewGameButton></NewGameButton>
-
             </div>
         </>
 

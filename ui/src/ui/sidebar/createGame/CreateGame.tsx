@@ -102,7 +102,9 @@ function CreateGame() {
                     <ul className="active-games-list">
                         {
                             gameInstances?.map((gameInstanceUUID) =>
-                                <li><a href={`/game/${gameInstanceUUID}`}>{gameInstanceUUID}</a></li>
+                                <li key={gameInstanceUUID}>
+                                    <a href={`/game/${gameInstanceUUID}`}>{gameInstanceUUID}</a>
+                                </li>
                             )}
                     </ul>
                     :

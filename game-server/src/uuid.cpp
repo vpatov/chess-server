@@ -45,9 +45,6 @@ std::string generate_readable_uuid()
     std::vector<std::string> animals;
     std::string id = std::to_string(random_bitstring() % 1000);
 
-    auto path = project_root_dir / "words" / "adjectives.txt";
-    std::cout << path << std::endl;
-
     std::string line;
     std::ifstream adjectives_file(project_root_dir / "words" / "adjectives.txt");
     if (adjectives_file.is_open())

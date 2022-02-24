@@ -4,7 +4,7 @@ import queryString, { ParsedQuery } from 'query-string';
 import { LANMove } from "../models/fen";
 import { ClientWsAction, ClientWsActionType, ServerWsMessageType } from "../models/api";
 
-
+const wsURL = `ws://${CHESS_SERVER_HOST}:${WS_SERVER_PORT}`;
 
 export class WsServer {
     static clientUUID: ClientUUID | null = null;
@@ -17,11 +17,14 @@ export class WsServer {
         if (!clientUUID) {
             throw Error("clientUUID is not initialized, cannot open websocket.");
         }
-        const wsURL = `ws://${CHESS_SERVER_HOST}:${WS_SERVER_PORT}`;
         const wsURI = {
             url: wsURL,
             query: { clientUUID, gameInstanceUUID }
         };
+
+        if (!(gameInstanceUUID?.length > 0)){
+            console.log("trying to open a websocket connection without a gameInstanceUUID");
+        }
 
         if (this.ws?.OPEN){
             this.ws.close();

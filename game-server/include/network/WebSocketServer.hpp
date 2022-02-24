@@ -19,7 +19,7 @@
 #include <websocketpp/roles/client_endpoint.hpp>
 #include <websocketpp/server.hpp>
 
-const std::regex query_param_regex(R"((\w+?)=([0-9a-z]+)&?)");
+const std::regex query_param_regex(R"((\w+?)=([0-9a-z\\-]+)&?)");
 
 using websocketpp::connection_hdl;
 using websocketpp::lib::bind;
