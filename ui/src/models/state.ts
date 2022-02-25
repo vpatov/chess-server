@@ -28,6 +28,7 @@ export declare interface State {
   timeBank: TimeBank;
   drawOffer: string;
   gameInstances: GameInstanceUUID[];
+  gameNotFound: boolean;
 }
 
 export function getCleanCreateGameRequest(): CreateGameRequest {
@@ -67,5 +68,6 @@ export function getCleanState(): State {
     timeBank: {white: 0, black: 0, server_time_now: 0},
     drawOffer: '',
     gameInstances: [],
+    gameNotFound: true,
   };
 }

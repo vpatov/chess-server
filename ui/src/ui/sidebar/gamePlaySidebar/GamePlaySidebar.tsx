@@ -1,6 +1,6 @@
 import './GamePlaySidebar.css';
 import { useHistory, useParams } from "react-router-dom";
-import { gameResultSelector, drawOfferSelector, movesPlayedSelector, clientPlayingWhiteSelector } from '../../../store/selectors';
+import { gameResultSelector, drawOfferSelector, movesPlayedSelector, clientPlayingWhiteSelector, gameNotFoundSelector } from '../../../store/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { GameResultCondition, ServerGameInitPayload, ServerGameStateUpdatePayload, ServerWsMessageType } from '../../../models/api';
@@ -108,7 +108,7 @@ function DrawResignationButtons() {
     const drawLabel = canAcceptDeclineDraw ? acceptDrawLabel : (canRescindDraw ? rescindDrawLabel : offerDrawLabel);
 
 
-    function resignButtonHandler(){
+    function resignButtonHandler() {
         const action: ReduxAction = {
             type: ReduxActionType.RESIGN_BUTTON_PRESS
         };
@@ -130,7 +130,7 @@ function DrawResignationButtons() {
 
     return <div className="draw-resignation-buttons">
         <Tooltip title="Resign">
-            <button onClick={(e) => resignButtonHandler()}className="button-84"><FlagIcon></FlagIcon></button>
+            <button onClick={(e) => resignButtonHandler()} className="button-84"><FlagIcon></FlagIcon></button>
         </Tooltip>
         <Tooltip title={drawLabel}>
             <button
@@ -170,32 +170,71 @@ function NewGameButton() {
     </div>;
 }
 
+function PlayerNames() {
+    return (
+        <div className="player-names">
+            <span>
+                Anon
+            </span>
+            <span>
+                vs
+            </span>
+            <span>
+                Anon
+            </span>
+        </div>
+    );
+}
+
+function GameNotFoundLabel() {
+    const { gameInstanceUUID } = useParams() as any;
+
+    return <div className="game-not-found-label">
+        {`Game `}
+        <span className="game-not-found-guuid">
+            {`"${gameInstanceUUID}"`}
+        </span>
+        {` not found :(`}
+    </div>
+}
+
 function GameSidebar() {
 
     const dispatch = useDispatch();
     const { gameInstanceUUID } = useParams() as any;
+    const gameNotFound = useSelector(gameNotFoundSelector);
+
+    function onGameStateUpdate(payload: ServerGameStateUpdatePayload) {
+        const action: ReduxAction = {
+            type: ReduxActionType.SERVER_GAME_STATE_UPDATE,
+            serverGameStateUpdatePayload: payload
+        }
+        dispatch(action);
+    };
+
+    function onGameInit(payload: ServerGameInitPayload) {
+        const action: ReduxAction = {
+            type: ReduxActionType.SERVER_GAME_STATE_INIT,
+            serverGameInitPayload: payload
+        };
+        dispatch(action);
+    }
+
+    function onGameNotFound(payload: string) {
+        const action: ReduxAction = {
+            type: ReduxActionType.SERVER_GAME_NOT_FOUND
+        };
+    }
 
     useEffect(() => {
-        const onGameStateUpdate = (payload: ServerGameStateUpdatePayload) => {
-            const action: ReduxAction = {
-                type: ReduxActionType.SERVER_GAME_STATE_UPDATE,
-                serverGameStateUpdatePayload: payload
-            }
-            dispatch(action);
-        };
 
-        const onGameInit = (payload: ServerGameInitPayload) => {
-            const action: ReduxAction = {
-                type: ReduxActionType.SERVER_GAME_STATE_INIT,
-                serverGameInitPayload: payload
-            };
-            dispatch(action);
-        }
 
-        WsServer.openWs(gameInstanceUUID as GameInstanceUUID, 
-            () => {console.error("could not open websocket.")});
+        WsServer.openWs(gameInstanceUUID as GameInstanceUUID,
+            () => { console.error("could not open websocket.") });
         WsServer.subscribe(ServerWsMessageType.GAME_STATE_UPDATE, onGameStateUpdate);
         WsServer.subscribe(ServerWsMessageType.GAME_INIT, onGameInit);
+        WsServer.subscribe(ServerWsMessageType.GAME_NOT_FOUND, onGameNotFound);
+
 
     }, [gameInstanceUUID, dispatch]);
 
@@ -203,22 +242,17 @@ function GameSidebar() {
     return (
         <>
             <div className="game-sidebar-container">
-                <div className="player-names">
-                    <span>
-                        Anon
-                    </span>
-                    <span>
-                        vs
-                    </span>
-                    <span>
-                        Anon
-                    </span>
-                </div>
-                <MoveList />
-                <TimeBankDisplay />
-                <GameResult />
-                <DrawResignationButtons></DrawResignationButtons>
-                <NewGameButton></NewGameButton>
+                {gameNotFound ? <GameNotFoundLabel /> :
+                    <>
+                        <PlayerNames />
+                        <MoveList />
+                        <TimeBankDisplay />
+                        <GameResult />
+                        <DrawResignationButtons />
+
+                    </>
+                }
+                <NewGameButton />
             </div>
         </>
 

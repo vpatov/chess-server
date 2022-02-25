@@ -152,7 +152,8 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
                 kingInCheckSquare: kingInCheckSquare,
                 timeBank: update.time_control,
                 gameInstanceState: update.game_instance_state,
-                drawOffer: update.draw_offer || ''
+                drawOffer: update.draw_offer || '',
+                gameNotFound: false
             }
 
             if (positionInfo) {
@@ -181,6 +182,13 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
             };
         }
 
+        case ReduxActionType.SERVER_GAME_NOT_FOUND: {
+            return {
+                ...state,
+                gameNotFound: true
+            };
+        }
+
         case ReduxActionType.SERVER_GAME_STATE_INIT: {
             const payload = action.serverGameInitPayload;
             if (payload?.client_playing_white === undefined) {
@@ -189,7 +197,8 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
             }
             return {
                 ...state,
-                clientPlayingWhite: payload.client_playing_white
+                clientPlayingWhite: payload.client_playing_white,
+                gameNotFound: false
             };
         }
 

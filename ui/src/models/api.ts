@@ -32,7 +32,8 @@ export declare interface ClientWsAction {
 
 export const enum ServerWsMessageType {
     GAME_INIT = "GAME_INIT",
-    GAME_STATE_UPDATE = "GAME_STATE_UPDATE"
+    GAME_STATE_UPDATE = "GAME_STATE_UPDATE",
+    GAME_NOT_FOUND = "GAME_NOT_FOUND"
 };
 
 export declare interface ServerWsMessage {

@@ -21,6 +21,17 @@
     margin: 0 2vw;
 }
 
+.game-not-found-label {
+    color: rgb(65, 9, 25);
+    font-size: 4vh;
+    margin-top: 2vh;
+}
+
+.game-not-found-guuid {
+    font-style: italic;
+    font-weight: 600;
+}
+
 .move-list {
     height: 25vh;
     overflow-y: scroll;

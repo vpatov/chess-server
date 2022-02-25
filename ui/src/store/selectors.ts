@@ -30,5 +30,7 @@ export const gameInstanceStateSelector = (state: State): GameInstanceState => st
 
 export const drawOfferSelector = (state: State): string => state.drawOffer;
 
+export const gameNotFoundSelector = (state: State): boolean => state.gameNotFound;
+
 export const gameInstancesSelector = (state: State): GameInstanceUUID[] =>
   state.gameInstances.filter((gameInstanceUUID) => gameInstanceUUID.length > 1);

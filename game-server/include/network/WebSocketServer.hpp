@@ -134,13 +134,24 @@ public:
                     "connection query params.");
             }
 
-            auto game_instance = m_game_instance_manager->get_game_instance(game_instance_uuid);
+
+
+            auto game_instance = m_game_instance_manager->get_game_instance(game_instance_uuid, false);
+            if (game_instance == nullptr){
+                json game_not_found_message = {
+                    {"messageType", messageTypeString[ServerMessageType::GAME_NOT_FOUND]},
+                    {"payload", ""}
+                };
+                m_server.send(hdl, game_not_found_message.dump(), websocketpp::frame::opcode::TEXT);
+                return;
+            }
+
             bool client_playing_white = false;
-            if (!game_instance->is_game_full()){
+            if (!game_instance->is_game_full()) {
                 m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
                 auto player =
                     m_game_instance_manager->get_player(client_uuid, game_instance_uuid);
-                    client_playing_white = player->white;
+                client_playing_white = player->white;
             }
 
             m_connection_client_uuid_map[hdl] =
@@ -170,6 +181,11 @@ public:
             m_game_instance_manager->remove_connection_handle(
                 ccinfo.game_instance_uuid, hdl);
             m_connection_client_uuid_map.erase(hdl);
+            std::cout << ColorCode::blue <<
+                "Removed connection for game instance: "
+                << ccinfo.game_instance_uuid
+                << " and client uuid: " << ccinfo.client_uuid
+                << ColorCode::end << std::endl;
         }
 
         catch (const std::exception& e) {

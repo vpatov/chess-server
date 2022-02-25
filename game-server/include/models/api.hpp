@@ -13,12 +13,14 @@ enum ActionType {
 
 enum ServerMessageType {
   GAME_STATE_UPDATE,
-  GAME_INIT
+  GAME_INIT,
+  GAME_NOT_FOUND
 };
 
 const std::string messageTypeString[] = {
   "GAME_STATE_UPDATE",
-  "GAME_INIT"
+  "GAME_INIT",
+  "GAME_NOT_FOUND"
 };
 
 struct GameInitPayload {

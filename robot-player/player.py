@@ -151,7 +151,7 @@ class Player:
         random_move = random.sample(legal_moves, 1)[0]
 
         # sleep before sending the move so that it doesn't happen too fast for the eye to see
-        # time.sleep(0.1)  ## 🤘 ##
+        # time.sleep(0.25)  ## 🤘 ##
         await self.send_make_move_message(random_move)
 
 
