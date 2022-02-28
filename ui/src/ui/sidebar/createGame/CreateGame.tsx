@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import './CreateGame.css';
 import TimeControlSelection from './TimeControlSelection';
 import { create_game } from '../../../api/api';
@@ -7,9 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
 import { AxiosResponse } from 'axios';
 import { ReduxAction, ReduxActionType } from '../../../models/reduxAction';
-import { CreateGameRequest, TimeControlParams } from '../../../models/api';
+import { ServerGameStateUpdatePayload, ServerGameInitPayload, CreateGameRequest, ServerWsMessageType, TimeControlParams } from '../../../models/api';
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import TextField from '@mui/material/TextField';
+
+import MuiAlert from '@mui/material/Alert';
+import { get_games } from "../../../api/api";
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 enum PlayerColor {
@@ -53,11 +59,30 @@ function TimeControl(props: any) {
 
 function CreateGame() {
     const methods = useForm();
-
+    const [openSnackbar, setOpenSnackbar] = useState(false);
     const gameInstances = useSelector(gameInstancesSelector);
     const clientUUID = useSelector(clientUUIDSelector);
     const dispatch = useDispatch();
     const history = useHistory();
+    
+    const Alert = forwardRef(function Alert(props: any, ref: any) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
+
+
+    function handleCloseSnackbar(event: any, reason: any) {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackbar(state => (false));
+    };
+
+    const snackbarAction = (
+        <IconButton onClick={(e) => { setOpenSnackbar(false) }}>
+            <CloseIcon></CloseIcon>
+        </IconButton>
+    );
+
 
     function onCreateGameFormSubmit(data: any) {
         const playerColor = data.playerColor === PlayerColor.RANDOM ?
@@ -87,7 +112,25 @@ function CreateGame() {
         create_game(createGameRequest, onSuccess, () => { });
     }
 
+    useEffect(() => {
+        function onSuccessGetGames(data: AxiosResponse) {
+            const action: ReduxAction = {
+                type: ReduxActionType.GET_GAME_INSTANCES,
+                gameInstances: data.data.games
+            };
+            dispatch(action);
+        }
+        function onFailureGetGames(e: any){
+            console.error("Error when opening websocket: ", e);
+            setOpenSnackbar(state => (true));
+        }
+        get_games(onSuccessGetGames, onFailureGetGames);
+    }, [dispatch])
+
+
+
     return (
+        <>
         <FormProvider {...methods} >
             <div className="create-game-form-container">
                 <form onSubmit={methods.handleSubmit(onCreateGameFormSubmit)}>
@@ -112,6 +155,22 @@ function CreateGame() {
                 }
             </div>
         </FormProvider>
+        <Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+                action={snackbarAction}
+            >
+                <Alert
+                    onClose={handleCloseSnackbar}
+                    sx={{ width: '100%' }}
+                    severity="error">
+                    Can't connect to the server. Please refresh the page and try again.
+                </Alert>
+            </Snackbar>
+        </>
+
     );
 }
 

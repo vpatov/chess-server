@@ -53,14 +53,15 @@ void HttpServer::init_routes()
 
     m_server.Get("/metrics", [this](const httplib::Request& req, httplib::Response& res)
     {
-        auto game_instances = &(m_game_instance_manager->m_game_instances);
         json stats = {
-            {"num_games", game_instances->size()}
+            {"num_games", m_game_instance_manager->m_game_instances.size()}
         };
 
         std::vector<std::string> gameInstanceUUIDs;
 
-        for (auto it = game_instances->begin(); it != game_instances->end(); it++) {
+        for (auto it = m_game_instance_manager->m_game_instances.begin();
+                  it != m_game_instance_manager->m_game_instances.end();
+                  it++) {
             gameInstanceUUIDs.push_back(it->first);
         }
 

@@ -14,7 +14,13 @@ public:
     std::function<void(std::string)> websocket_timer_callback;
 
     EventProcessor(std::shared_ptr<GameInstanceManager> game_instance_manager, std::shared_ptr<TimerDispatch> timer_dispatch)
-        : m_game_instance_manager(game_instance_manager), m_timer_dispatch(timer_dispatch) {}
+        : m_game_instance_manager(game_instance_manager), m_timer_dispatch(timer_dispatch) {
+
+        m_timer_dispatch->start_game_instance_cleanup_loop([this]() {
+            m_game_instance_manager->cleanup_expired_game_instances();
+        });
+
+    }
 
 
     void set_websocket_timer_callback(std::function<void(std::string)> fn) {
@@ -117,7 +123,7 @@ public:
 
 
         if (game_instance->is_game_finished()) {
-            m_timer_dispatch->cancel_game_instance_timeout_timer(game_instance->uuid);
+            m_timer_dispatch->cancel_timer(game_instance->uuid);
         }
     }
 

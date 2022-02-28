@@ -5,6 +5,9 @@
 #include <chrono>
 #include <map>
 
+using namespace ColorCode;
+
+const std::string GAME_INSTANCE_CLEANUP_TIMER = std::string("GAME_INSTANCE_CLEANUP_TIMER");
 
 class TimerDispatch {
 public:
@@ -55,12 +58,28 @@ public:
         });
     }
 
-    void cancel_game_instance_timeout_timer(std::string game_instance_uuid) {
-        auto timer = timers[game_instance_uuid];
-        if (timer != nullptr) {
-            timer->cancel();
-            timers.erase(game_instance_uuid);
+    void cancel_timer(std::string timer_uuid) {
+        auto timer = timers.find(timer_uuid);
+        if (timer != timers.end()){
+            timer->second->cancel();
+            timers.erase(timer_uuid);
         }
+    }
+
+    void start_game_instance_cleanup_loop(std::function<void(void)> callback) {
+        cancel_timer(GAME_INSTANCE_CLEANUP_TIMER);
+        
+        auto timer = std::make_shared<boost::asio::steady_timer>(boost::asio::steady_timer(io, boost::asio::chrono::seconds(5)));
+        timer->async_wait([this, callback](const boost::system::error_code& e) {
+            // only execute the callback if there is no error (if we cancel, error code is 125)
+            if (e.value() == 0) {
+                callback();
+            }
+            start_game_instance_cleanup_loop(callback);
+
+        });
+
+        timers[GAME_INSTANCE_CLEANUP_TIMER] = timer;
     }
 
 

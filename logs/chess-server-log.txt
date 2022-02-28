@@ -1,1 +1,2 @@
-[2022-02-24 16:34:40.832] [multi_sink] [info] Logger initialized.
+[2022-02-28 11:58:16.776] [multi_sink] [info] Logger initialized.
+[2022-02-28 11:58:55.134] [multi_sink] [debug] client uuid 240zbaa6xzhi30svav325ra is already being used on game instance vicious-rook-26

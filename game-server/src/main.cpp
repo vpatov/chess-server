@@ -10,23 +10,6 @@
 
 namespace di = boost::di;
 
-int main2()
-{
-    TimerDispatch timer_dispatch;
-
-    std::thread timer_thread = timer_dispatch.run();
-    timer_dispatch.test_timer(5000, []() {
-        std::cout << "first function (should have been cancelled)" << std::endl;
-    });
-    // timer_dispatch.test_timer(7000, []() {
-    //     std::cout << "second function (should execute)" << std::endl;
-    // });
-    timer_thread.join();
-
-    return 0;
-
-}
-
 int main()
 {
     initialize_logger();

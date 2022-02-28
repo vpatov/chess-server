@@ -124,9 +124,6 @@ public:
             throw std::invalid_argument("Result needs to be instantiated before game is ended.");
         }
         player_offered_draw = nullptr;
-        // TODO
-        // destroy timers
-        // eventually expire this game instance
     }
 
     void update_game_ready_to_start() {

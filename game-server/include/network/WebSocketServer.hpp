@@ -123,12 +123,12 @@ public:
             }
 
             // throw if query params were invalid for connection
-            if (client_uuid.size() == 0) {
+            if (client_uuid.size() < 2) {
                 throw std::invalid_argument(
                     "clientUUID must be provided in the WS "
                     "connection query params.");
             }
-            if (game_instance_uuid.size() == 0) {
+            if (game_instance_uuid.size() < 2) {
                 throw std::invalid_argument(
                     "gameInstanceUUID must be provided in the WS "
                     "connection query params.");
@@ -137,7 +137,7 @@ public:
 
 
             auto game_instance = m_game_instance_manager->get_game_instance(game_instance_uuid, false);
-            if (game_instance == nullptr){
+            if (game_instance == nullptr) {
                 json game_not_found_message = {
                     {"messageType", messageTypeString[ServerMessageType::GAME_NOT_FOUND]},
                     {"payload", ""}

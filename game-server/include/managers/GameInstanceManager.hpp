@@ -51,13 +51,16 @@ public:
 
 
     gameptr get_game_instance(std::string uuid, bool throw_if_not_found) {
-        auto game_instance = m_game_instances[uuid];
-        if (throw_if_not_found && game_instance == nullptr) {
-            throw std::invalid_argument(
-                (boost::format("Couldn't find game instance with uuid: %1%") % uuid)
+        auto game_instance_it = m_game_instances.find(uuid);
+        if (game_instance_it == m_game_instances.end()) {
+            if (throw_if_not_found) {
+                throw std::invalid_argument(
+                     (boost::format("Couldn't find game instance with uuid: %1%") % uuid)
                     .str());
+            }
+            return nullptr;
         }
-        return game_instance;
+        return game_instance_it->second;
     }
 
     gameptr get_game_instance(std::string uuid) { return get_game_instance(uuid, true); }
@@ -96,25 +99,46 @@ public:
         return game_instance->make_move(lan_move);
     }
 
-    void add_connection_handle(std::string game_instance_uuid, connection_hdl hdl){
+    void add_connection_handle(std::string game_instance_uuid, connection_hdl hdl) {
         auto game_instance = get_game_instance(game_instance_uuid);
         game_instance->add_connection(hdl);
     }
 
-    void remove_connection_handle(std::string game_instance_uuid, connection_hdl hdl){
-        auto game_instance = get_game_instance(game_instance_uuid);
-        game_instance->remove_connection(hdl);
+    void remove_connection_handle(std::string game_instance_uuid, connection_hdl hdl) {
+        auto game_instance = get_game_instance(game_instance_uuid, false);
+        if (game_instance != nullptr) {
+            game_instance->remove_connection(hdl);
+        }
     }
 
 
-    auto get_connections(std::string game_instance_uuid){
+    auto get_connections(std::string game_instance_uuid) {
         auto game_instance = get_game_instance(game_instance_uuid);
         return &(game_instance->connections);
     }
 
-    std::shared_ptr<Player> get_player(std::string client_uuid, std::string game_instance_uuid){
+    std::shared_ptr<Player> get_player(std::string client_uuid, std::string game_instance_uuid) {
         auto game_instance = get_game_instance(game_instance_uuid);
         return game_instance->get_player(client_uuid);
+    }
+
+    void cleanup_expired_game_instances() {
+        auto it = m_game_instances.begin();
+
+        while (it != m_game_instances.end()) {
+            auto game_instance_uuid = it->first;
+            auto game_instance = it->second;
+
+            if (game_instance->is_game_finished()) {
+                std::cout << ColorCode::purple << "Expiring game instance "
+                    << ColorCode::green << game_instance_uuid << ColorCode::end << std::endl;
+                it = m_game_instances.erase(it);
+            }
+            else {
+                it++;
+            }
+        }
+
     }
 
     // TODO create_game_instance should call this method, and this method should accept the player color as a parameter.
@@ -140,7 +164,7 @@ public:
             game_instance->black_player->client_uuid = client_uuid;
         }
 
-        if (game_instance->is_game_full()){
+        if (game_instance->is_game_full()) {
             game_instance->update_game_ready_to_start();
         }
     }
