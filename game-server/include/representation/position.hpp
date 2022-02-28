@@ -85,6 +85,7 @@ public:
       square_t dest_square, square_t en_passant_square);
   void assert_correct_player_turn(square_t src_square, square_t dest_square);
   bool is_king_in_check(bool white_king);
+  bool is_draw_by_insufficient_material();
 
   PositionAdjustment advance_position(Move move);
   PositionAdjustment advance_position(MoveKey movekey);

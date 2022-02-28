@@ -13,7 +13,7 @@ enum ActionType {
 
 enum ServerMessageType {
   GAME_STATE_UPDATE,
-  GAME_INIT,
+  GAME_INIT, // TODO get rid of GAME_INIT because it's not useful
   GAME_NOT_FOUND
 };
 

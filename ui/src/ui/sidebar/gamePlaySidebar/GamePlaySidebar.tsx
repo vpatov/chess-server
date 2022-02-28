@@ -32,13 +32,18 @@ function MoveList() {
     const movesList = [];
     for (var i = 0; i < movesPlayed.length; i += 2) {
         const s = movesPlayed[i] + ('\t' + (movesPlayed[i + 1] || ''));
-        movesList.push(<li key={i}>{s}</li>);
+        movesList.push(
+            <div className="pgn-move-list-item" key={i}>
+                <span className="pgn-move-number">{(i / 2) + 1}</span>
+                <span className="pgn-move">{s}</span>
+            </div>
+        );
     }
     return (
         <div className="move-list">
-            <ol>
+            <div>
                 {movesList}
-            </ol>
+            </div>
             <div ref={moveListEnd}>
             </div>
         </div>
@@ -76,6 +81,14 @@ function GameResult() {
             }
             case GameResultCondition.STALEMATE: {
                 labelText = `Draw by stalemate.`;
+                break;
+            }
+            case GameResultCondition.INSUFFICIENT_MATERIAL: {
+                labelText = `Draw by insufficient material.`;
+                break;
+            }
+            case GameResultCondition.THREEFOLD_REPETITION: {
+                labelText = `Draw by threefold repetition.`;
                 break;
             }
         }

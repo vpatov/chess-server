@@ -69,7 +69,10 @@ export const enum GameResultCondition {
     CHECKMATE = "CHECKMATE",
     RESIGNATION = "RESIGNATION",
     DRAW = "DRAW",
-    STALEMATE = "STALEMATE"
+    STALEMATE = "STALEMATE",
+    INSUFFICIENT_MATERIAL = "INSUFFICIENT_MATERIAL",
+    THREEFOLD_REPETITION = "THREEFOLD_REPETITION",
+
 };
 
 export declare interface GameResult {

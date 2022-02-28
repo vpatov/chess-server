@@ -7,6 +7,7 @@
 #include <iostream>
 #include <algorithm>
 #include <memory>
+#include <set>
 
 std::unique_ptr<Position> generate_starting_position()
 {
@@ -23,7 +24,7 @@ std::shared_ptr<Position> starting_position()
   return position;
 }
 
-void populate_starting_position(Position *position)
+void populate_starting_position(Position* position)
 {
   std::fill(position->m_mailbox, (position->m_mailbox) + 128, 0);
 
@@ -66,7 +67,7 @@ void populate_starting_position(Position *position)
   position->m_whites_turn = true;
 }
 
-void print_position(Position *position)
+void print_position(Position* position)
 {
   int i = 0x70; // 0x70 is the top-left corner of the board
   while (1)
@@ -76,7 +77,7 @@ void print_position(Position *position)
     if (i == 8)
     {
       std::cout << std::endl
-                << std::endl;
+        << std::endl;
       return;
     }
     if (i & 0x88)
@@ -87,7 +88,7 @@ void print_position(Position *position)
   }
 }
 
-void print_position_with_borders(Position *position)
+void print_position_with_borders(Position* position)
 {
   int i = 0x70;
   char rank = '8';
@@ -98,7 +99,7 @@ void print_position_with_borders(Position *position)
     std::cout << file << " ";
   }
   std::cout << std::endl
-            << std::endl;
+    << std::endl;
 
   while (1)
   {
@@ -126,7 +127,7 @@ void print_position_with_borders(Position *position)
     std::cout << file << " ";
   }
   std::cout << std::endl
-            << std::endl;
+    << std::endl;
 }
 
 std::string Position::pretty_string()
@@ -169,7 +170,7 @@ std::string Position::pretty_string()
     ss << file << " ";
   }
   ss << '\n'
-     << std::endl;
+    << std::endl;
   return ss.str();
 }
 
@@ -185,7 +186,7 @@ void Position::print_with_borders_highlight_squares(square_t src_square, square_
     std::cout << file << " ";
   }
   std::cout << std::endl
-            << std::endl;
+    << std::endl;
 
   while (1)
   {
@@ -224,12 +225,12 @@ void Position::print_with_borders_highlight_squares(square_t src_square, square_
     std::cout << file << " ";
   }
   std::cout << std::endl
-            << std::endl;
+    << std::endl;
 }
 
 // returns a vector containing all the squares of enemy pieces that diagonally attack the target square.
 // TODO define separate types for squares and pieces, because uint8_t everywhere is confusing.
-std::vector<uint8_t> check_diagonals(Position *position, square_t target_square, bool color_of_attackers)
+std::vector<uint8_t> check_diagonals(Position* position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
   // look for bishops/queens attacking square on diagonals
@@ -249,7 +250,7 @@ std::vector<uint8_t> check_diagonals(Position *position, square_t target_square,
   return squares;
 }
 
-std::vector<square_t> find_attacking_knights(Position *position, square_t target_square, bool color_of_attackers)
+std::vector<square_t> find_attacking_knights(Position* position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
   for (auto it = knight_move_offsets.begin(); it != knight_move_offsets.end(); it++)
@@ -267,7 +268,7 @@ std::vector<square_t> find_attacking_knights(Position *position, square_t target
   return squares;
 }
 
-std::vector<square_t> find_attacking_bishops(Position *position, square_t target_square, bool color_of_attackers)
+std::vector<square_t> find_attacking_bishops(Position* position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
   // look for bishops attacking square on diagonals
@@ -287,7 +288,7 @@ std::vector<square_t> find_attacking_bishops(Position *position, square_t target
   return squares;
 }
 
-std::vector<square_t> find_attacking_rooks(Position *position, square_t target_square, bool color_of_attackers)
+std::vector<square_t> find_attacking_rooks(Position* position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
   // look for rooks attacking square on diagonals
@@ -303,7 +304,7 @@ std::vector<square_t> find_attacking_rooks(Position *position, square_t target_s
   return squares;
 }
 
-std::vector<square_t> find_attacking_queens(Position *position, square_t target_square, bool color_of_attackers)
+std::vector<square_t> find_attacking_queens(Position* position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
   // look for queens attacking square on diagonals
@@ -353,7 +354,7 @@ square_t Position::find_king(bool king_color)
 
 // returns a vector containing all the squares of enemy pieces that diagonally attack the target square.
 // TODO define separate types for squares and pieces, because uint8_t everywhere is confusing.
-std::vector<square_t> check_files_ranks(Position *position, square_t target_square, bool color_of_attackers)
+std::vector<square_t> check_files_ranks(Position* position, square_t target_square, bool color_of_attackers)
 {
   std::vector<square_t> squares;
   // look for rooks/queens attacking square on files and ranks
@@ -374,7 +375,7 @@ std::vector<square_t> check_files_ranks(Position *position, square_t target_squa
 }
 
 // returns the square of the first piece that attacks the target along the line.
-square_t check_line(Position *position, square_t target, int offset, bool (*piece_type_function)(piece_t))
+square_t check_line(Position* position, square_t target, int offset, bool (*piece_type_function)(piece_t))
 {
   for (square_t candidate = target + offset; is_valid_square(candidate); candidate += offset)
   {
@@ -400,7 +401,7 @@ square_t check_line(Position *position, square_t target, int offset, bool (*piec
   return INVALID_SQUARE;
 }
 
-bool check_diagonal_or_file_or_rank(Position *position, square_t king_square, int offset, piece_t target1, piece_t target2)
+bool check_diagonal_or_file_or_rank(Position* position, square_t king_square, int offset, piece_t target1, piece_t target2)
 {
   for (square_t candidate = king_square + offset; is_valid_square(candidate); candidate += offset)
   {
@@ -425,6 +426,91 @@ bool check_diagonal_or_file_or_rank(Position *position, square_t king_square, in
     }
   }
   return true;
+}
+
+const std::set<piece_t> minor_pieces = { KNIGHT, BISHOP };
+
+bool Position::is_draw_by_insufficient_material() {
+  // just two kings
+  // lone king and bishop vs king
+  /*
+     Both Sides have a bare King
+    One Side has a King and a Minor Piece against a bare King
+    Both Sides have a King and a Bishop, the Bishops being the same Color
+  */
+
+  std::vector<piece_t> white_pieces_v;
+  std::vector<piece_t> black_pieces_v;
+
+  std::vector<square_t> white_bishops;
+  std::vector<square_t> black_bishops;
+
+  for (int rank = 0; rank < 8; rank++)
+  {
+    for (int file = 0; file < 8; file++)
+    {
+      uint8_t square = (16 * rank) + file;
+      piece_t piece = m_mailbox[square];
+      piece_t piece_type = piece & PIECE_MASK;
+
+      // dont add kings to set because we can assume they are always present
+      if (piece_type == KING) {
+        continue;
+      }
+
+
+      if (is_white_piece(piece)) {
+        white_pieces_v.push_back(piece_type);
+        if (piece_type == BISHOP) {
+          white_bishops.push_back(square);
+        }
+      }
+      else if (is_black_piece(piece)) {
+        black_pieces_v.push_back(piece_type);
+        if (piece_type == BISHOP) {
+          black_bishops.push_back(square);
+        }
+      }
+
+    }
+  }
+
+  // lone kings
+  if (white_pieces_v.empty() && black_pieces_v.empty()) {
+    return true;
+  }
+
+  // minor piece vs bare king
+  else if (white_pieces_v.size() == 1 && black_pieces_v.empty()) {
+
+    if (std::find(white_pieces_v.begin(), white_pieces_v.end(), KNIGHT) != white_pieces_v.end()) {
+      return true;
+    }
+    if (std::find(white_pieces_v.begin(), white_pieces_v.end(), BISHOP) != white_pieces_v.end()) {
+      return true;
+    }
+  }
+  else if (black_pieces_v.size() == 1 && white_pieces_v.empty()) {
+    if (std::find(black_pieces_v.begin(), black_pieces_v.end(), KNIGHT) != black_pieces_v.end()) {
+      return true;
+    }
+    if (std::find(black_pieces_v.begin(), black_pieces_v.end(), BISHOP) != black_pieces_v.end()) {
+      return true;
+    }
+  }
+
+  // same color bishops
+  if (white_bishops.size() == 1 && black_bishops.size() == 1
+   && white_pieces_v.size() == 1 && black_pieces_v.size() == 1){
+     bool w_light = is_light_square(white_bishops.at(0));
+     bool b_light = is_light_square(black_bishops.at(0));
+
+    if (w_light == b_light){
+      return true;
+    }
+  }
+
+  return false;
 }
 
 bool Position::is_king_in_check(bool white_king)
@@ -527,20 +613,20 @@ PositionAdjustment Position::advance_position(square_t src_square, square_t dst_
   adjustment.pawn_captured_en_passant_square = INVALID_SQUARE;
   adjustment.old_en_passant_square = m_en_passant_square;
   adjustment.old_castling_rights = (m_white_kingside_castle) |
-                                   (m_white_queenside_castle << 1) |
-                                   (m_black_kingside_castle << 2) |
-                                   (m_black_queenside_castle << 3);
+    (m_white_queenside_castle << 1) |
+    (m_black_kingside_castle << 2) |
+    (m_black_queenside_castle << 3);
 
   // storing this here makes undoing the move easier
   adjustment.castled = 0;
   if (src_square == KING_SQUARE_C(C) && moving_piece == KING_C(C))
   {
     adjustment.castled =
-        (dst_square == KING_SHORT_CASTLE_SQUARE_C(C)
-             ? 1
-             : (dst_square == KING_LONG_CASTLE_SQUARE_C(C)
-                    ? 2
-                    : 0));
+      (dst_square == KING_SHORT_CASTLE_SQUARE_C(C)
+           ? 1
+           : (dst_square == KING_LONG_CASTLE_SQUARE_C(C)
+             ? 2
+             : 0));
   }
 
   // remove castling rights if the rook moves or gets captured
@@ -594,7 +680,7 @@ PositionAdjustment Position::advance_position(square_t src_square, square_t dst_
   }
 
   m_mailbox[dst_square] =
-      promotion_piece ? promotion_piece : m_mailbox[src_square];
+    promotion_piece ? promotion_piece : m_mailbox[src_square];
 
   // if we are capturing en passant
   if (is_valid_square(m_en_passant_square) &&
@@ -608,8 +694,8 @@ PositionAdjustment Position::advance_position(square_t src_square, square_t dst_
     // Remove the pawn that is being captured
     uint8_t square_of_pawn_being_captured = BACKWARD_RANK(C, dst_square);
     assert(m_mailbox[square_of_pawn_being_captured] == (m_whites_turn
-                                                            ? B_PAWN
-                                                            : W_PAWN));
+      ? B_PAWN
+      : W_PAWN));
     m_mailbox[square_of_pawn_being_captured] = 0;
     adjustment.pawn_captured_en_passant_square = square_of_pawn_being_captured;
   }

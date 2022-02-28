@@ -44,6 +44,21 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
+.pgn-move {
+
+}
+
+.pgn-move-list-item {
+    display:flex;
+}
+
+.pgn-move-number {
+    background-color: rgb(208, 227, 213);
+    width: 3vw;
+    color: black;
+    padding-left: 0.5vw;
+}
+
 .time-banks-container {
     display: flex;
     justify-content: space-between;

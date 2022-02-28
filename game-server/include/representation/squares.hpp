@@ -154,3 +154,13 @@ inline bool is_valid_square(square_t sq)
 {
     return !(sq & 0x88);
 }
+
+inline bool is_dark_square(square_t sq){
+    int file = sq / 16;
+    return (file + sq) % 2 == 0;
+}
+
+inline bool is_light_square(square_t sq){
+    int file = sq / 16;
+    return (file + sq) % 2 != 0;
+}

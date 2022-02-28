@@ -30,7 +30,9 @@ const std::string gameResultConditionString[] = {
     "CHECKMATE",
     "RESIGNATION",
     "DRAW",
-    "STALEMATE"
+    "STALEMATE",
+    "INSUFFICIENT_MATERIAL",
+    "THREEFOLD_REPETITION"
 };
 
 enum GameResultCondition {
@@ -38,7 +40,9 @@ enum GameResultCondition {
     CHECKMATE,
     RESIGNATION,
     DRAW,
-    STALEMATE
+    STALEMATE,
+    INSUFFICIENT_MATERIAL,
+    THREEFOLD_REPETITION
 };
 
 struct GameInstanceResult {
@@ -72,7 +76,8 @@ public:
     GameInstance()
     {
         uuid = generate_readable_uuid();
-        position = starting_position();
+        // position = starting_position();
+        position = fen_to_position("2kbn3/8/8/8/8/8/1KNB4/8 w - - 0 1");
         white_player = std::make_shared<Player>();
         white_player->white = true;
         black_player = std::make_shared<Player>();
@@ -131,6 +136,14 @@ public:
     }
 
     bool check_apply_game_over_condition() {
+        bool insufficient_material = position->is_draw_by_insufficient_material();
+
+        if (insufficient_material) {
+            draw_by_insufficient_material();
+            return true;
+        }
+
+
         bool king_is_in_check = position->is_king_in_check(position->m_whites_turn);
         auto moves = get_all_moves(position);
 
@@ -188,6 +201,18 @@ public:
     void accept_draw_offer() {
         result = std::make_shared<GameInstanceResult>(
             GameInstanceResult(GameResultCondition::DRAW, nullptr));
+        end_game();
+    }
+
+    void draw_by_threefold_repetition() {
+        result = std::make_shared<GameInstanceResult>(
+    GameInstanceResult(GameResultCondition::THREEFOLD_REPETITION, nullptr));
+        end_game();
+    }
+
+    void draw_by_insufficient_material() {
+        result = std::make_shared<GameInstanceResult>(
+    GameInstanceResult(GameResultCondition::INSUFFICIENT_MATERIAL, nullptr));
         end_game();
     }
 
