@@ -8,3 +8,6 @@ game-server/libchess_server_lib.a
 game-server/build/
 game-server/cget/
 game-server/logs/
+
+ui/node_modules
+ui/build
