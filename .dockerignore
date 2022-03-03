@@ -1,0 +1,10 @@
+game-server/CMakeFiles/
+game-server/chess_server
+game-server/cmake_install.cmake
+game-server/CMakeCache.txt
+game-server/gmon.out
+game-server/Makefile
+game-server/libchess_server_lib.a
+game-server/build/
+game-server/cget/
+game-server/logs/

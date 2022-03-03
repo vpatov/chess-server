@@ -501,11 +501,11 @@ bool Position::is_draw_by_insufficient_material() {
 
   // same color bishops
   if (white_bishops.size() == 1 && black_bishops.size() == 1
-   && white_pieces_v.size() == 1 && black_pieces_v.size() == 1){
-     bool w_light = is_light_square(white_bishops.at(0));
-     bool b_light = is_light_square(black_bishops.at(0));
+   && white_pieces_v.size() == 1 && black_pieces_v.size() == 1) {
+    bool w_light = is_light_square(white_bishops.at(0));
+    bool b_light = is_light_square(black_bishops.at(0));
 
-    if (w_light == b_light){
+    if (w_light == b_light) {
       return true;
     }
   }

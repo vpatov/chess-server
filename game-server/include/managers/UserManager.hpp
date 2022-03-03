@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DBConnectionManager.hpp"
+// #include "DBConnectionManager.hpp"
 #include "models/user.hpp"
 
 #include <boost/format.hpp>
@@ -18,10 +18,12 @@ using json = nlohmann::json;
 class UserManager
 {
 public:
-    std::shared_ptr<DBConnectionManager> m_db;
+    // std::shared_ptr<DBConnectionManager> m_db;
 
-    UserManager(std::shared_ptr<DBConnectionManager> _ptr) : m_db(_ptr) {}
+    // UserManager(std::shared_ptr<DBConnectionManager> _ptr) : m_db(_ptr) {}
 
+    UserManager(){}
+    /*
     std::shared_ptr<User> get_user(std::string username)
     {
         pqxx::work W{m_db->C};
@@ -43,7 +45,8 @@ public:
 
         return user;
     }
-
+*/
+/*
     bool validate_credentials(std::string username, std::string password)
     {
         auto user = get_user(username);
@@ -63,7 +66,8 @@ public:
 
         return (hashed_password_hexdigest.compare(user->hashed_password_hexdigest) == 0);
     }
-
+*/
+/*
     json signup(std::string username, std::string password)
     {
 
@@ -81,7 +85,8 @@ public:
         json response = {{"status", "ok"}};
         return response;
     }
-
+*/
+/*
     void create_user(std::string username, std::string password)
     {
         uint8_t salt[10];
@@ -107,7 +112,8 @@ public:
         W.exec0(fmt.str());
         W.commit();
     }
-
+*/
+/*
     User from_row(pqxx::row row)
     {
         long id = std::stol(row[0].c_str());
@@ -116,7 +122,8 @@ public:
         std::string hashed_password_hexdigest = row[3].c_str();
         return User(id, username, salt_hexdigest, hashed_password_hexdigest);
     }
-
+*/
+/*
     std::vector<User> get_all_users()
     {
         pqxx::work W{m_db->C};
@@ -131,4 +138,5 @@ public:
 
         return users;
     }
+    */
 };

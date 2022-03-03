@@ -13,12 +13,12 @@ namespace di = boost::di;
 int main()
 {
     initialize_logger();
-    const auto dbManager =
-        std::make_shared<DBConnectionManager>("dbname=chess_server user=postgres");
+    // const auto dbManager =
+    //     std::make_shared<DBConnectionManager>("dbname=chess_server user=postgres");
 
     const auto timerDispatch = std::make_shared<TimerDispatch>();
     const auto injector = di::make_injector(
-        di::bind<DBConnectionManager>.to(dbManager),
+        // di::bind<DBConnectionManager>.to(dbManager),
         di::bind<TimerDispatch>.to(timerDispatch)
     );
 
