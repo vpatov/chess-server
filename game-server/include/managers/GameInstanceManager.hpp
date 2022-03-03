@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DBConnectionManager.hpp"
+// #include "DBConnectionManager.hpp"
 #include "logger/logger.hpp"
 #include "models/api.hpp"
 #include "models/game_instance.hpp"
@@ -21,10 +21,14 @@ using websocketpp::connection_hdl;
 using gameptr = std::shared_ptr<GameInstance>;
 class GameInstanceManager {
 public:
-    std::shared_ptr<DBConnectionManager> m_db;
+    // std::shared_ptr<DBConnectionManager> m_db;
     std::shared_ptr<spdlog::logger> m_logger;
 
-    GameInstanceManager(std::shared_ptr<DBConnectionManager> _ptr) : m_db(_ptr) {
+    // GameInstanceManager(std::shared_ptr<DBConnectionManager> _ptr) : m_db(_ptr) {
+    //     m_logger = spdlog::get("multi_sink");
+    // }
+
+    GameInstanceManager(){
         m_logger = spdlog::get("multi_sink");
     }
 

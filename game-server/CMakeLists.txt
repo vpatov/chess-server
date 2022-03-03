@@ -5,7 +5,8 @@ file(GLOB_RECURSE INCLUDE_FILES ${PROJECT_SOURCE_DIR}/include/*.hpp)
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 list(REMOVE_ITEM SRC_FILES ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
-message(${SRC_FILES})
+message("project source dir: " ${PROJECT_SOURCE_DIR})
+message("src_files: " ${SRC_FILES})
 
 ## Variables
 set(CMAKE_CXX_STANDARD 20)
@@ -35,7 +36,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pg")
 
 # Find Packages
 ################################
-find_package(Boost COMPONENTS algorithm format)
+# find_package(Boost COMPONENTS algorithm format)
 
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(libpqxx CONFIG REQUIRED)
@@ -77,3 +78,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../build)
 
 set_target_properties(chess_server PROPERTIES LINKER_LANGUAGE CXX)
 
+
+message("boost include dir " "${BOOST_INCLUDE_DIR}")
+message("boost include dirs " ${Boost_INCLUDE_DIRS})
