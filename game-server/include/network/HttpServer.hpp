@@ -27,13 +27,13 @@ public:
 
   void init_routes();
 
-  std::thread run() {
-    auto t = std::thread([this] {
+  std::thread run(int port) {
+    auto t = std::thread([this, port] {
       {
         std::unique_lock<std::mutex> lock(STDOUT_MUTEX);
-        std::cout << "HTTP Server listening on port 59201" << std::endl;
+        std::cout << "HTTP Server listening on port " << port << std::endl;
       }
-      m_server.listen("0.0.0.0", 59201);
+      m_server.listen("0.0.0.0", port);
     });
     return t;
   }

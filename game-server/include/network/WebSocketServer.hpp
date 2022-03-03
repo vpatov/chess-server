@@ -41,7 +41,7 @@ private:
     std::shared_ptr<GameInstanceManager> m_game_instance_manager;
     std::shared_ptr<ValidationService> m_validation_service;
     std::shared_ptr<EventProcessor> m_event_processor;
-    void _run();
+    void _run(int port);
 
 public:
     std::shared_ptr<TimerDispatch> m_timer_dispatch;
@@ -70,13 +70,13 @@ public:
         });
     }
 
-    std::thread run() {
-        auto t = std::thread([this] {
+    std::thread run(int port) {
+        auto t = std::thread([this, port] {
             {
                 std::unique_lock<std::mutex> lock(STDOUT_MUTEX);
-                std::cout << "WebSocket Server is listening on port 59202" << std::endl;
+                std::cout << "WebSocket Server is listening on port " << port << std::endl;
             }
-            _run();
+            _run(port);
         });
         return t;
     }

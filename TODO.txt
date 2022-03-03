@@ -1,0 +1,9 @@
+- refactor c++ chess code
+    - clean up interfaces
+    - move impl from header files to src files
+    - get rid of pqxx dependency
+
+- get rid of game init code
+- add configurable port/hostname (dont hardcode it)
+- add some sort of protection such that server restarts if it crashes (docker / kubernetes ?)
+
