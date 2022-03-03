@@ -22,3 +22,10 @@ EXPOSE 59201
 EXPOSE 59202
 
 CMD /opt/chess-game-server/chess_server
+
+
+# Build container with:
+# sudo docker build -t chess-server -f chess-server.Dockerfile  .
+
+# Run the container with:
+# sudo docker run -d -p 59201:59201 -p 59202:59202 chess-server

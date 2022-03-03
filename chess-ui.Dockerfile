@@ -20,3 +20,9 @@ EXPOSE 59200
 # Build and start the server.
 CMD ["npm", "start"]
 
+# Build container with:
+# sudo docker build -t chess-ui -f chess-ui.Dockerfile .
+
+# Run the container with:
+# sudo docker run -d -p 59200:59200 chess-ui
+
