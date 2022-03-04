@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
 import { AxiosResponse } from 'axios';
 import { ReduxAction, ReduxActionType } from '../../../models/reduxAction';
-import { ServerGameStateUpdatePayload, ServerGameInitPayload, CreateGameRequest, ServerWsMessageType, TimeControlParams } from '../../../models/api';
+import { ServerGameStateUpdatePayload, CreateGameRequest, ServerWsMessageType, TimeControlParams } from '../../../models/api';
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 

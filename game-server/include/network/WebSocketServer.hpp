@@ -158,14 +158,6 @@ public:
                 ClientConnectionInfo(client_uuid, game_instance_uuid);
             m_game_instance_manager->add_connection_handle(game_instance_uuid, hdl);
 
-            // TODO ideally you dont really need this separate GAME_INIT message.
-            // Everything the client needs should be made available in the game state.
-            json game_init_message = {
-                {"messageType", messageTypeString[ServerMessageType::GAME_INIT]},
-                {"payload", {{"client_playing_white", client_playing_white}}} };
-            m_server.send(hdl, game_init_message.dump(),
-                          websocketpp::frame::opcode::TEXT);
-
             broadcast_game_state_update(game_instance_uuid);
 
         }

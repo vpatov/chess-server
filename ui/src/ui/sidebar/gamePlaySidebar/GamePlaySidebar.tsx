@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { gameResultSelector, drawOfferSelector, movesPlayedSelector, clientPlayingWhiteSelector, gameNotFoundSelector } from '../../../store/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { GameResultCondition, ServerGameInitPayload, ServerGameStateUpdatePayload, ServerWsMessageType } from '../../../models/api';
+import { GameResultCondition, ServerGameStateUpdatePayload, ServerWsMessageType } from '../../../models/api';
 import { ReduxAction, ReduxActionType } from '../../../models/reduxAction';
 import FlagIcon from '@mui/icons-material/Flag';
 import HomeIcon from '@mui/icons-material/Home';
@@ -225,14 +225,6 @@ function GameSidebar() {
         dispatch(action);
     };
 
-    function onGameInit(payload: ServerGameInitPayload) {
-        const action: ReduxAction = {
-            type: ReduxActionType.SERVER_GAME_STATE_INIT,
-            serverGameInitPayload: payload
-        };
-        dispatch(action);
-    }
-
     function onGameNotFound(payload: string) {
         const action: ReduxAction = {
             type: ReduxActionType.SERVER_GAME_NOT_FOUND
@@ -245,7 +237,6 @@ function GameSidebar() {
         WsServer.openWs(gameInstanceUUID as GameInstanceUUID,
             () => { console.error("could not open websocket.") });
         WsServer.subscribe(ServerWsMessageType.GAME_STATE_UPDATE, onGameStateUpdate);
-        WsServer.subscribe(ServerWsMessageType.GAME_INIT, onGameInit);
         WsServer.subscribe(ServerWsMessageType.GAME_NOT_FOUND, onGameNotFound);
 
 

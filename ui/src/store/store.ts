@@ -153,8 +153,9 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
                 timeBank: update.time_control,
                 gameInstanceState: update.game_instance_state,
                 drawOffer: update.draw_offer || '',
-                gameNotFound: false
-            }
+                gameNotFound: false,
+                clientPlayingWhite: update.whiteClientUUID === state.clientUUID,
+            };
 
             if (positionInfo) {
                 newState.positionInfo = positionInfo
@@ -186,19 +187,6 @@ const rootReducer = (state = getCleanState(), action: ReduxAction): State => {
             return {
                 ...state,
                 gameNotFound: true
-            };
-        }
-
-        case ReduxActionType.SERVER_GAME_STATE_INIT: {
-            const payload = action.serverGameInitPayload;
-            if (payload?.client_playing_white === undefined) {
-                console.log(payload);
-                throw Error("client_playing_white needs to be present on the ServerGameStateInit payload.");
-            }
-            return {
-                ...state,
-                clientPlayingWhite: payload.client_playing_white,
-                gameNotFound: false
             };
         }
 

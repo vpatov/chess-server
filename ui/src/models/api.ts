@@ -31,14 +31,13 @@ export declare interface ClientWsAction {
 
 
 export const enum ServerWsMessageType {
-    GAME_INIT = "GAME_INIT",
     GAME_STATE_UPDATE = "GAME_STATE_UPDATE",
     GAME_NOT_FOUND = "GAME_NOT_FOUND"
 };
 
 export declare interface ServerWsMessage {
     messageType: ServerWsMessageType;
-    payload: ServerGameInitPayload | ServerGameStateUpdatePayload;
+    payload:  ServerGameStateUpdatePayload;
 }
 
 export declare interface TimeBank {
@@ -57,12 +56,10 @@ export declare interface ServerGameStateUpdatePayload {
     time_control: TimeBank;
     game_instance_state: GameInstanceState
     draw_offer: string;
+    whiteClientUUID: ClientUUID;
+    blackClientUUID: ClientUUID;
 }
 
-export declare interface ServerGameInitPayload {
-    client_playing_white: boolean;
-    // time control info
-}
 
 export const enum GameResultCondition {
     TIMEOUT = "TIMEOUT",

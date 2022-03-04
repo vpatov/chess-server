@@ -56,7 +56,6 @@ def create_game():
 class Player:
     def __init__(self, client_uuid):
         self.handlers = {
-            "GAME_INIT": self.handle_game_init_message,
             "GAME_STATE_UPDATE": self.handle_game_state_update_message,
         }
         if client_uuid is None:
@@ -124,10 +123,6 @@ class Player:
 
         message = {"type": ClientWsActionType["MAKE_MOVE"], "payload": move}
         await self.send_message(message)
-
-    async def handle_game_init_message(self, payload):
-        self.client_playing_white = payload["client_playing_white"]
-        self.color = "white" if self.client_playing_white else "black"
 
     async def handle_game_state_update_message(self, payload):
         print("handle_game_state_update_message")

@@ -76,8 +76,7 @@ public:
     GameInstance()
     {
         uuid = generate_readable_uuid();
-        // position = starting_position();
-        position = fen_to_position("2kbn3/8/8/8/8/8/1KNB4/8 w - - 0 1");
+        position = starting_position();
         white_player = std::make_shared<Player>();
         white_player->white = true;
         black_player = std::make_shared<Player>();
@@ -315,6 +314,8 @@ public:
                 ? white_player->client_uuid
                 : black_player->client_uuid},
             {"currentTurn", position->m_whites_turn ? "white" : "black"},
+            {"whiteClientUUID", white_player->client_uuid},
+            {"blackClientUUID", black_player->client_uuid},
             {"time_control", get_time_control_json()},
             {"game_instance_state", state}
         };

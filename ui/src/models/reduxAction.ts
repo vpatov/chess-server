@@ -1,4 +1,4 @@
-import { CreateGameRequest, ServerGameInitPayload, ServerGameStateUpdatePayload } from "./api";
+import { CreateGameRequest, ServerGameStateUpdatePayload } from "./api";
 import { ClientUUID, GameInstanceUUID } from "./uuid";
 
 export enum ReduxActionType {
@@ -20,7 +20,6 @@ export enum ReduxActionType {
 export declare interface ReduxAction {
   type: ReduxActionType;
   serverGameStateUpdatePayload?: ServerGameStateUpdatePayload;
-  serverGameInitPayload?: ServerGameInitPayload;
   selectSquarePayload?: SelectSquarePayload;
   gameInstanceUUID?: string;
   clientUUID?: ClientUUID;
