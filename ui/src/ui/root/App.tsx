@@ -22,6 +22,7 @@ function App() {
     get_status();
   });
 
+  const reload = () => window.location.reload();
 
   return (
     <ThemeProvider theme={theme}>
@@ -35,6 +36,7 @@ function App() {
               <Route path="/">
                 <Game sidebarMode={SidebarMode.CREATE_GAME} />
               </Route>
+              <Route path="/hw-5-large-data.json" onEnter={reload} />
             </Switch>
           </Router>
         </div>

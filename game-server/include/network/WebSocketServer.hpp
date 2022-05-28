@@ -146,12 +146,10 @@ public:
                 return;
             }
 
-            bool client_playing_white = false;
             if (!game_instance->is_game_full()) {
                 m_game_instance_manager->add_player(client_uuid, game_instance_uuid);
                 auto player =
                     m_game_instance_manager->get_player(client_uuid, game_instance_uuid);
-                client_playing_white = player->white;
             }
 
             m_connection_client_uuid_map[hdl] =
@@ -236,6 +234,13 @@ public:
             std::cout << ColorCode::red
                 << "json exception in on_message: " << e.what()
                 << ColorCode::end << std::endl;
+        }
+
+        catch (std::exception const& e) {
+            std::cout << ColorCode::red
+                << "std::exception in on_message: " << e.what()
+                << ColorCode::end << std::endl;
+
         }
     }
 };

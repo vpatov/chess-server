@@ -33,7 +33,7 @@ public:
 
         if (player == nullptr) {
             throw std::invalid_argument(
-                           (boost::format("Player with client_uuid: %1% doesn't exist on game instance: ") %
+                           (boost::format("Player with client_uuid: %1% doesn't exist on game instance: %2%") %
                                ccinfo.client_uuid % ccinfo.game_instance_uuid)
                                .str());
         }
